@@ -1,0 +1,22 @@
+{
+  "visualisation": {
+    "title": "A Number",
+    "description": " ",
+    "type": "Number"
+  },
+  "columnNames": ["Traffic"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

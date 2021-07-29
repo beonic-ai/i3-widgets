@@ -1,0 +1,49 @@
+{
+  "visualisation": {
+    "title": "Sales Conversion",
+    "description": "Table",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true,
+      "paginate": true,
+      "pageSize": 5
+    }
+  },
+  "columnNames": ["Bottom Stores", ""],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "description": "Sales Conversion (transactions / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Transactions"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "visualisation": {
+    "title": " ",
+    "description": "Table",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": ["Location", "Sales"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "description": "Sales",
+          "numericExpression": {
+            "metric": 285,
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ]
+}

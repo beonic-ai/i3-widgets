@@ -1,0 +1,211 @@
+{
+  "visualisation": {
+    "title": " ",
+    "description": "Overview",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": [
+    "Store",
+    "Sales",
+    "Traffic",
+    "Sales conversion",
+    "ATV",
+    "IPT",
+    "$ per Traffic",
+    "Did Not Buy",
+    "Items",
+    "AUR",
+    "Dwell Time"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "description": "Sales",
+          "numericExpression": {
+            "metric": 285,
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2,
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        },
+        {
+          "description": "Traffic",
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        },
+        {
+          "description": "Sales Conversion (transactions / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Transactions"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        },
+        {
+          "description": "ATV (Sales / Transactions)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "unit": "dollars",
+          "decimalPlaces": 0
+        },
+        {
+          "description": "IPT (Items / Transactions)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Items"
+                }
+              },
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 1
+        },
+        {
+          "description": "$ / Traffic (revenue / visits)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "dollars",
+          "decimalPlaces": 0
+        },
+        {
+          "description": "Did Not Buy (Traffic - Transactions)",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0
+        },
+        {
+          "numericExpression": {
+            "metric": 285,
+            "value": {
+              "counter": "Items"
+            }
+          }
+        },
+        {
+          "description": "AUR",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Items"
+                }
+              }
+            ]
+          },
+          "unit": "dollars",
+          "decimalPlaces": 0
+        },
+        {
+          "description": "(Average) Dwell Time (seconds) (total dwell / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "duration"
+        }
+      ]
+    }
+  ]
+}

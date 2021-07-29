@@ -1,0 +1,48 @@
+{
+  "visualisation": {
+    "title": "IPT",
+    "description": "Table",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true,
+      "paginate": true,
+      "pageSize": 5
+    }
+  },
+  "columnNames": ["Top Stores", " "],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "description": "IPT (Items / Transactions)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Items"
+                }
+              },
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          },
+          "decimalPlaces": 1
+        }
+      ]
+    }
+  ]
+}
