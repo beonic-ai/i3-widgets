@@ -7,7 +7,7 @@
       "scrollOverflow": true
     }
   },
-  "columnNames": ["Location", "Sales"],
+  "columnNames": ["Location", "Sales", "Traffic"],
   "rowSets": [
     {
       "columns": [
@@ -26,6 +26,15 @@
           },
           "unit": "dollars",
           "decimalPlaces": 2
+        },
+        {
+          "description": "Traffic",
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
         }
       ]
     }

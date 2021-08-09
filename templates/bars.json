@@ -1,0 +1,37 @@
+{
+  "visualisation": {
+    "title": "Traffic by Day",
+    "description": "traffic by day for the period.",
+    "type": "BarChart",
+    "lineChartSettings": {
+      "gridLines": "always",
+      "showLegend": true,
+      "columnSettings": {
+        "Traffic": {
+          "axis": "left"
+        }
+      }
+    }
+  },
+  "columnNames": ["date", "Traffic"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "unit": "number"
+          }
+        }
+      ]
+    }
+  ]
+}
