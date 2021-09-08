@@ -1,0 +1,85 @@
+{
+  "visualisation": {
+    "title": "Total traffic",
+    "description": "The total traffic for the period.",
+    "type": "Number"
+  },
+  "columnNames": ["Traffic", "delta", "versus"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "counters",
+            "value": {
+              "counter": "entries"
+            }
+          }
+        },
+        {
+          "unit": "percentage",
+          "decimalPlaces": 2,
+          "numericExpression": {
+            "$divide": [
+              {
+                "$subtract": [
+                  {
+                    "metric": "counters",
+                    "value": {
+                      "counter": "entries"
+                    }
+                  },
+                  {
+                    "metric": "counters",
+                    "value": {
+                      "counter": "entries"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "metric": "counters",
+                "value": {
+                  "counter": "entries"
+                },
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "decimalPlaces": 2,
+          "numericExpression": {
+            "metric": "counters",
+            "value": {
+              "counter": "entries"
+            },
+            "dateRangeOverride": {
+              "localStartDate": {
+                "paramRef": "SecondaryStartDate"
+              },
+              "localEndDate": {
+                "paramRef": "SecondaryEndDate"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

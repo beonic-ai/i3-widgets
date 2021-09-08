@@ -1,0 +1,168 @@
+{
+  "visualisation": {
+    "title": "Dwell Time",
+    "description": "The overall dwell time.",
+    "type": "Number"
+  },
+  "columnNames": ["Dwell Time", "delta", "versus"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "duration"
+        },
+        {
+          "unit": "percentage",
+          "decimalPlaces": 5,
+          "numericExpression": {
+            "$divide": [
+              {
+                "$subtract": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "dwell"
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "dwell"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "dwell"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  },
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                },
+
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "duration"
+        }
+      ]
+    }
+  ]
+}

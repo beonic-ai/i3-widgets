@@ -1,0 +1,40 @@
+{
+  "visualisation": {
+    "title": "Dwell Time Trend",
+    "description": "",
+    "type": "BarChart"
+  },
+  "filterOverrides": null,
+  "columnNames": ["timestamp", "dwell"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "duration"
+        }
+      ]
+    }
+  ]
+}
