@@ -1,0 +1,48 @@
+{
+  "visualisation": {
+    "title": "Outside Traffic Trend - TODO weekdays/weekends",
+    "description": " ",
+    "type": "Number"
+  },
+  "columnNames": ["Overall"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixWalkby",
+                    "value": {
+                      "counter": "total"
+                    }
+                  },
+                  {
+                    "metric": "BlixWalkby",
+                    "value": {
+                      "counter": "total"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
