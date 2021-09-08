@@ -1,0 +1,32 @@
+{
+  "visualisation": {
+    "title": "A Number",
+    "description": " ",
+    "type": "Number"
+  },
+  "columnNames": ["Dwell"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

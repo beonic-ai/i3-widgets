@@ -1,0 +1,28 @@
+{
+  "visualisation": {
+    "title": "Dwell Trend",
+    "description": "",
+    "type": "LineChart"
+  },
+  "filterOverrides": null,
+  "columnNames": ["timestamp", "dwell"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "dwell"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

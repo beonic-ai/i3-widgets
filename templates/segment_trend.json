@@ -1,0 +1,36 @@
+{
+  "visualisation": {
+    "title": "New vs return graph",
+    "description": "",
+    "type": "LineChart"
+  },
+  "filterOverrides": null,
+  "columnNames": [
+    "timestamp",
+    {
+      "name": "Visits",
+      "dimension": {
+        "segment": "VISITOR_TYPE"
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "Visit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "visualisation": {
+    "title": "10:30",
+    "description": " ",
+    "type": "Number"
+  },
+  "columnNames": ["Duration"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": 630,
+          "decimalPlaces": 0,
+          "unit": "duration"
+        }
+      ]
+    }
+  ]
+}
