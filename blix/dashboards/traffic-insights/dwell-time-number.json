@@ -1,6 +1,6 @@
 {
   "visualisation": {
-    "title": "Dwell Time",
+    "title": "Dwell Time - TODO weekday / weekend queries",
     "description": "The overall dwell time.",
     "type": "Number"
   },

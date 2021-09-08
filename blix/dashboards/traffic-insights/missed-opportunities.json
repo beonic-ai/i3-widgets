@@ -1,0 +1,39 @@
+{
+  "comment": "TODO - need bounces from SPDT-8104 to add this and weekday/weekend queries.",
+  "visualisation": {
+    "title": "Missed Opportunities",
+    "description": "Missed opportunities",
+    "type": "Number"
+  },
+  "columnNames": ["Bounce"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "segment": {
+                  "dimension": "bounce",
+                  "segment": "total"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 2,
+          "unit": "percentage"
+        }
+      ]
+    }
+  ]
+}
