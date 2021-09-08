@@ -1,0 +1,34 @@
+{
+  "visualisation": {
+    "title": "New vs Return Traffic",
+    "description": " ",
+    "type": "BarChart"
+  },
+  "filterOverrides": null,
+  "columnNames": [
+    "timestamp",
+    {
+      "name": "Visits",
+      "dimension": {
+        "segment": "VISITOR_TYPE"
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": 1
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

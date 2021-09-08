@@ -1,0 +1,72 @@
+{
+  "visualisation": {
+    "title": "Traffic TODO - need Weekday / Weekend Queries",
+    "description": "Visitor traffic",
+    "type": "Number"
+  },
+  "columnNames": ["Overall", "delta", "versus"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        },
+        {
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    }
+                  },
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "dateRangeOverride": {
+              "localStartDate": {
+                "paramRef": "SecondaryStartDate"
+              },
+              "localEndDate": {
+                "paramRef": "SecondaryEndDate"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
