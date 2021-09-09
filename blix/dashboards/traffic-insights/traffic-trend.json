@@ -1,0 +1,45 @@
+{
+  "visualisation": {
+    "title": "Traffic Trend",
+    "description": "Shows the traffic by day for the period.",
+    "type": "LineChart",
+    "lineChartSettings": {
+      "gridLines": "never",
+      "showLegend": false,
+      "columnSettings": {
+        "OutsideTraffic": {
+          "axis": "right"
+        }
+      }
+    }
+  },
+  "columnNames": ["date", "Traffic", "OutsideTraffic"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixWalkby",
+            "value": {
+              "counter": "total"
+            },
+            "unit": "number"
+          }
+        }
+      ]
+    }
+  ]
+}
