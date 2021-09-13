@@ -10,17 +10,19 @@
   "columnNames": [
     "Store",
     "Sales",
-    "vs",
     "Traffic",
-    "vsTraffic",
+    "vs",
     "Sales conversion",
-    "vsSalesConversion",
+    "vs2",
     "ATV",
+    "vs3",
     "IPT",
+    "vs4",
     "$ per Traffic",
     "Did Not Buy",
-    "Items",
-    "AUR",
+    "Sales Productivity (tbd)",
+    "% Hours to Optimise (tbd)",
+    "Missed Opportunities (tbd)",
     "Dwell Time"
   ],
   "rowSets": [
@@ -47,40 +49,6 @@
           }
         },
         {
-          "decimalPlaces": 1,
-          "unit": "percentage",
-          "numericExpression": {
-            "$subtract": [
-              {
-                "$divide": [
-                  {
-                    "metric": 285,
-                    "value": {
-                      "counter": "Revenue"
-                    }
-                  },
-                  {
-                    "metric": 285,
-                    "value": {
-                      "counter": "Revenue"
-                    },
-
-                    "dateRangeOverride": {
-                      "localStartDate": {
-                        "paramRef": "SecondaryStartDate"
-                      },
-                      "localEndDate": {
-                        "paramRef": "SecondaryEndDate"
-                      }
-                    }
-                  }
-                ]
-              },
-              1.0
-            ]
-          }
-        },
-        {
           "description": "Traffic",
           "numericExpression": {
             "metric": "BlixVisit",
@@ -90,6 +58,7 @@
           }
         },
         {
+          "description": "Traffic vs",
           "decimalPlaces": 1,
           "unit": "percentage",
           "numericExpression": {
@@ -145,7 +114,7 @@
           "decimalPlaces": 1
         },
         {
-          "description": "vs (conversion)",
+          "description": "Sales Conversion Versus",
           "numericExpression": {
             "$subtract": [
               {
@@ -230,6 +199,70 @@
           "decimalPlaces": 0
         },
         {
+          "description": "ATV Versus",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Revenue"
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Revenue"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        },
+        {
           "description": "IPT (Items / Transactions)",
           "numericExpression": {
             "$divide": [
@@ -247,6 +280,70 @@
               }
             ]
           },
+          "decimalPlaces": 1
+        },
+        {
+          "description": "IPT vs",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Items"
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Items"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
           "decimalPlaces": 1
         },
         {
@@ -291,33 +388,16 @@
           "decimalPlaces": 0
         },
         {
-          "numericExpression": {
-            "metric": 285,
-            "value": {
-              "counter": "Items"
-            }
-          }
+          "description": "Sales Productivity",
+          "numericExpression": 0
         },
         {
-          "description": "AUR",
-          "numericExpression": {
-            "$divide": [
-              {
-                "metric": 285,
-                "value": {
-                  "counter": "Revenue"
-                }
-              },
-              {
-                "metric": 285,
-                "value": {
-                  "counter": "Items"
-                }
-              }
-            ]
-          },
-          "unit": "dollars",
-          "decimalPlaces": 0
+          "description": "% Hours to Optimise",
+          "numericExpression": 0
+        },
+        {
+          "description": "Missed Opportunities",
+          "numericExpression": 0
         },
         {
           "description": "(Average) Dwell Time (seconds) (total dwell / traffic)",
