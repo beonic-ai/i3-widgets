@@ -1,0 +1,36 @@
+{
+  "visualisation": {
+    "title": "Traffic Trend",
+    "description": "Shows the traffic by day for the period.",
+    "type": "LineChart",
+    "lineChartSettings": {
+      "gridLines": "auto",
+      "showLegend": true
+    }
+  },
+  "columnNames": ["venueId", "date", "Traffic"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
