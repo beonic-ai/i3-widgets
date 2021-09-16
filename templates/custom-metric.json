@@ -1,0 +1,22 @@
+{
+  "visualisation": {
+    "title": "A Custom Metric Number",
+    "description": " ",
+    "type": "Number"
+  },
+  "columnNames": ["Revenue"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "customMetricName": "Sales",
+            "value": {
+              "counter": "Revenue"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
