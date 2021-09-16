@@ -10,15 +10,29 @@
   "columnNames": [
     "Location",
     "Sales",
+    "sales-vs",
     "Traffic",
+    "traffic-vs",
     "Sales conversion",
+    "sales-conversion-vs",
+    "missed-opportunities-vs",
     "ATV",
+    "atv-vs",
     "IPT",
+    "ipt-vs",
     "Dwell Time",
+    "dwell-time-vs",
+    "Outside Traffic Trend TBD",
+    "Staff: Customer Ratio TBD",
+    "staff-customer-ratio-vs",
     "$ / Traffic",
+    "$-traffic-vs",
     "Transactions",
+    "transactions-vs",
     "Items",
-    "AUR"
+    "items-vs",
+    "AUR",
+    "aur-vs"
   ],
   "rowSets": [
     {
@@ -40,6 +54,41 @@
           "decimalPlaces": 2
         },
         {
+          "description": "Sales vs",
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": 285,
+                    "value": {
+                      "counter": "Revenue"
+                    }
+                  },
+                  {
+                    "metric": 285,
+                    "value": {
+                      "counter": "Revenue"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        },
+        {
           "description": "Traffic",
           "numericExpression": {
             "metric": "BlixVisit",
@@ -50,6 +99,41 @@
           "sortSpecification": {
             "ascending": false,
             "priority": 1
+          }
+        },
+        {
+          "description": "Traffic vs",
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    }
+                  },
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
           }
         },
         {
@@ -74,6 +158,78 @@
           "decimalPlaces": 1
         },
         {
+          "description": "Sales Conversion Versus",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        },
+        {
+          "description": "Missed Opportunities",
+          "numericExpression": 0
+        },
+        {
+          "description": "Missed Opportunities Versus",
+          "numericExpression": 0
+        },
+        {
           "description": "ATV (Sales / Transactions)",
           "numericExpression": {
             "$divide": [
@@ -95,6 +251,70 @@
           "decimalPlaces": 0
         },
         {
+          "description": "ATV Versus",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Revenue"
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Revenue"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        },
+        {
           "description": "IPT (Items / Transactions)",
           "numericExpression": {
             "$divide": [
@@ -112,6 +332,70 @@
               }
             ]
           },
+          "decimalPlaces": 1
+        },
+        {
+          "description": "IPT vs",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Items"
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Items"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Transactions"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
           "decimalPlaces": 1
         },
         {
@@ -136,6 +420,82 @@
           "unit": "duration"
         },
         {
+          "description": "Dwell Time vs",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "dwell"
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "dwell"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        },
+        {
+          "description": "Outside Traffic Trend TBD",
+          "numericExpression": 0
+        },
+        {
+          "description": "Staff: Customer Ratio TBD",
+          "numericExpression": 0
+        },
+        {
+          "description": "Staff: Customer Ratio Versus TBD",
+          "numericExpression": 0
+        },
+        {
           "description": "$ / Traffic (revenue / visits)",
           "numericExpression": {
             "$divide": [
@@ -157,11 +517,110 @@
           "decimalPlaces": 0
         },
         {
+          "description": "$ / Traffic Versus",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Revenue"
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Revenue"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        },
+        {
           "numericExpression": {
             "metric": 285,
             "value": {
               "counter": "Transactions"
             }
+          }
+        },
+        {
+          "description": "Transactions vs",
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": 285,
+                    "value": {
+                      "counter": "Transactions"
+                    }
+                  },
+                  {
+                    "metric": 285,
+                    "value": {
+                      "counter": "Transactions"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
           }
         },
         {
@@ -173,7 +632,42 @@
           }
         },
         {
-          "description": "AUR",
+          "description": "Items vs",
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": 285,
+                    "value": {
+                      "counter": "Items"
+                    }
+                  },
+                  {
+                    "metric": 285,
+                    "value": {
+                      "counter": "Items"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        },
+        {
+          "description": "AUR (Revenue / Items)",
           "numericExpression": {
             "$divide": [
               {
@@ -192,6 +686,70 @@
           },
           "unit": "dollars",
           "decimalPlaces": 0
+        },
+        {
+          "description": "AUR versus",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Revenue"
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Items"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Revenue"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": 285,
+                        "value": {
+                          "counter": "Items"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
         }
       ]
     }
