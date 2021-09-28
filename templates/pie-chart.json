@@ -1,0 +1,37 @@
+{
+  "visualisation": {
+    "title": "A Table",
+    "description": "Table",
+    "type": "PieChart",
+    "tableSettings": {
+      "label": {
+        "show": true,
+        "sunbeamLayout": false,
+        "mode": "value"
+      },
+      "scrollOverflow": true,
+      "legend": { "show": true }
+    }
+  },
+  "columnNames": ["Location", "Traffic"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "description": "Traffic",
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

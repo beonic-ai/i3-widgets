@@ -1,6 +1,6 @@
 {
   "visualisation": {
-    "title": " ",
+    "title": "A Table",
     "description": "Table",
     "type": "Table",
     "tableSettings": {
@@ -19,7 +19,9 @@
         {
           "description": "Sales",
           "numericExpression": {
-            "metric": { "customMetricName": "Sales" },
+            "metric": {
+              "customMetricName": "Sales"
+            },
             "value": {
               "counter": "Revenue"
             }

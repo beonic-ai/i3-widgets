@@ -1,0 +1,37 @@
+{
+  "visualisation": {
+    "title": "New vs Return Traffic",
+    "description": "New versus Return Traffic for the period.",
+    "type": "PieChart",
+    "pieChartSettings": {
+      "donut": false,
+      "legend": {
+        "show": true
+      },
+      "label": {
+        "show": true,
+        "sunbeamLayout": false,
+        "mode": "percent"
+      }
+    }
+  },
+  "filterOverrides": null,
+  "columnNames": ["visitorType", "value"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": { "segment": "VISITOR_TYPE" }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
