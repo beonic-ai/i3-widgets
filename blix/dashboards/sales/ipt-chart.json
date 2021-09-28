@@ -1,0 +1,43 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeek",
+            "format": "Short"
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Items"
+                }
+              },
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ],
+  "columnNames": ["date", "Conversion (items/transaction)"],
+  "visualisation": {
+    "type": "BarChart",
+    "title": "Items per Transaction",
+    "description": "The average number of items per transaction per day of the week for the period.",
+    "barChartSettings": {
+      "showLegend": false,
+      "gridLines": "always"
+    }
+  }
+}

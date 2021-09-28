@@ -1,0 +1,47 @@
+{
+  "visualisation": {
+    "title": "Sales and Traffic by Day",
+    "description": "Shows the sales and traffic by day for the period.",
+    "type": "LineChart",
+    "lineChartSettings": {
+      "gridLines": "always",
+      "showLegend": true,
+      "columnSettings": {
+        "Traffic": {
+          "axis": "right"
+        }
+      }
+    }
+  },
+  "columnNames": ["date", "Sales", "Traffic"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": 285,
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "unit": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

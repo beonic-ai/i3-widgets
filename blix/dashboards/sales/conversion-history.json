@@ -1,0 +1,39 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "unit": "dollars",
+          "decimalPlaces": 2,
+          "numericExpression": {
+            "$divide": [
+              {
+                "value": {
+                  "counter": "Revenue"
+                },
+                "metric": 285
+              },
+              {
+                "value": {
+                  "counter": "total"
+                },
+                "metric": "Visit"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "columnNames": ["time", "conversion"],
+  "visualisation": {
+    "type": "LineChart",
+    "title": "Conversion history",
+    "description": "The revenue conversion for the period."
+  }
+}

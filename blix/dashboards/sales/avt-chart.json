@@ -1,0 +1,44 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeek",
+            "format": "Short"
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": 285,
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ],
+  "columnNames": ["date", "Conversion (revenue/transaction)"],
+  "visualisation": {
+    "type": "BarChart",
+    "title": "Average Transaction Value",
+    "description": "The average transaction value (revenue/transactions) per day of the week for the period.",
+    "barChartSettings": {
+      "showLegend": false,
+      "gridLines": "always"
+    }
+  }
+}

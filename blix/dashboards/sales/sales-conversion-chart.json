@@ -1,0 +1,51 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeek",
+            "format": "Short"
+          }
+        },
+        {
+          "numericExpression": {
+            "$multiply": [
+              100,
+              {
+                "$divide": [
+                  {
+                    "metric": {
+                      "customMetricName": "Sales"
+                    },
+                    "value": {
+                      "counter": "Transactions"
+                    }
+                  },
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "suffix": "%",
+          "decimalPlaces": 1
+        }
+      ]
+    }
+  ],
+  "columnNames": ["date", "Conversion (transactions/visit)"],
+  "visualisation": {
+    "type": "BarChart",
+    "title": "Sales conversion",
+    "description": "The sales conversion (transactions/visit) per day of the week for the period.",
+    "barChartSettings": {
+      "showLegend": false,
+      "gridLines": "always"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "visualisation": {
+    "title": "Total traffic",
+    "description": "The total traffic for the period.",
+    "type": "Number",
+    "numberSettings": {
+      "autoScale": true
+    }
+  },
+  "columnNames": ["Traffic", "delta", "versus"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        },
+        {
+          "unit": "percentage",
+          "decimalPlaces": 2,
+          "numericExpression": {
+            "$divide": [
+              {
+                "$subtract": [
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    }
+                  },
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "decimalPlaces": 2,
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "dateRangeOverride": {
+              "localStartDate": {
+                "paramRef": "SecondaryStartDate"
+              },
+              "localEndDate": {
+                "paramRef": "SecondaryEndDate"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

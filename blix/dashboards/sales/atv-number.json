@@ -1,0 +1,182 @@
+{
+  "columnNames": ["conversion", "versus", "delta"],
+  "visualisation": {
+    "type": "Number",
+    "title": "Average Transaction Value",
+    "description": "The average transaction value for the period"
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "unit": "dollars",
+          "decimalPlaces": 2,
+          "numericExpression": {
+            "$divide": [
+              {
+                "value": {
+                  "counter": "Revenue"
+                },
+                "metric": {
+                  "customMetricName": "Sales"
+                }
+              },
+              {
+                "value": {
+                  "counter": "Transactions"
+                },
+                "metric": {
+                  "customMetricName": "Sales"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "unit": "dollars",
+          "decimalPlaces": 2,
+          "numericExpression": {
+            "$divide": [
+              {
+                "value": {
+                  "counter": "Revenue"
+                },
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              },
+              {
+                "value": {
+                  "counter": "Transactions"
+                },
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "unit": "percentage",
+          "decimalPlaces": 2,
+          "numericExpression": {
+            "$divide": [
+              {
+                "$subtract": [
+                  {
+                    "$divide": [
+                      {
+                        "value": {
+                          "counter": "Revenue"
+                        },
+                        "metric": {
+                          "customMetricName": "Sales"
+                        }
+                      },
+                      {
+                        "value": {
+                          "counter": "Transactions"
+                        },
+                        "metric": {
+                          "customMetricName": "Sales"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "value": {
+                          "counter": "Revenue"
+                        },
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "value": {
+                          "counter": "Transactions"
+                        },
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "$divide": [
+                  {
+                    "value": {
+                      "counter": "Revenue"
+                    },
+                    "metric": {
+                      "customMetricName": "Sales"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  },
+                  {
+                    "value": {
+                      "counter": "Transactions"
+                    },
+                    "metric": {
+                      "customMetricName": "Sales"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

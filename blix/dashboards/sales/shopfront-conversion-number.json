@@ -1,0 +1,36 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "unit": "number"
+              },
+              {
+                "metric": "BlixWalkby",
+                "value": {
+                  "counter": "total"
+                },
+                "unit": "number"
+              }
+            ]
+          },
+          "decimalPlaces": 2,
+          "unit": "percentage"
+        }
+      ]
+    }
+  ],
+  "columnNames": ["conversion"],
+  "visualisation": {
+    "type": "Number",
+    "title": "Shopfront Conversion",
+    "description": "% of outside traffic that come inside."
+  }
+}

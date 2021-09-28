@@ -1,0 +1,51 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeek",
+            "format": "Short"
+          }
+        },
+        {
+          "numericExpression": {
+            "$multiply": [
+              100,
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "unit": "number"
+                  },
+                  {
+                    "metric": "BlixWalkby",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "unit": "number"
+                  }
+                ]
+              }
+            ]
+          },
+          "decimalPlaces": 2,
+          "suffix": "%"
+        }
+      ]
+    }
+  ],
+  "columnNames": ["date", "Conversion"],
+  "visualisation": {
+    "type": "BarChart",
+    "title": "Shopfront Conversion",
+    "description": "% of outside traffic that come inside per day of the week.",
+    "barChartSettings": {
+      "showLegend": false,
+      "gridLines": "always"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "visualisation": {
+    "title": "Total sales",
+    "description": "The total sales for the period.",
+    "type": "Number"
+  },
+  "columnNames": ["Sales", "delta", "versus"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
+        },
+        {
+          "unit": "percentage",
+          "decimalPlaces": 2,
+          "numericExpression": {
+            "$divide": [
+              {
+                "$subtract": [
+                  {
+                    "metric": {
+                      "customMetricName": "Sales"
+                    },
+                    "value": {
+                      "counter": "Revenue"
+                    }
+                  },
+                  {
+                    "metric": {
+                      "customMetricName": "Sales"
+                    },
+                    "value": {
+                      "counter": "Revenue"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                },
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "decimalPlaces": 2,
+          "unit": "dollars",
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            },
+            "dateRangeOverride": {
+              "localStartDate": {
+                "paramRef": "SecondaryStartDate"
+              },
+              "localEndDate": {
+                "paramRef": "SecondaryEndDate"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
