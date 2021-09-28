@@ -1,24 +1,27 @@
 {
   "visualisation": {
     "title": "New vs Return Traffic",
-    "description": " ",
-    "type": "BarChart"
-  },
-  "filterOverrides": null,
-  "columnNames": [
-    "timestamp",
-    {
-      "name": "Visits",
-      "dimension": {
-        "segment": "VISITOR_TYPE"
+    "description": "New versus Return Traffic for the period.",
+    "type": "PieChart",
+    "pieChartSettings": {
+      "donut": false,
+      "legend": {
+        "show": true
+      },
+      "label": {
+        "show": true,
+        "sunbeamLayout": false,
+        "mode": "percent"
       }
     }
-  ],
+  },
+  "filterOverrides": null,
+  "columnNames": ["visitorType", "value"],
   "rowSets": [
     {
       "columns": [
         {
-          "numericExpression": 1
+          "dimension": { "segment": "VISITOR_TYPE" }
         },
         {
           "numericExpression": {

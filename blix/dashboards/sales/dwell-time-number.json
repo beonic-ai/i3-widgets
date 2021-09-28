@@ -1,0 +1,34 @@
+{
+  "visualisation": {
+    "title": "Dwell Time",
+    "description": "The average dwell time for the period.",
+    "type": "Number"
+  },
+  "columnNames": ["Dwell"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "duration"
+        }
+      ]
+    }
+  ]
+}
