@@ -10,29 +10,30 @@
   "columnNames": [
     "Location",
     "Sales",
-    "sales-vs",
+    { "name": "sales-vs", "displayName": "vs" },
     "Traffic",
-    "traffic-vs",
+    { "name": "traffic-vs", "displayName": "vs" },
     "Sales conversion",
-    "sales-conversion-vs",
-    "missed-opportunities-vs",
+    { "name": "sales-conversion-vs", "displayName": "vs" },
+    "Missed Opportunities",
+    { "name": "missed-opportunities-vs", "displayName": "vs" },
     "ATV",
-    "atv-vs",
+    { "name": "atv-vs", "displayName": "vs" },
     "IPT",
-    "ipt-vs",
+    { "name": "ipt-vs", "displayName": "vs" },
     "Dwell Time",
-    "dwell-time-vs",
-    "Outside Traffic Trend TBD",
-    "Staff: Customer Ratio TBD",
-    "staff-customer-ratio-vs",
+    { "name": "dwell-time-vs", "displayName": "vs" },
+    "Outside Traffic Trend",
+    "Staff: Customer Ratio",
+    { "name": "staff-customer-ratio-vs", "displayName": "vs" },
     "$ / Traffic",
-    "$-traffic-vs",
+    { "name": "$-traffic-vs", "displayName": "vs" },
     "Transactions",
-    "transactions-vs",
+    { "name": "transactions-vs", "displayName": "vs" },
     "Items",
-    "items-vs",
+    { "name": "items-vs", "displayName": "vs" },
     "AUR",
-    "aur-vs"
+    { "name": "aur-vs", "displayName": "vs" }
   ],
   "rowSets": [
     {
@@ -45,7 +46,7 @@
         {
           "description": "Sales",
           "numericExpression": {
-            "metric": 285,
+            "metric": { "customMetricName": "Sales" },
             "value": {
               "counter": "Revenue"
             }
@@ -62,13 +63,13 @@
               {
                 "$divide": [
                   {
-                    "metric": 285,
+                    "metric": { "customMetricName": "Sales" },
                     "value": {
                       "counter": "Revenue"
                     }
                   },
                   {
-                    "metric": 285,
+                    "metric": { "customMetricName": "Sales" },
                     "value": {
                       "counter": "Revenue"
                     },
@@ -141,7 +142,7 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": { "customMetricName": "Sales" },
                 "value": {
                   "counter": "Transactions"
                 }
@@ -166,7 +167,7 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Transactions"
                         }
@@ -182,7 +183,7 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Transactions"
                         },
@@ -222,8 +223,25 @@
           "decimalPlaces": 1
         },
         {
-          "description": "Missed Opportunities",
-          "numericExpression": 0
+          "description": "Missed opportunities ( visits.bounces / visits.total)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "dollars",
+          "decimalPlaces": 0
         },
         {
           "description": "Missed Opportunities Versus",
@@ -234,13 +252,13 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": { "customMetricName": "Sales" },
                 "value": {
                   "counter": "Revenue"
                 }
               },
               {
-                "metric": 285,
+                "metric": { "customMetricName": "Sales" },
                 "value": {
                   "counter": "Transactions"
                 }
@@ -259,13 +277,13 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Revenue"
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Transactions"
                         }
@@ -275,7 +293,7 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Revenue"
                         },
@@ -290,7 +308,7 @@
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Transactions"
                         },
@@ -319,13 +337,13 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": { "customMetricName": "Sales" },
                 "value": {
                   "counter": "Items"
                 }
               },
               {
-                "metric": 285,
+                "metric": { "customMetricName": "Sales" },
                 "value": {
                   "counter": "Transactions"
                 }
@@ -343,13 +361,13 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Items"
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Transactions"
                         }
@@ -359,7 +377,7 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Items"
                         },
@@ -374,7 +392,7 @@
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Transactions"
                         },
@@ -484,15 +502,15 @@
           "decimalPlaces": 1
         },
         {
-          "description": "Outside Traffic Trend TBD",
+          "description": "Outside Traffic Trend",
           "numericExpression": 0
         },
         {
-          "description": "Staff: Customer Ratio TBD",
+          "description": "Staff: Customer Ratio",
           "numericExpression": 0
         },
         {
-          "description": "Staff: Customer Ratio Versus TBD",
+          "description": "Staff: Customer Ratio Versus",
           "numericExpression": 0
         },
         {
@@ -500,7 +518,7 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": { "customMetricName": "Sales" },
                 "value": {
                   "counter": "Revenue"
                 }
@@ -525,7 +543,7 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Revenue"
                         }
@@ -541,7 +559,7 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Revenue"
                         },
@@ -582,7 +600,7 @@
         },
         {
           "numericExpression": {
-            "metric": 285,
+            "metric": { "customMetricName": "Sales" },
             "value": {
               "counter": "Transactions"
             }
@@ -597,13 +615,13 @@
               {
                 "$divide": [
                   {
-                    "metric": 285,
+                    "metric": { "customMetricName": "Sales" },
                     "value": {
                       "counter": "Transactions"
                     }
                   },
                   {
-                    "metric": 285,
+                    "metric": { "customMetricName": "Sales" },
                     "value": {
                       "counter": "Transactions"
                     },
@@ -625,7 +643,7 @@
         },
         {
           "numericExpression": {
-            "metric": 285,
+            "metric": { "customMetricName": "Sales" },
             "value": {
               "counter": "Items"
             }
@@ -640,13 +658,13 @@
               {
                 "$divide": [
                   {
-                    "metric": 285,
+                    "metric": { "customMetricName": "Sales" },
                     "value": {
                       "counter": "Items"
                     }
                   },
                   {
-                    "metric": 285,
+                    "metric": { "customMetricName": "Sales" },
                     "value": {
                       "counter": "Items"
                     },
@@ -671,13 +689,13 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": { "customMetricName": "Sales" },
                 "value": {
                   "counter": "Revenue"
                 }
               },
               {
-                "metric": 285,
+                "metric": { "customMetricName": "Sales" },
                 "value": {
                   "counter": "Items"
                 }
@@ -696,13 +714,13 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Revenue"
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Items"
                         }
@@ -712,7 +730,7 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Revenue"
                         },
@@ -727,7 +745,7 @@
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": { "customMetricName": "Sales" },
                         "value": {
                           "counter": "Items"
                         },

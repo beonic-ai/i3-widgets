@@ -23,7 +23,7 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": { "customMetricName": "Sales" },
                 "value": {
                   "counter": "Transactions"
                 }

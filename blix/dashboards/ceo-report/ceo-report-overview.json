@@ -36,7 +36,9 @@
         {
           "description": "Sales",
           "numericExpression": {
-            "metric": 285,
+            "metric": {
+              "customMetricName": "Sales"
+            },
             "value": {
               "counter": "Revenue"
             }
@@ -97,7 +99,9 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": {
+                  "customMetricName": "Sales"
+                },
                 "value": {
                   "counter": "Transactions"
                 }
@@ -122,7 +126,9 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Transactions"
                         }
@@ -138,7 +144,9 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Transactions"
                         },
@@ -182,13 +190,17 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": {
+                  "customMetricName": "Sales"
+                },
                 "value": {
                   "counter": "Revenue"
                 }
               },
               {
-                "metric": 285,
+                "metric": {
+                  "customMetricName": "Sales"
+                },
                 "value": {
                   "counter": "Transactions"
                 }
@@ -207,13 +219,17 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Revenue"
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Transactions"
                         }
@@ -223,7 +239,9 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Revenue"
                         },
@@ -238,7 +256,9 @@
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Transactions"
                         },
@@ -267,13 +287,17 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": {
+                  "customMetricName": "Sales"
+                },
                 "value": {
                   "counter": "Items"
                 }
               },
               {
-                "metric": 285,
+                "metric": {
+                  "customMetricName": "Sales"
+                },
                 "value": {
                   "counter": "Transactions"
                 }
@@ -291,13 +315,17 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Items"
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Transactions"
                         }
@@ -307,7 +335,9 @@
                   {
                     "$divide": [
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Items"
                         },
@@ -322,7 +352,9 @@
                         }
                       },
                       {
-                        "metric": 285,
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
                         "value": {
                           "counter": "Transactions"
                         },
@@ -351,7 +383,9 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": 285,
+                "metric": {
+                  "customMetricName": "Sales"
+                },
                 "value": {
                   "counter": "Revenue"
                 }
@@ -378,7 +412,9 @@
                 }
               },
               {
-                "metric": 285,
+                "metric": {
+                  "customMetricName": "Sales"
+                },
                 "value": {
                   "counter": "Transactions"
                 }

@@ -19,7 +19,7 @@
         {
           "description": "Sales",
           "numericExpression": {
-            "metric": 285,
+            "metric": { "customMetricName": "Sales" },
             "value": {
               "counter": "Revenue"
             }

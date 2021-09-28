@@ -10,11 +10,15 @@
       "columns": [
         {
           "numericExpression": {
-            "customMetricName": "Sales",
+            "metric": {
+              "customMetricName": "Sales"
+            },
             "value": {
               "counter": "Revenue"
             }
-          }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
         }
       ]
     }
