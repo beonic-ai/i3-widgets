@@ -11,18 +11,18 @@
     "Store",
     "Sales",
     "Traffic",
-    "vs",
+    { "name": "traffic-vs", "displayName": "vs" },
     "Sales conversion",
-    "vs2",
+    { "name": "sales-conversion-vs", "displayName": "vs" },
     "ATV",
-    "vs3",
+    { "name": "atv-vs", "displayName": "vs" },
     "IPT",
-    "vs4",
+    { "name": "ipt-vs", "displayName": "vs" },
     "$ per Traffic",
     "Did Not Buy",
-    "Sales Productivity (tbd)",
-    "% Hours to Optimise (tbd)",
-    "Missed Opportunities (tbd)",
+    "Sales Productivity",
+    "% Hours to Optimise",
+    "Missed Opportunities",
     "Dwell Time"
   ],
   "rowSets": [
@@ -425,7 +425,28 @@
         },
         {
           "description": "Sales Productivity",
-          "numericExpression": 0
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Roster"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 1,
+          "unit": "percentage"
         },
         {
           "description": "% Hours to Optimise",
