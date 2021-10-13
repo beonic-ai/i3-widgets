@@ -223,13 +223,17 @@
           "decimalPlaces": 1
         },
         {
-          "description": "Missed opportunities ( visits.bounces / visits.total)",
+          "description": "Missed Opportunities",
           "numericExpression": {
             "$divide": [
               {
                 "metric": "BlixVisit",
                 "value": {
                   "counter": "total"
+                },
+                "segment": {
+                  "dimension": "BOUNCE",
+                  "segment": "bounce"
                 }
               },
               {
@@ -240,12 +244,79 @@
               }
             ]
           },
-          "unit": "dollars",
-          "decimalPlaces": 0
+          "decimalPlaces": 2,
+          "unit": "percentage"
         },
         {
-          "description": "Missed Opportunities Versus",
-          "numericExpression": 0
+          "description": "Missed opportunities vs",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+                        "segment": {
+                          "dimension": "BOUNCE",
+                          "segment": "bounce"
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+                        "segment": {
+                          "dimension": "BOUNCE",
+                          "segment": "bounce"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
         },
         {
           "description": "ATV (Sales / Transactions)",

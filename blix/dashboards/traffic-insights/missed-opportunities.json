@@ -1,5 +1,4 @@
 {
-  "comment": "TODO - need bounces from SPDT-8104 to add this and weekday/weekend queries.",
   "visualisation": {
     "title": "Missed Opportunities",
     "description": "Missed opportunities",
@@ -10,6 +9,7 @@
     {
       "columns": [
         {
+          "description": "Missed Opportunities",
           "numericExpression": {
             "$divide": [
               {
@@ -18,8 +18,8 @@
                   "counter": "total"
                 },
                 "segment": {
-                  "dimension": "bounce",
-                  "segment": "total"
+                  "dimension": "BOUNCE",
+                  "segment": "bounce"
                 }
               },
               {
