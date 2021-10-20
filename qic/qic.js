@@ -114,6 +114,29 @@ const doorByDay = {
         },
       ],
     },
+    {
+      columns: [
+        { string: { value: "TOTAL" } },
+        { string: { value: "" } },
+        {
+          numericExpression: entriesExpr,
+        },
+        {
+          numericExpression: entriesLastYearExpr,
+        },
+        {
+          unit: "percentage",
+          numericExpression: deltaLastYearExpr,
+        },
+        {
+          numericExpression: entriesTwoYearsAgoExpr,
+        },
+        {
+          unit: "percentage",
+          numericExpression: deltaTwoYearsAgoExpr,
+        },
+      ],
+    },
   ],
 };
 
@@ -137,6 +160,28 @@ const byDay = {
     {
       columns: [
         dailyColumn,
+        {
+          numericExpression: entriesExpr,
+        },
+        {
+          numericExpression: entriesLastYearExpr,
+        },
+        {
+          unit: "percentage",
+          numericExpression: deltaLastYearExpr,
+        },
+        {
+          numericExpression: entriesTwoYearsAgoExpr,
+        },
+        {
+          unit: "percentage",
+          numericExpression: deltaTwoYearsAgoExpr,
+        },
+      ],
+    },
+    {
+      columns: [
+        { string: { value: "TOTAL" } },
         {
           numericExpression: entriesExpr,
         },
@@ -200,16 +245,38 @@ const doorByMonth = {
         },
       ],
     },
+    {
+      columns: [
+        { string: { value: "TOTAL" } },
+        { string: { value: "" } },
+        {
+          numericExpression: entriesExpr,
+        },
+        {
+          numericExpression: entriesLastYearExpr,
+        },
+        {
+          unit: "percentage",
+          numericExpression: deltaLastYearExpr,
+        },
+        {
+          numericExpression: entriesTwoYearsAgoExpr,
+        },
+        {
+          unit: "percentage",
+          numericExpression: deltaTwoYearsAgoExpr,
+        },
+      ],
+    },
   ],
 };
 
-console.log("door by day:");
-console.log(JSON.stringify(doorByDay, null, 2));
-console.log();
+// Uncomment one of the following:
 
-console.log("by day:");
-console.log(JSON.stringify(byDay, null, 2));
-console.log();
+// console.log(JSON.stringify(doorByDay, null, 2));
+// console.log();
 
-console.log("door by month:");
-console.log(JSON.stringify(doorByMonth, null, 2));
+// console.log(JSON.stringify(byDay, null, 2));
+// console.log();
+
+// console.log(JSON.stringify(doorByMonth, null, 2));
