@@ -1,0 +1,44 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeek",
+            "format": "Short"
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "duration",
+          "decimalPlaces": 0
+        }
+      ]
+    }
+  ],
+  "columnNames": ["date", "Average Dwell Time"],
+  "visualisation": {
+    "type": "BarChart",
+    "title": "Average Dwell Time",
+    "description": "The average dwell time per day of the week for the period.",
+    "barChartSettings": {
+      "showLegend": false,
+      "gridLines": "always"
+    }
+  }
+}
