@@ -1,25 +1,30 @@
 {
   "visualisation": {
-    "title": "Traffic Trend",
+    "title": "Daily Traffic",
     "description": "Shows the traffic by day for the period.",
     "type": "LineChart",
     "lineChartSettings": {
-      "gridLines": "auto",
-      "showLegend": true
+      "gridLines": "always",
+      "showLegend": true,
+      "columnSettings": {
+        "Traffic": {
+          "axis": "right"
+        }
+      }
     }
   },
-  "columnNames": ["venueId", "date", "Traffic"],
+  "columnNames": ["date", "Location", "Traffic"],
   "rowSets": [
     {
       "columns": [
         {
           "dimension": {
-            "key": "venueId"
+            "timeBasedDimension": "Daily"
           }
         },
         {
           "dimension": {
-            "timeBasedDimension": "Daily"
+            "key": "venueId"
           }
         },
         {
@@ -27,7 +32,8 @@
             "metric": "BlixVisit",
             "value": {
               "counter": "total"
-            }
+            },
+            "unit": "number"
           }
         }
       ]
