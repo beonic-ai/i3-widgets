@@ -1,0 +1,45 @@
+{
+  "visualisation": {
+    "title": "Monthly Traffic",
+    "description": "Shows the traffic by month for each venue for the period.",
+    "type": "LineChart",
+    "lineChartSettings": {
+      "gridLines": "always",
+      "showLegend": true
+    }
+  },
+  "columnNames": [
+    "date",
+    { "name": "venues", "dimension": { "key": "venueId" } },
+    "Total"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Monthly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "unit": "number"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "unit": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

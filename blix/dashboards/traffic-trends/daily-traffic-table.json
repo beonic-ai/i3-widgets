@@ -1,0 +1,34 @@
+{
+  "visualisation": {
+    "title": " ",
+    "description": "Shows the traffic by day for each venue for the period.",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": [
+    "Location",
+    { "name": "day", "dimension": { "timeBasedDimension": "Daily" } }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "unit": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

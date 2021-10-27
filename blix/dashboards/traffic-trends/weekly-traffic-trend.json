@@ -1,30 +1,23 @@
 {
   "visualisation": {
-    "title": "Daily Traffic",
-    "description": "Shows the traffic by day for the period.",
+    "title": "Weekly Traffic",
+    "description": "Shows the traffic by week for each venue for the period.",
     "type": "LineChart",
     "lineChartSettings": {
       "gridLines": "always",
-      "showLegend": true,
-      "columnSettings": {
-        "Traffic": {
-          "axis": "right"
-        }
-      }
+      "showLegend": true
     }
   },
-  "columnNames": ["date", "Location", "Traffic"],
+  "columnNames": [
+    "date",
+    { "name": "venues", "dimension": { "key": "venueId" } }
+  ],
   "rowSets": [
     {
       "columns": [
         {
           "dimension": {
-            "timeBasedDimension": "Daily"
-          }
-        },
-        {
-          "dimension": {
-            "key": "venueId"
+            "timeBasedDimension": "Weekly"
           }
         },
         {
