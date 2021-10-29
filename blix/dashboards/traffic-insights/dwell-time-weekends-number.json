@@ -1,0 +1,200 @@
+{
+  "visualisation": {
+    "title": "Weekends",
+    "description": "The average dwell time on weekends.",
+    "type": "Number"
+  },
+  "columnNames": ["Dwell Time", "delta", "versus"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                },
+                "timeBasedDimension": {
+                  "dimension": "DayOfWeekType",
+                  "value": "weekend"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "timeBasedDimension": {
+                  "dimension": "DayOfWeekType",
+                  "value": "weekend"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "duration"
+        },
+        {
+          "unit": "percentage",
+          "decimalPlaces": 5,
+          "numericExpression": {
+            "$divide": [
+              {
+                "$subtract": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "dwell"
+                        },
+                        "timeBasedDimension": {
+                          "dimension": "DayOfWeekType",
+                          "value": "weekend"
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+                        "timeBasedDimension": {
+                          "dimension": "DayOfWeekType",
+                          "value": "weekend"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "dwell"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        },
+                        "timeBasedDimension": {
+                          "dimension": "DayOfWeekType",
+                          "value": "weekend"
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        },
+                        "timeBasedDimension": {
+                          "dimension": "DayOfWeekType",
+                          "value": "weekend"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "dwell"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    },
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekend"
+                    }
+                  },
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    },
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekend"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                },
+
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "duration"
+        }
+      ]
+    }
+  ]
+}
