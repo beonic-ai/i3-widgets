@@ -1,0 +1,55 @@
+{
+  "visualisation": {
+    "title": "Weekends",
+    "description": "The change in weekend outside traffic between the period and the previous period.",
+    "type": "Number"
+  },
+  "columnNames": ["Overall"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixWalkby",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekend"
+                    }
+                  },
+                  {
+                    "metric": "BlixWalkby",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekend"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

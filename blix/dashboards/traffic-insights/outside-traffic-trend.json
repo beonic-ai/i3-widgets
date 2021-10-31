@@ -1,7 +1,7 @@
 {
   "visualisation": {
-    "title": "Outside Traffic Trend - TODO weekdays/weekends",
-    "description": " ",
+    "title": "Weekdays",
+    "description": "The change in outside traffic between the period and the previous period.",
     "type": "Number"
   },
   "columnNames": ["Overall"],
@@ -9,6 +9,7 @@
     {
       "columns": [
         {
+          "description": "Outside Traffic Trend",
           "decimalPlaces": 1,
           "unit": "percentage",
           "numericExpression": {

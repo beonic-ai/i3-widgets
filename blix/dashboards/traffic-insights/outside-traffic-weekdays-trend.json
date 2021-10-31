@@ -1,0 +1,55 @@
+{
+  "visualisation": {
+    "title": "Weekdays",
+    "description": "The change in weekday outside traffic between the period and the previous period.",
+    "type": "Number"
+  },
+  "columnNames": ["Overall"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixWalkby",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekday"
+                    }
+                  },
+                  {
+                    "metric": "BlixWalkby",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekday"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

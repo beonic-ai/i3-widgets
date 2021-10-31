@@ -1,7 +1,7 @@
 {
   "visualisation": {
-    "title": "Traffic TODO - need Weekday / Weekend Queries",
-    "description": "Visitor traffic",
+    "title": "Traffic",
+    "description": "Visitor traffic during the period",
     "type": "Number"
   },
   "columnNames": ["Overall", "delta", "versus"],

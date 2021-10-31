@@ -10,8 +10,7 @@
   },
   "columnNames": [
     "date",
-    { "name": "venues", "dimension": { "key": "venueId" } },
-    "Total"
+    { "name": "venues", "dimension": { "key": "venueId" } }
   ],
   "rowSets": [
     {
@@ -19,15 +18,6 @@
         {
           "dimension": {
             "timeBasedDimension": "Monthly"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "BlixVisit",
-            "value": {
-              "counter": "total"
-            },
-            "unit": "number"
           }
         },
         {

@@ -1,0 +1,87 @@
+{
+  "visualisation": {
+    "title": "Weekdays",
+    "description": "Weekday visitor traffic during the period",
+    "type": "Number"
+  },
+  "columnNames": ["Overall", "delta", "versus"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "timeBasedDimension": {
+              "dimension": "DayOfWeekType",
+              "value": "weekday"
+            }
+          }
+        },
+        {
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekday"
+                    }
+                  },
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekday"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "timeBasedDimension": {
+              "dimension": "DayOfWeekType",
+              "value": "weekday"
+            },
+            "dateRangeOverride": {
+              "localStartDate": {
+                "paramRef": "SecondaryStartDate"
+              },
+              "localEndDate": {
+                "paramRef": "SecondaryEndDate"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
