@@ -1,0 +1,207 @@
+{
+  "visualisation": {
+    "title": "Weekdays",
+    "description": "The shopfront conversion (visits / walkbys) on weekdays.",
+    "type": "Number"
+  },
+  "columnNames": ["Overall", "delta", "versus"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "timeBasedDimension": {
+                  "dimension": "DayOfWeekType",
+                  "value": "weekday"
+                }
+              },
+              {
+                "metric": "BlixWalkby",
+                "value": {
+                  "counter": "total"
+                },
+                "timeBasedDimension": {
+                  "dimension": "DayOfWeekType",
+                  "value": "weekday"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 2,
+          "unit": "percentage"
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "$subtract": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+                        "timeBasedDimension": {
+                          "dimension": "DayOfWeekType",
+                          "value": "weekday"
+                        }
+                      },
+                      {
+                        "metric": "BlixWalkby",
+                        "value": {
+                          "counter": "total"
+                        },
+                        "timeBasedDimension": {
+                          "dimension": "DayOfWeekType",
+                          "value": "weekday"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+                        "timeBasedDimension": {
+                          "dimension": "DayOfWeekType",
+                          "value": "weekday"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": "BlixWalkby",
+                        "value": {
+                          "counter": "total"
+                        },
+                        "timeBasedDimension": {
+                          "dimension": "DayOfWeekType",
+                          "value": "weekday"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekday"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  },
+                  {
+                    "metric": "BlixWalkby",
+                    "value": {
+                      "counter": "total"
+                    },
+
+                    "timeBasedDimension": {
+                      "dimension": "DayOfWeekType",
+                      "value": "weekday"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "paramRef": "SecondaryStartDate"
+                      },
+                      "localEndDate": {
+                        "paramRef": "SecondaryEndDate"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+
+                "timeBasedDimension": {
+                  "dimension": "DayOfWeekType",
+                  "value": "weekday"
+                },
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              },
+              {
+                "metric": "BlixWalkby",
+                "value": {
+                  "counter": "total"
+                },
+
+                "timeBasedDimension": {
+                  "dimension": "DayOfWeekType",
+                  "value": "weekday"
+                },
+                "dateRangeOverride": {
+                  "localStartDate": {
+                    "paramRef": "SecondaryStartDate"
+                  },
+                  "localEndDate": {
+                    "paramRef": "SecondaryEndDate"
+                  }
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 2,
+          "unit": "percentage"
+        }
+      ]
+    }
+  ]
+}
