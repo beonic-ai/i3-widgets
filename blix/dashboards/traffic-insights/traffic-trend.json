@@ -2,10 +2,11 @@
   "visualisation": {
     "title": "Traffic Trend",
     "description": "Shows the traffic by day for the period.",
-    "type": "LineChart",
-    "lineChartSettings": {
-      "gridLines": "never",
-      "showLegend": false,
+    "type": "LinePlusBarChart",
+    "linePlusBarChartSettings": {
+      "gridLines": "always",
+      "showLegend": true,
+      "palette": "red",
       "columnSettings": {
         "OutsideTraffic": {
           "axis": "right"
