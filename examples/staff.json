@@ -1,0 +1,76 @@
+{
+  "visualisation": {
+    "title": "A Table",
+    "description": "Table",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": ["Location", "Sales", "Traffic", "Staff", "StaffTrafficRatio"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "description": "Sales",
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
+        },
+        {
+          "description": "Traffic",
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        },
+        {
+          "description": "Staff",
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Roster"
+            }
+          },
+          "decimalPlaces": 2
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Roster"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -24,7 +24,7 @@
     "Dwell Time",
     { "name": "dwell-time-vs", "displayName": "vs" },
     "Outside Traffic Trend",
-    "Staff: Customer Ratio",
+    "Customers / Staff",
     { "name": "staff-customer-ratio-vs", "displayName": "vs" },
     "$ / Traffic",
     { "name": "$-traffic-vs", "displayName": "vs" },
@@ -608,12 +608,88 @@
           }
         },
         {
-          "description": "Staff: Customer Ratio",
-          "numericExpression": 0
+          "description": "Customer / Staff",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Roster"
+                }
+              }
+            ]
+          }
         },
         {
-          "description": "Staff: Customer Ratio Versus",
-          "numericExpression": 0
+          "description": "Customers / Staff (vs)",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        }
+                      },
+                      {
+                        "metric": { "customMetricName": "Sales" },
+                        "value": {
+                          "counter": "Revenue"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": { "customMetricName": "Sales" },
+                        "value": {
+                          "counter": "Revenue"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
         },
         {
           "description": "$ / Traffic (revenue / visits)",
