@@ -1,0 +1,105 @@
+{
+  "visualisation": {
+    "title": "Did Not Buy",
+    "description": "",
+    "type": "LineChart",
+    "lineChartSettings": {
+      "gridLines": "always",
+      "showLegend": true,
+      "palette": "indigo",
+      "columnSettings": {
+        "DidNotBuy": { "axis": "left" },
+        "MissedOpportunity": { "axis": "right" },
+        "SalesConversion": { "axis": "right" }
+      }
+    }
+  },
+  "filterOverrides": null,
+  "columnNames": [
+    "timestamp",
+    "DidNotBuy",
+    "MissedOpportunity",
+    "SalesConversion"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "description": "Did Not Buy (Traffic - Transactions)",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0
+        },
+        {
+          "description": "Missed Opportunities",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "segment": {
+                  "dimension": "BOUNCE",
+                  "segment": "bounce"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 2,
+          "unit": "percentage"
+        },
+        {
+          "description": "Sales Conversion (transactions / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ]
+}

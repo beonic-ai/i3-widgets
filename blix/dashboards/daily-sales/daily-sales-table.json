@@ -1,0 +1,390 @@
+{
+  "visualisation": {
+    "title": " ",
+    "description": "TODO",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": [
+    "Metrics",
+    {
+      "name": "day",
+      "dimension": {
+        "timeBasedDimension": "Daily"
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "TY Sales"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            },
+            "unit": "dollars"
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "LY Sales"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            },
+            "unit": "dollars",
+            "dateRangeOverride": {
+              "localStartDate": {
+                "value": -1,
+                "unit": "Year",
+                "relativeTo": "StartDate",
+                "roundDown": null
+              },
+              "localEndDate": {
+                "value": -1,
+                "unit": "Year",
+                "relativeTo": "EndDate"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "+/- %"
+          }
+        },
+        {
+          "description": "% +/-",
+          "decimalPlaces": 2,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": { "customMetricName": "Sales" },
+                    "value": {
+                      "counter": "Revenue"
+                    }
+                  },
+                  {
+                    "metric": { "customMetricName": "Sales" },
+                    "value": {
+                      "counter": "Revenue"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "value": -1,
+                        "unit": "Year",
+                        "relativeTo": "StartDate",
+                        "roundDown": null
+                      },
+                      "localEndDate": {
+                        "value": -1,
+                        "unit": "Year",
+                        "relativeTo": "EndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Transactions"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Transactions"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "IPT"
+          }
+        },
+        {
+          "description": "IPT (Items / Transactions)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Items"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 1
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "ATV"
+          }
+        },
+        {
+          "description": "ATV (Sales / Transactions)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "unit": "dollars",
+          "decimalPlaces": 0
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Sales Conversion"
+          }
+        },
+        {
+          "description": "Sales Conversion (transactions / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Did Not Buy"
+          }
+        },
+        {
+          "description": "Did Not Buy (Traffic - Transactions)",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Missed Opportunity %"
+          }
+        },
+        {
+          "description": "Missed Opportunities",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "segment": {
+                  "dimension": "BOUNCE",
+                  "segment": "bounce"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 2,
+          "unit": "percentage"
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Dwell Time"
+          }
+        },
+        {
+          "description": "(Average) Dwell Time (seconds) (total dwell / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "duration"
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Staff Hours"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Roster"
+            }
+          },
+
+          "decimalPlaces": 2
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Sales Productivity"
+          }
+        },
+        {
+          "description": "Sales Productivity",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Roster"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "dollars"
+        }
+      ]
+    }
+  ]
+}

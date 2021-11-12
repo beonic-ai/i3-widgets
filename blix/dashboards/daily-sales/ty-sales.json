@@ -1,0 +1,25 @@
+{
+  "visualisation": {
+    "title": "TY Sales",
+    "description": " ",
+    "type": "Number"
+  },
+  "columnNames": ["TYSales"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            },
+            "unit": "dollars"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "visualisation": {
-    "title": " ",
+    "title": "Overview",
     "description": "Overview",
     "type": "Table",
     "tableSettings": {
@@ -21,7 +21,6 @@
     "$ per Traffic",
     "Did Not Buy",
     "Sales Productivity",
-    "% Hours to Optimise",
     "Missed Opportunities",
     "Dwell Time"
   ],
@@ -445,12 +444,8 @@
               }
             ]
           },
-          "decimalPlaces": 1,
-          "unit": "percentage"
-        },
-        {
-          "description": "% Hours to Optimise",
-          "numericExpression": 0
+          "decimalPlaces": 0,
+          "unit": "dollars"
         },
         {
           "description": "Missed Opportunities",

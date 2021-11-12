@@ -1,0 +1,38 @@
+{
+  "visualisation": {
+    "title": "LY Sales",
+    "description": " ",
+    "type": "Number"
+  },
+  "columnNames": ["LYSales"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            },
+            "unit": "dollars",
+            "dateRangeOverride": {
+              "localStartDate": {
+                "value": -1,
+                "unit": "Year",
+                "relativeTo": "StartDate",
+                "roundDown": null
+              },
+              "localEndDate": {
+                "value": -1,
+                "unit": "Year",
+                "relativeTo": "EndDate"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

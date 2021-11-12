@@ -1,0 +1,53 @@
+{
+  "visualisation": {
+    "title": "% +/-",
+    "description": " ",
+    "type": "Number"
+  },
+  "columnNames": ["vs"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "description": "% +/-",
+          "decimalPlaces": 2,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": { "customMetricName": "Sales" },
+                    "value": {
+                      "counter": "Revenue"
+                    }
+                  },
+                  {
+                    "metric": { "customMetricName": "Sales" },
+                    "value": {
+                      "counter": "Revenue"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "value": -1,
+                        "unit": "Year",
+                        "relativeTo": "StartDate",
+                        "roundDown": null
+                      },
+                      "localEndDate": {
+                        "value": -1,
+                        "unit": "Year",
+                        "relativeTo": "EndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
