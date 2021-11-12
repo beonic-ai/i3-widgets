@@ -1,0 +1,63 @@
+{
+  "visualisation": {
+    "title": "Weekly Traffic and ATV",
+    "description": "Weekly traffic and ATV over the period.",
+    "type": "LinePlusBarChart",
+    "linePlusBarChartSettings": {
+      "gridLines": "always",
+      "showLegend": true,
+      "palette": "skyfii",
+      "columnSettings": {
+        "Traffic": { "axis": "left" },
+        "ATV": { "axis": "right" }
+      }
+    }
+  },
+  "columnNames": ["timestamp", "Traffic", "ATV"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Weekly"
+          }
+        },
+        {
+          "description": "Traffic",
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "decimalPlaces": 0
+        },
+        {
+          "description": "ATV (Sales / Transactions)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "unit": "dollars",
+          "decimalPlaces": 0
+        }
+      ]
+    }
+  ]
+}

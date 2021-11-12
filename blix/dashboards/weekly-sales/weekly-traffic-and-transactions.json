@@ -1,0 +1,48 @@
+{
+  "visualisation": {
+    "title": "Weekly Traffic and Transactions",
+    "description": "Weekly traffic and sales over the period.",
+    "type": "LinePlusBarChart",
+    "linePlusBarChartSettings": {
+      "gridLines": "always",
+      "showLegend": true,
+      "palette": "skyfii",
+      "columnSettings": {
+        "Traffic": { "axis": "left" },
+        "Transactions": { "axis": "right" }
+      }
+    }
+  },
+  "columnNames": ["timestamp", "Traffic", "Transactions"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Weekly"
+          }
+        },
+        {
+          "description": "Traffic",
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "decimalPlaces": 0
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Transactions"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

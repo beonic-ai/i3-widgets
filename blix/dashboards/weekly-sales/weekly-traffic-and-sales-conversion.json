@@ -1,0 +1,61 @@
+{
+  "visualisation": {
+    "title": "Weekly Traffic and Sales Conversion",
+    "description": "Weekly traffic and sales over the period.",
+    "type": "LinePlusBarChart",
+    "linePlusBarChartSettings": {
+      "gridLines": "always",
+      "showLegend": true,
+      "palette": "skyfii",
+      "columnSettings": {
+        "Traffic": { "axis": "left" },
+        "SalesConversion": { "axis": "right" }
+      }
+    }
+  },
+  "columnNames": ["timestamp", "Traffic", "SalesConversion"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Weekly"
+          }
+        },
+        {
+          "description": "Traffic",
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "decimalPlaces": 0
+        },
+        {
+          "description": "Sales Conversion (transactions / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        }
+      ]
+    }
+  ]
+}
