@@ -1,7 +1,7 @@
 {
   "visualisation": {
     "title": " ",
-    "description": "TODO",
+    "description": "Daily Sales Metrics",
     "type": "Table",
     "tableSettings": {
       "scrollOverflow": true

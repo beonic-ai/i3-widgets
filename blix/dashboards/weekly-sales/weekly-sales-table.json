@@ -1,0 +1,693 @@
+{
+  "visualisation": {
+    "title": " ",
+    "description": "Weekly Sales Metrics",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": [
+    "Metrics",
+    {
+      "name": "day",
+      "dimension": {
+        "timeBasedDimension": "Weekly"
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Traffic"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Traffic vs Previous Week"
+          }
+        },
+        {
+          "description": "Traffic vs",
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    }
+                  },
+                  {
+                    "metric": "BlixVisit",
+                    "value": {
+                      "counter": "total"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "value": -1,
+                        "unit": "Week",
+                        "relativeTo": "StartDate",
+                        "roundDown": null
+                      },
+                      "localEndDate": {
+                        "value": -1,
+                        "unit": "Week",
+                        "relativeTo": "EndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Transactions"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Transactions"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Transactions vs Previuos Week"
+          }
+        },
+        {
+          "description": "Transactions vs",
+          "decimalPlaces": 1,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": { "customMetricName": "Sales" },
+                    "value": {
+                      "counter": "Transactions"
+                    }
+                  },
+                  {
+                    "metric": { "customMetricName": "Sales" },
+                    "value": {
+                      "counter": "Transactions"
+                    },
+
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "value": -1,
+                        "unit": "Week",
+                        "relativeTo": "StartDate",
+                        "roundDown": null
+                      },
+                      "localEndDate": {
+                        "value": -1,
+                        "unit": "Week",
+                        "relativeTo": "EndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Sales"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars"
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Sales vs Previous Week"
+          }
+        },
+        {
+          "description": "Sales vs Previous Week",
+          "decimalPlaces": 2,
+          "unit": "percentage",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "metric": { "customMetricName": "Sales" },
+                    "value": {
+                      "counter": "Revenue"
+                    }
+                  },
+                  {
+                    "metric": { "customMetricName": "Sales" },
+                    "value": {
+                      "counter": "Revenue"
+                    },
+                    "dateRangeOverride": {
+                      "localStartDate": {
+                        "value": -1,
+                        "unit": "Week",
+                        "relativeTo": "StartDate",
+                        "roundDown": null
+                      },
+                      "localEndDate": {
+                        "value": -1,
+                        "unit": "Week",
+                        "relativeTo": "EndDate"
+                      }
+                    }
+                  }
+                ]
+              },
+              1.0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "ATV"
+          }
+        },
+        {
+          "description": "ATV (Sales / Transactions)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          },
+          "unit": "dollars",
+          "decimalPlaces": 0
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "ATV vs Previous Week"
+          }
+        },
+        {
+          "description": "ATV Versus",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": { "customMetricName": "Sales" },
+                        "value": {
+                          "counter": "Revenue"
+                        }
+                      },
+                      {
+                        "metric": { "customMetricName": "Sales" },
+                        "value": {
+                          "counter": "Transactions"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": { "customMetricName": "Sales" },
+                        "value": {
+                          "counter": "Revenue"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "StartDate",
+                            "roundDown": null
+                          },
+                          "localEndDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "EndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": { "customMetricName": "Sales" },
+                        "value": {
+                          "counter": "Transactions"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "StartDate",
+                            "roundDown": null
+                          },
+                          "localEndDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "EndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "IPT"
+          }
+        },
+        {
+          "description": "IPT (Items / Transactions)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Items"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 1
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "IPT vs Previous Week"
+          }
+        },
+        {
+          "description": "IPT vs",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "value": {
+                          "counter": "Items"
+                        }
+                      },
+                      {
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "value": {
+                          "counter": "Transactions"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "value": {
+                          "counter": "Items"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "StartDate",
+                            "roundDown": null
+                          },
+                          "localEndDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "EndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "value": {
+                          "counter": "Transactions"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "StartDate",
+                            "roundDown": null
+                          },
+                          "localEndDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "EndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Sales Conversion"
+          }
+        },
+        {
+          "description": "Sales Conversion (transactions / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Sales Conversion vs Previous Week"
+          }
+        },
+        {
+          "description": "Sales Conversion Versus",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "value": {
+                          "counter": "Transactions"
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "value": {
+                          "counter": "Transactions"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "StartDate",
+                            "roundDown": null
+                          },
+                          "localEndDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "EndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "StartDate",
+                            "roundDown": null
+                          },
+                          "localEndDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "EndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Staff: Customer Ratio"
+          }
+        },
+        {
+          "description": "Customer / Staff",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Roster"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Staff: Customer Ratio vs Previous Week"
+          }
+        },
+        {
+          "description": "Customers / Staff (vs)",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        }
+                      },
+                      {
+                        "metric": { "customMetricName": "Sales" },
+                        "value": {
+                          "counter": "Revenue"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "StartDate",
+                            "roundDown": null
+                          },
+                          "localEndDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "EndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": { "customMetricName": "Sales" },
+                        "value": {
+                          "counter": "Revenue"
+                        },
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "StartDate",
+                            "roundDown": null
+                          },
+                          "localEndDate": {
+                            "value": -1,
+                            "unit": "Week",
+                            "relativeTo": "EndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        }
+      ]
+    }
+  ]
+}
