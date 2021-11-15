@@ -1,0 +1,45 @@
+{
+  "visualisation": {
+    "title": "Staff Customer Ratio",
+    "description": "Number of Customers per Staff member per day of the week for the period.",
+    "type": "BarChart",
+    "barChartSettings": {
+      "showLegend": false,
+      "gridLines": "always"
+    }
+  },
+  "columnNames": ["date", "CustomerPerStaff"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeek",
+            "format": "Short"
+          }
+        },
+        {
+          "description": "Customer / Staff",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Roster"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
