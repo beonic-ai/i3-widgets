@@ -1,0 +1,111 @@
+{
+  "visualisation": {
+    "title": "Labour Optimisation",
+    "description": "Shows the percentage of rostered staff hours, sales revenue and visitor traffic for each day during the period.",
+    "type": "LineChart",
+    "lineChartSettings": {
+      "gridLines": "always",
+      "showLegend": true,
+      "palette": "indigo"
+    }
+  },
+  "columnNames": ["Date", "Hours %", "Sales %", "Traffic %"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Roster"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Roster"
+                },
+                "aggregateAcross": [
+                  {
+                    "timeBasedDimension": "Daily"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                },
+                "aggregateAcross": [
+                  {
+                    "timeBasedDimension": "Daily"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "aggregateAcross": [
+                  {
+                    "timeBasedDimension": "Daily"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ]
+}
