@@ -1,0 +1,52 @@
+{
+  "visualisation": {
+    "title": "displayAs demo",
+    "description": "Display the venue country code and country name",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": [
+    "Location",
+    "Location CountryCode",
+    "Location Country Name",
+    "Sales"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "dimension": {
+            "key": "venueId",
+            "displayAs": { "country": "IsoAlpha2" }
+          }
+        },
+        {
+          "dimension": {
+            "key": "venueId",
+            "displayAs": { "country": "Name" }
+          }
+        },
+        {
+          "description": "Sales",
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ]
+}
