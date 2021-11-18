@@ -1,0 +1,52 @@
+{
+  "visualisation": {
+    "title": "Aggregate acrosss rows example",
+    "description": "for each row compute the daily percentage of Revenue / total_revenue_for_period",
+    "type": "Table"
+  },
+  "columnNames": ["Date", "Revenue %"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                },
+                "aggregateAcross": [
+                  {
+                    "timeBasedDimension": "Daily"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ]
+}

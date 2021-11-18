@@ -1,0 +1,79 @@
+{
+  "visualisation": {
+    "title": "Aggregate acrosss columns example",
+    "description": "Two rows, first row is the Sales and second is the Sales Percentage, where for each column we compute the daily percentage of Revenue / total_revenue_for_period",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": [
+    "Metrics",
+    {
+      "name": "day",
+      "dimension": {
+        "timeBasedDimension": "Daily"
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Sales"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            },
+            "unit": "dollars"
+          }
+        }
+      ]
+    },
+    {
+      "columns": [
+        {
+          "string": {
+            "value": "Sales Percentage"
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Revenue"
+                },
+                "aggregateAcross": [
+                  {
+                    "timeBasedDimension": "Daily"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ]
+}
