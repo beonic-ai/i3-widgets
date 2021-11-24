@@ -1,0 +1,56 @@
+{
+  "visualisation": {
+    "title": "Many Metrics Table",
+    "description": "",
+    "type": "Table"
+  },
+  "filterOverrides": null,
+  "columnNames": ["timestamp", "traffic", "sales", "transactions", "roster"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": { "customMetricName": "Sales" },
+            "value": {
+              "counter": "Revenue"
+            },
+            "unit": "dollars",
+            "decimalPlaces": 2
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": { "customMetricName": "Sales" },
+            "value": {
+              "counter": "Transactions"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": { "customMetricName": "Sales" },
+            "value": {
+              "counter": "Roster"
+            }
+          },
+          "minDecimalPlaces": 4,
+          "decimalPlaces": 4
+        }
+      ]
+    }
+  ]
+}

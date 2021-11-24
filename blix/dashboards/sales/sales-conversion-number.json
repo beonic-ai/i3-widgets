@@ -1,9 +1,9 @@
 {
-  "columnNames": ["conversion", "versus"],
+  "columnNames": ["conversion", "versus", "delta"],
   "visualisation": {
     "type": "Number",
-    "title": "Sales Conversion",
-    "description": "The sales conversion (transactions/visit) for the period."
+    "title": "Current Period",
+    "description": "The sales conversion (transactions per visit) for the period."
   },
   "rowSets": [
     {
@@ -67,6 +67,74 @@
           },
           "unit": "percentage",
           "decimalPlaces": 2
+        },
+        {
+          "description": "Sales Conversion Versus",
+          "numericExpression": {
+            "$subtract": [
+              {
+                "$divide": [
+                  {
+                    "$divide": [
+                      {
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "value": {
+                          "counter": "Transactions"
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$divide": [
+                      {
+                        "metric": {
+                          "customMetricName": "Sales"
+                        },
+                        "value": {
+                          "counter": "Transactions"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      },
+                      {
+                        "metric": "BlixVisit",
+                        "value": {
+                          "counter": "total"
+                        },
+
+                        "dateRangeOverride": {
+                          "localStartDate": {
+                            "paramRef": "SecondaryStartDate"
+                          },
+                          "localEndDate": {
+                            "paramRef": "SecondaryEndDate"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              1.0
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
         }
       ]
     }
