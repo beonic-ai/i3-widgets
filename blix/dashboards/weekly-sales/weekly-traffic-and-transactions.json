@@ -2,14 +2,14 @@
   "visualisation": {
     "title": "Weekly Traffic and Transactions",
     "description": "Weekly traffic and sales over the period.",
-    "type": "LinePlusBarChart",
-    "linePlusBarChartSettings": {
+    "type": "MultiChart",
+    "multiChartSettings": {
       "gridLines": "always",
       "showLegend": true,
-      "palette": "skyfii",
+      "palette": "red",
       "columnSettings": {
-        "Traffic": { "axis": "left" },
-        "Transactions": { "axis": "right" }
+        "Traffic": { "axis": "left", "type": "bar" },
+        "Transactions": { "axis": "right", "type": "line" }
       }
     }
   },

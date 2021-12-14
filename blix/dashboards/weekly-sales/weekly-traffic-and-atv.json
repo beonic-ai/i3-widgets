@@ -2,14 +2,14 @@
   "visualisation": {
     "title": "Weekly Traffic and ATV",
     "description": "Weekly traffic and ATV over the period.",
-    "type": "LinePlusBarChart",
-    "linePlusBarChartSettings": {
+    "type": "MultiChart",
+    "multiChartSettings": {
       "gridLines": "always",
       "showLegend": true,
-      "palette": "skyfii",
+      "palette": "red",
       "columnSettings": {
-        "Traffic": { "axis": "left" },
-        "ATV": { "axis": "right" }
+        "Traffic": { "axis": "left", "type": "bar" },
+        "ATV": { "axis": "right", "type": "line" }
       }
     }
   },
