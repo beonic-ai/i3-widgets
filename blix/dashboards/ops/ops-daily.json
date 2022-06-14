@@ -1,0 +1,160 @@
+{
+  "visualisation": {
+    "title": " ",
+    "description": "todo",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": [
+    "Location",
+    "Date",
+    "Walkbys",
+    "Visits",
+    "Avg Visit Duration",
+    "Bounce Rate",
+    "Transactions",
+    "Revenue",
+    "Sales Conversion",
+    "Staff Hours"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "dimension": {
+            "timeBasedDimension": "Hourly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixWalkby",
+            "value": {
+              "counter": "total"
+            },
+            "unit": "number"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            },
+            "unit": "number"
+          }
+        },
+        {
+          "description": "(Average) Dwell Time (seconds) (total dwell / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 0,
+          "unit": "duration"
+        },
+        {
+          "description": "Bounce Rate",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "segment": {
+                  "dimension": "BOUNCE",
+                  "segment": "bounce"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 2,
+          "unit": "percentage"
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Transactions"
+            }
+          }
+        },
+        {
+          "description": "Revenue",
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
+        },
+        {
+          "description": "Sales Conversion (transactions / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Roster"
+            }
+          },
+
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ]
+}
