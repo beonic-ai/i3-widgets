@@ -1,0 +1,58 @@
+{
+  "visualisation": {
+    "title": " ",
+    "description": "Shows the transactions and revenue by day for the period.",
+    "type": "MultiChart",
+    "multiChartSettings": {
+      "gridLines": "always",
+      "showLegend": true,
+      "palette": "red",
+      "showBarValues": true,
+      "columnSettings": {
+        "Transactions": {
+          "axis": "left",
+          "type": "line"
+        },
+        "Revenue": {
+          "axis": "right",
+          "type": "line"
+        }
+      }
+    }
+  },
+  "columnNames": ["date", "Transactions", "Revenue"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Hourly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Transactions"
+            }
+          }
+        },
+        {
+          "description": "Revenue",
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ]
+}

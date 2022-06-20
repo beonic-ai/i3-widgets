@@ -1,0 +1,44 @@
+{
+  "visualisation": {
+    "title": "Avg Visit Duration",
+    "description": "Shows the average visit duration for the period.",
+    "type": "LineChart",
+    "lineChartSettings": {
+      "gridLines": "none",
+      "showLegend": false,
+      "hideAxis": false
+    }
+  },
+  "columnNames": ["date", "Avg Visit Duration"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Hourly"
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "dwell"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "duration",
+          "decimalPlaces": 0
+        }
+      ]
+    }
+  ]
+}

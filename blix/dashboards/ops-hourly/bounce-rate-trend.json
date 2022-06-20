@@ -1,0 +1,49 @@
+{
+  "visualisation": {
+    "title": "Bounce Rate",
+    "description": "Shows the bounce rate for the period.",
+    "type": "LineChart",
+    "lineChartSettings": {
+      "gridLines": "none",
+      "showLegend": false,
+      "hideAxis": false
+    }
+  },
+  "columnNames": ["date", "Bounce Rate"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Hourly"
+          }
+        },
+        {
+          "description": "Bounce Rate",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                },
+                "segment": {
+                  "dimension": "BOUNCE",
+                  "segment": "bounce"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "decimalPlaces": 2,
+          "unit": "percentage"
+        }
+      ]
+    }
+  ]
+}

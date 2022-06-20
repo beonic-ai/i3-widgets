@@ -1,0 +1,47 @@
+{
+  "visualisation": {
+    "title": "Sales Conversion",
+    "description": "Shows the sales conversion rate for the period.",
+    "type": "LineChart",
+    "lineChartSettings": {
+      "gridLines": "none",
+      "showLegend": false,
+      "hideAxis": false
+    }
+  },
+  "columnNames": ["date", "Sales Conversion"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Hourly"
+          }
+        },
+        {
+          "description": "Sales Conversion (transactions / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": {
+                  "customMetricName": "Sales"
+                },
+                "value": {
+                  "counter": "Transactions"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 1
+        }
+      ]
+    }
+  ]
+}

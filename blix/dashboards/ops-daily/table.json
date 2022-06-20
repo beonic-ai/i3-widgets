@@ -1,7 +1,7 @@
 {
   "visualisation": {
     "title": " ",
-    "description": "todo",
+    "description": "ops daily metrics",
     "type": "Table",
     "tableSettings": {
       "scrollOverflow": true
@@ -16,8 +16,7 @@
     "Bounce Rate",
     "Transactions",
     "Revenue",
-    "Sales Conversion",
-    "Staff Hours"
+    "Sales Conversion"
   ],
   "rowSets": [
     {
@@ -29,7 +28,7 @@
         },
         {
           "dimension": {
-            "timeBasedDimension": "Hourly"
+            "timeBasedDimension": "Daily"
           }
         },
         {
@@ -141,18 +140,6 @@
           },
           "unit": "percentage",
           "decimalPlaces": 1
-        },
-        {
-          "numericExpression": {
-            "metric": {
-              "customMetricName": "Sales"
-            },
-            "value": {
-              "counter": "Roster"
-            }
-          },
-
-          "decimalPlaces": 2
         }
       ]
     }

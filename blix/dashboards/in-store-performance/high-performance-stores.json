@@ -1,0 +1,104 @@
+{
+  "TODO": "Add Ranking formula and Averages",
+  "visualisation": {
+    "title": "High Performance Stores",
+    "description": "Stores with high in-store performance and high traffic.  All values shown in this report are daily averages.",
+    "type": "Table",
+    "tableSettings": {
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": ["Location", "Traffic", "Trans", "Sales", "Conv", "Yield"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "description": "Traffic",
+          "numericExpression": {
+            "metric": "BlixVisit",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 2
+          }
+        },
+        {
+          "description": "Trans",
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Transactions"
+            }
+          }
+        },
+        {
+          "description": "Sales",
+          "numericExpression": {
+            "metric": {
+              "customMetricName": "Sales"
+            },
+            "value": {
+              "counter": "Revenue"
+            }
+          },
+          "unit": "dollars",
+          "decimalPlaces": 2
+        },
+        {
+          "description": "Sales Conversion (transactions / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": { "customMetricName": "Sales" },
+                "value": {
+                  "counter": "Transactions"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        },
+        {
+          "description": "Yield (revenue / traffic)",
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": { "customMetricName": "Sales" },
+                "value": {
+                  "counter": "Revenue"
+                }
+              },
+              {
+                "metric": "BlixVisit",
+                "value": {
+                  "counter": "total"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
