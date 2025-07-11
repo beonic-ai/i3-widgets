@@ -1,0 +1,72 @@
+{
+  "columnNames": [
+    "gender",
+    "count",
+    "total",
+    "percentage"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "gender"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            },
+            "aggregateAcross": [
+              {
+                "key": "gender"
+              }
+            ]
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "UserProfilesNow",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": "UserProfilesNow",
+                "value": {
+                  "counter": "total"
+                },
+                "aggregateAcross": [
+                  {
+                    "key": "gender"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations"
+    },
+    "type": "Table",
+    "title": "Gender Stats"
+  }
+}

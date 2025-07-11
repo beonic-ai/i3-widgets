@@ -1,0 +1,45 @@
+{
+  "columnNames": [
+    "Count"
+  ],
+  "keyAliases": {
+    "extendedAttribute:551": [
+      "ACP - Visitor"
+    ],
+    "gender": [
+      "MALE"
+    ],
+    "postcode": [
+      "5000"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Group registrations by Single Choice Extended Attribute answers"
+    },
+    "type": "Number",
+    "title": "ACP - Visitor AND Gender:MALE AND postcode:5000",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

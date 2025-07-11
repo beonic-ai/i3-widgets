@@ -1,0 +1,31 @@
+{
+  "keyAliases": {
+    "gender": [
+      "MALE"
+    ]
+  },
+  "columnNames": [
+    "Males"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count Male registrations"
+    },
+    "type": "Number",
+    "title": "M"
+  }
+}

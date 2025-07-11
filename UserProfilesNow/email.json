@@ -1,0 +1,32 @@
+{
+  "keyAliases": {
+    "hasEmail": [
+      "true"
+    ],
+    "status": ["subscribed"]
+  },
+  "columnNames": [
+    "Email"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Subscribed registrations with Email"
+    },
+    "type": "Number",
+    "title": "Email"
+  }
+}

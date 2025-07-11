@@ -1,0 +1,46 @@
+{
+  "columnNames": [
+    "Postcode",
+    "Count"
+  ],
+  "keyAliases": {
+    "country": [
+      "Australia"
+    ],
+    "state": ["new south wales"]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "postcode"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by NSW Postcodes"
+    },
+    "type": "Table",
+    "title": "Postcodes",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

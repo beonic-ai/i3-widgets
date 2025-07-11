@@ -1,0 +1,42 @@
+{
+  "columnNames": [
+    "Year",
+    "Count"
+  ],
+  
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "yearOfBirth"
+          },
+          
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Year of Birth"
+    },
+    "type": "Table",
+    "title": "Year of Birth",
+    "tableSettings": {
+      "paginate": true,
+      "scrollOverflow": true
+    }
+  }
+}

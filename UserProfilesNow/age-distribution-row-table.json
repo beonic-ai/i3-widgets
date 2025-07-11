@@ -1,0 +1,42 @@
+{
+  "visualisation": {
+    "type": "Table",
+    "title": "Table",
+    "description": {
+      "html": "A table"
+    },
+    "imageFile": "",
+    "tableSettings": {
+      "columnSettings": {},
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": [
+   "age",
+   "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "segment": "AGE"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesRegistrationGroup",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

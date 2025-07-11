@@ -1,0 +1,40 @@
+{
+  "columnNames": [
+    "Status",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "status"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Registration Status"
+    },
+    "type": "PieChart",
+    "title": "Registration Status",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

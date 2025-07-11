@@ -1,0 +1,55 @@
+{
+  "keyAliases": {
+    "gender": [
+      "MALE",
+      "FEMALE"
+    ]
+  },
+  "columnNames": [
+    "gender",
+    "percentage"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "gender"
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "UserProfilesNow",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": "UserProfilesNow",
+                "value": {
+                  "counter": "total"
+                },
+                "aggregateAcross": [
+                  {
+                    "key": "gender"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Percentages of Males and Females"
+    },
+    "type": "MultiNumber",
+    "title": "Gender Composition"
+  }
+}

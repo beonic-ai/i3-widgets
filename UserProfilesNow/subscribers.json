@@ -1,0 +1,45 @@
+{
+  "columnNames": [
+    "Status",
+    "Count"
+  ],
+  "keyAliases": {
+    "status": [
+      "subscribed"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "mlSub"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Opted-in Subscribers by Marketing List (and registration status is subscribed)"
+    },
+    "type": "Table",
+    "title": "Subscribers",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

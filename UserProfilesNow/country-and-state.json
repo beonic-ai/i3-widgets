@@ -1,0 +1,52 @@
+{
+  "columnNames": [
+    "Country",
+    "State",
+    "Count"
+  ],
+  "keyAliases": {
+    "country": ["Australia", "United States"]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "country"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "dimension": {
+            "key": "state"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 2
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by country and state"
+    },
+    "type": "Table",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

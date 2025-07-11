@@ -1,0 +1,42 @@
+{
+  "columnNames": [
+    "Device Category",
+    "Count"
+  ],
+  "keyAliases": {
+    "country": [
+      "Australia",
+      "United States"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "deviceCategory"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Device categories"
+    },
+    "type": "PieChart",
+    "title": "Device Category"
+  }
+}

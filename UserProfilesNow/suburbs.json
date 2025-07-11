@@ -1,0 +1,45 @@
+{
+  "columnNames": [
+    "Suburbs",
+    "Count"
+  ],
+  "keyAliases": {
+    "country": [
+      "Australia"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "suburb"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by Australian Suburbs"
+    },
+    "type": "PieChart",
+    "title": "Suburbs",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

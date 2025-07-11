@@ -1,0 +1,43 @@
+{
+  "columnNames": [
+    "Status",
+    "Count"
+  ],
+  "keyAliases": {
+    "status": ["subscribed", "unsubscribed"]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "ml"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Subscribed and Unsubscribed users by Marketing List (and registration status is subscribed)"
+    },
+    "type": "Table",
+    "title": "List Size",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

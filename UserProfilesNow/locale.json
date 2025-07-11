@@ -1,0 +1,45 @@
+{
+  "columnNames": [
+    "Locale",
+    "Count"
+  ],
+  "keyAliases": {
+    "language": [
+      "zh",
+      "de",
+      "fr",
+      "nl",
+      "it"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "locale"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Top 5 non-english locale"
+    },
+    "type": "PieChart",
+    "title": "Non-English Languages"
+  }
+}

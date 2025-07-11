@@ -1,0 +1,49 @@
+{
+  "columnNames": [
+    "Answer",
+    "Gender",
+    "Count"
+  ],
+  "keyAliases": {
+    "extendedAttribute:551": ["ACP Local Resident"]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "extendedAttribute:551"
+          }
+        },
+        {
+          "dimension": {
+            "key": "country"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Group registrations by Single Choice Extended Attribute answers"
+    },
+    "type": "Table",
+    "title": "Single Choice Attribute",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

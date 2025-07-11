@@ -1,0 +1,55 @@
+{
+  "columnNames": [
+    "Country",
+    "Calling Code",
+    "Count"
+  ],
+  "keyAliases2": {
+    "country": [
+      "Australia"
+    ],
+    "state": [
+      "new south wales"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "country"
+          }
+        },
+        {
+          "dimension": {
+            "key": "countryCallingCode"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          },
+          
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by County Calling Code"
+    },
+    "type": "Table",
+    "title": "Country Calling Codes",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

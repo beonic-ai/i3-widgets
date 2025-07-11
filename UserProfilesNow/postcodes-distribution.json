@@ -1,0 +1,100 @@
+{
+  "columnNames": ["Postcode", "Count", "total", "ratio"],
+  "keyAliases": {
+    "country": ["Australia"],
+    "postcode": [
+      "5000",
+      "5082",
+      "5066",
+      "5067",
+      "5085",
+      "5006",
+      "5072",
+      "5065",
+      "5063",
+      "5070",
+      "5073",
+      "5068",
+      "5061",
+      "5062",
+      "5081",
+      "5069",
+      "5008",
+      "5064",
+      "5031",
+      "5022"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "postcode"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            },
+            "aggregateAcross": [
+              {
+                "key": "postcode"
+              }
+            ]
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "UserProfilesNow",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": "UserProfilesNow",
+                "value": {
+                  "counter": "total"
+                },
+                "aggregateAcross": [
+                  {
+                    "key": "postcode"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Postcode "
+    },
+    "type": "Table",
+    "title": "Postcodes",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
