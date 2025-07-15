@@ -1,0 +1,36 @@
+{
+  "keyAliases": {
+    "c0": {
+      "entity": "Campaign",
+      "ids": [
+        "9641",
+        "9642",
+        "9643"
+      ]
+    }
+  },
+  "columnNames": [
+    "total"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfileCampaignEvents",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count campaign events"
+    },
+    "type": "Number",
+    "title": "campaign events"
+  }
+}

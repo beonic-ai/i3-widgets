@@ -1,0 +1,60 @@
+{
+  "columnNames": [
+    "Campaign",
+    "Postcode",
+    "Count"
+  ],
+  "keyAliases": {
+    "c0": {
+      "entity": "Campaign",
+      "ids": [
+        "9641",
+        "9642",
+        "9643"
+      ]
+    }
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "campaign"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "dimension": {
+            "key": "postcode"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 2
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileCampaignEvents",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Campaigns and postcodes of the registrations engaging with them"
+    },
+    "type": "Table",
+    "title": "Campaign Postcodes",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

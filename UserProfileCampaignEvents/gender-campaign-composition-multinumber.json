@@ -1,0 +1,59 @@
+{
+  "keyAliases": {
+    "c0": {
+      "entity": "Campaign",
+      "ids": [
+        "9641",
+        "9642",
+        "9643"
+      ]
+    }
+  },
+  "columnNames": [
+    "gender",
+    "percentage"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "gender"
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "UserProfileCampaignEvents",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": "UserProfileCampaignEvents",
+                "value": {
+                  "counter": "total"
+                },
+                "aggregateAcross": [
+                  {
+                    "key": "gender"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Percentages of Males and Females"
+    },
+    "type": "MultiNumber",
+    "title": "Gender Composition"
+  }
+}
