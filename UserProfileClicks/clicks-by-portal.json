@@ -1,0 +1,40 @@
+{
+  "columnNames": [
+    "Portal",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "portal"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileClicks",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": ""
+    },
+    "type": "Table",
+    "title": "Clicks by Portal",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

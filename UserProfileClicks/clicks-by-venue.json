@@ -1,0 +1,40 @@
+{
+  "columnNames": [
+    "Venue",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileClicks",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": ""
+    },
+    "type": "Table",
+    "title": "Auto Campaign Clicks by Venue",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

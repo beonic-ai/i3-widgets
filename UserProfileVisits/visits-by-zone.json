@@ -1,0 +1,37 @@
+{
+  "columnNames": ["Primary Zone", "Count"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "zoneId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": ""
+    },
+    "type": "Table",
+    "title": "Primary Zone Visits",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

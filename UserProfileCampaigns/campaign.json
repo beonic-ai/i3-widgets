@@ -17,7 +17,7 @@
       "columns": [
         {
           "numericExpression": {
-            "metric": "UserProfileCampaignEvents",
+            "metric": "UserProfileCampaigns",
             "value": {
               "counter": "total"
             }

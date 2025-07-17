@@ -1,0 +1,50 @@
+{
+  "columnNames": [
+    "Campaign",
+    "Count"
+  ],
+  "keyAliases": {
+    "c0": {
+      "entity": "Campaign",
+      "ids": [
+        "9641",
+        "9642",
+        "9643"
+      ]
+    }
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "campaignEventType"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileCampaigns",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": ""
+    },
+    "type": "Table",
+    "title": "campaigns",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

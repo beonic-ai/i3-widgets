@@ -1,0 +1,56 @@
+{
+  "columnNames": [
+    "Venue",
+    "OS",
+    "Count"
+  ],
+  "keyAliases": {
+    "osCategory": [
+      "Android",
+      "IOS_OSX"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "dimension": {
+            "key": "osCategory"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 2
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "OS categories"
+    },
+    "type": "Table",
+    "title": "OS Category (Android & Apple)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

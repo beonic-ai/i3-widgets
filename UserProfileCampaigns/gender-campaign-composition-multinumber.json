@@ -25,13 +25,13 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": "UserProfileCampaignEvents",
+                "metric": "UserProfileCampaigns",
                 "value": {
                   "counter": "total"
                 }
               },
               {
-                "metric": "UserProfileCampaignEvents",
+                "metric": "UserProfileCampaigns",
                 "value": {
                   "counter": "total"
                 },

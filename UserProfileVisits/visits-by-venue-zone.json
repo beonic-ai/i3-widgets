@@ -1,0 +1,50 @@
+{
+  "columnNames": [
+    "Venue",
+    "Primary Zone",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "dimension": {
+            "key": "zoneId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 2
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Zone visit counts"
+    },
+    "type": "Table",
+    "title": "Primary Zone Visits",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

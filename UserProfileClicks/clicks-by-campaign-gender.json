@@ -1,0 +1,60 @@
+{
+  "columnNames": [
+    "Campaign",
+    "Postcode",
+    "Count"
+  ],
+  "keyAliases": {
+
+    "postcode": [
+      "5000",
+      "5082",
+      "5085",
+      "5066",
+      "5067"
+      ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "campaign"
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        },
+        {
+          "dimension": {
+            "key": "gender"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileClicks",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 2
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": ""
+    },
+    "type": "Table",
+    "title": "Campaign Clickers by Gender (postcodes 5000,5082,5085,5066,5067)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

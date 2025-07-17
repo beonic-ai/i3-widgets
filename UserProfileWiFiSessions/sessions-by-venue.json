@@ -1,36 +1,23 @@
 {
-  "columnNames": [
-    "Campaign",
-    "Count"
-  ],
-  "keyAliases": {
-    "c0": {
-      "entity": "Campaign",
-      "ids": [
-        "9641",
-        "9642",
-        "9643"
-      ]
-    }
-  },
+  "columnNames": ["Venue", "Count"],
   "rowSets": [
     {
       "columns": [
         {
           "dimension": {
-            "key": "campaignEventType"
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
           }
         },
         {
           "numericExpression": {
-            "metric": "UserProfileCampaignEvents",
+            "metric": "UserProfileWiFiSessions",
             "value": {
               "counter": "total"
             }
-          },
-          "sortSpecification": {
-            "ascending": false,
-            "priority": 1
           }
         }
       ]
@@ -41,7 +28,7 @@
       "html": ""
     },
     "type": "Table",
-    "title": "campaigns",
+    "title": "Sessions",
     "tableSettings": {
       "paginate": false,
       "scrollOverflow": true

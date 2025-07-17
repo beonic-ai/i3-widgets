@@ -1,0 +1,59 @@
+{
+  "columnNames": [
+    "Venue",
+    "postcode",
+    "Count"
+  ],
+  "keyAliases": {
+    "postcode": [     
+      "5000",
+      "5082",
+      "5085",
+      "5066",
+      "5067"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "dimension": {
+            "key": "postcode"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 2
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count visits to a venue by visitor's postcode (only top 5 South Australia postcodes)"
+    },
+    "type": "Table",
+    "title": "visits",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
