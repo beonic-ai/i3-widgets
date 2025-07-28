@@ -1,0 +1,38 @@
+{
+  "visualisation": {
+    "type": "Table",
+    "title": "Gender Distribution (columns, missing values)",
+    "description": {
+      "html": "Demo grouping gender into columns.  Missing values are included."
+    },
+    "imageFile": "",
+    "tableSettings": {
+      "columnSettings": {},
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  },
+  "columnNames": [
+    {
+      "name": "gender",
+      "dimension": {
+        "key": "gender",
+        "missing": true
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

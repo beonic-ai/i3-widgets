@@ -1,27 +1,15 @@
 {
-  "visualisation": {
-    "type": "Table",
-    "title": "Table",
-    "description": {
-      "html": "A table"
-    },
-    "imageFile": "",
-    "tableSettings": {
-      "columnSettings": {},
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  },
   "columnNames": [
-   "age",
-   "count"
+    "Primary Zone",
+    "Count"
   ],
   "rowSets": [
     {
       "columns": [
         {
           "dimension": {
-            "segment": "AGE"
+            "key": "zoneId",
+            "missing": true
           },
           "sortSpecification": {
             "ascending": true,
@@ -30,7 +18,7 @@
         },
         {
           "numericExpression": {
-            "metric": "UserProfilesRegistrationGroup",
+            "metric": "UserProfileVisits",
             "value": {
               "counter": "total"
             }
@@ -38,5 +26,16 @@
         }
       ]
     }
-  ]
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Zone visit counts"
+    },
+    "type": "Table",
+    "title": "Primary Zone Visits",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
 }

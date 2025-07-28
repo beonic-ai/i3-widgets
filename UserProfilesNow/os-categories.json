@@ -1,12 +1,12 @@
 {
   "columnNames": [
-    "Device Category",
+    "OS",
     "Count"
   ],
   "keyAliases": {
-    "country": [
-      "Australia",
-      "United States"
+    "osCategory": [
+      "Android",
+      "IOS_OSX"
     ]
   },
   "rowSets": [
@@ -14,7 +14,7 @@
       "columns": [
         {
           "dimension": {
-            "key": "deviceCategory"
+            "key": "osCategory"
           },
           "sortSpecification": {
             "ascending": true,
@@ -34,9 +34,9 @@
   ],
   "visualisation": {
     "description": {
-      "html": "Device categories"
+      "html": "OS categories"
     },
-    "type": "PieChart",
-    "title": "Device Category"
+    "type": "Table",
+    "title": "OS Category (Android & Apple)"
   }
 }

@@ -1,5 +1,8 @@
 {
-  "columnNames": ["Primary Zone", "Count"],
+  "columnNames": [
+    "Primary Zone",
+    "Count"
+  ],
   "rowSets": [
     {
       "columns": [
@@ -25,7 +28,7 @@
   ],
   "visualisation": {
     "description": {
-      "html": ""
+      "html": "Zone visit counts"
     },
     "type": "Table",
     "title": "Primary Zone Visits",

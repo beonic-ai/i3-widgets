@@ -3,16 +3,6 @@
     "Campaign",
     "Count"
   ],
-  "keyAliases": {
-    "c0": {
-      "entity": "Campaign",
-      "ids": [
-        "9641",
-        "9642",
-        "9643"
-      ]
-    }
-  },
   "rowSets": [
     {
       "columns": [
