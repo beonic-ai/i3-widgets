@@ -1,0 +1,46 @@
+{
+  "columnNames": [
+    "Venue",
+    {
+      "name": "gender",
+      "dimension": {
+        "key": "gender",
+        "missing": true
+      }
+    }
+  ],  
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count visits to a venue by visitor's gender"
+    },
+    "type": "Table",
+    "title": "Gender Visitors",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

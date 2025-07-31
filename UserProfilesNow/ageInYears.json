@@ -1,0 +1,40 @@
+{
+  "columnNames": [
+    "Age in Years",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "ageInYears"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Age in Years"
+    },
+    "type": "BarChart",
+    "title": "Age in Years",
+    "tableSettings": {
+      "paginate": true,
+      "scrollOverflow": true
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "columnNames": [
+    "Venue",
+    "Zone",
+    "Count"
+  ],
+  "keyAliases": {},
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "dimension": {
+            "key": "zoneId",
+            "missing": true
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileCampaigns",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count the regos that triggered a campaign in a zone"
+    },
+    "type": "Table",
+    "title": "Auto Triggered by Venue and Zone",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

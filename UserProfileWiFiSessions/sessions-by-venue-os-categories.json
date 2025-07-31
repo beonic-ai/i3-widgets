@@ -1,8 +1,12 @@
 {
   "columnNames": [
     "Venue",
-    "OS",
-    "Count"
+    {
+      "name": "osCategory",
+      "dimension": {
+        "key": "osCategory"
+      }
+    }
   ],
   "keyAliases": {
     "osCategory": [
@@ -20,15 +24,6 @@
           "sortSpecification": {
             "ascending": true,
             "priority": 1
-          }
-        },
-        {
-          "dimension": {
-            "key": "osCategory"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 2
           }
         },
         {

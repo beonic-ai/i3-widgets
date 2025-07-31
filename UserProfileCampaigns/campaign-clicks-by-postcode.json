@@ -1,0 +1,81 @@
+{
+  "keyAliases": {
+    "country": [
+      "Australia"
+    ],
+    "postcode": [
+      "5000",
+      "5085",
+      "5062",
+      "5008",
+      "5022"
+    ],
+    "campaignEventType": [    
+      "CLICKED"
+    ]
+  },
+  "columnNames": [
+    "Postcode",
+    "Clicked",
+    "Postcode Click Ratio"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "postcode"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileCampaigns",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "$divide": [
+              {
+                "metric": "UserProfileCampaigns",
+                "value": {
+                  "counter": "total"
+                }
+              },
+              {
+                "metric": "UserProfileCampaigns",
+                "value": {
+                  "counter": "total"
+                },
+                "aggregateAcross": [
+                  {
+                    "key": "postcode"
+                  }
+                ]
+              }
+            ]
+          },
+          "unit": "percentage",
+          "decimalPlaces": 2
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "For the given 5 postcodes, count the number of regos that clicked a campaign"
+    },
+    "type": "Table",
+    "title": "Selected Postcode Clicks",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
