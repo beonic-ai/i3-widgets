@@ -48,3 +48,6 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Generated analysis cache files
+*.txt
+

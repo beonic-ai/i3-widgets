@@ -3,7 +3,6 @@ This document contains example widget definitions using the Beonic Insights 3.0 
 ## UserProfileCampaigns
 #### Postcode Clicks
 Count the number of regos that clicked a campaign
-**Visualization Preview:** Shows geographic distribution by postal code with counts or percentages for location-based analysis.
 ```json
 {
   "keyAliases": {
@@ -86,6 +85,8 @@ Count the number of regos that clicked a campaign
 }
 ```
 
+
+**Visualization Preview:** Shows geographic distribution by postal code with counts or percentages for location-based analysis.
 ![Postcode Clicks](UserProfileCampaigns/campaign-clicks-by-postcode.png)
 
 #### campaigns
@@ -145,7 +146,6 @@ Widget showing campaign event types. Displayed as a Table.
 
 #### Profiles by Campaign x Event-Type
 Count profiles that had an event on a campaign
-**Visualization Preview:** Shows the visualization output representing the queried data in the format specified by the widget configuration.
 ```json
 {
   "keyAliases": {
@@ -204,6 +204,8 @@ Count profiles that had an event on a campaign
 }
 ```
 
+
+**Visualization Preview:** Shows the visualization output representing the queried data in the format specified by the widget configuration.
 ![Profiles by Campaign x Event-Type](UserProfileCampaigns/campaign-events-by-campaign.png)
 
 #### Campaign Postcodes
@@ -314,7 +316,6 @@ Count campaign events
 
 #### Auto Triggered by Venue and Zone
 Count the regos that triggered a campaign in a zone
-**Visualization Preview:** Shows the visualization output representing the queried data in the format specified by the widget configuration.
 ```json
 {
   "columnNames": [
@@ -366,6 +367,8 @@ Count the regos that triggered a campaign in a zone
 }
 ```
 
+
+**Visualization Preview:** Shows the visualization output representing the queried data in the format specified by the widget configuration.
 ![Auto Triggered by Venue and Zone](UserProfileCampaigns/campaigns-by-venue-zone.png)
 
 #### campaigns
@@ -491,7 +494,6 @@ Percentages of Males and Females
 ## UserProfileClicks
 #### Campaign Clickers by Gender (postcodes 5000,5082,5085,5066,5067)
 Shows clicks  broken down by campaign gender. Displayed as a Table.
-**Visualization Preview:** Shows click performance across different campaigns with campaign names and corresponding click volumes, useful for campaign effectiveness analysis.
 ```json
 {
   "columnNames": [
@@ -554,11 +556,12 @@ Shows clicks  broken down by campaign gender. Displayed as a Table.
 }
 ```
 
+
+**Visualization Preview:** Shows click performance across different campaigns with campaign names and corresponding click volumes, useful for campaign effectiveness analysis.
 ![Campaign Clickers by Gender (postcodes 5000,5082,5085,5066,5067)](UserProfileClicks/clicks-by-campaign-gender.png)
 
 #### Campaign Clicks
 Shows clicks  broken down by campaign. Displayed as a Table.
-**Visualization Preview:** Shows click performance across different campaigns with campaign names and corresponding click volumes, useful for campaign effectiveness analysis.
 ```json
 {
   "columnNames": [
@@ -602,6 +605,8 @@ Shows clicks  broken down by campaign. Displayed as a Table.
 }
 ```
 
+
+**Visualization Preview:** Shows click performance across different campaigns with campaign names and corresponding click volumes, useful for campaign effectiveness analysis.
 ![Campaign Clicks](UserProfileClicks/clicks-by-campaign.png)
 
 #### Auto Campaign Clicks by PageType
@@ -696,7 +701,6 @@ Shows clicks  broken down by portal. Displayed as a Table.
 
 #### Clicks by URL
 Shows clicks  broken down by url. Displayed as a Table.
-**Visualization Preview:** Shows the visualization output representing the queried data in the format specified by the widget configuration.
 ```json
 {
   "columnNames": [
@@ -740,6 +744,8 @@ Shows clicks  broken down by url. Displayed as a Table.
 }
 ```
 
+
+**Visualization Preview:** Shows the visualization output representing the queried data in the format specified by the widget configuration.
 ![Clicks by URL](UserProfileClicks/clicks-by-url.png)
 
 #### Auto Campaign Clicks by Venue
@@ -792,7 +798,6 @@ Shows clicks  broken down by venue. Displayed as a Table.
 ### Histograms
 #### Visit Duration (minutes) Histogram Bar Chart
 Creates a histogram of user visit durations. The histogram's duration buckets and counts are visualised as a bar chart. The buckets are default dwell times for visits and sessions.
-**Visualization Preview:** Shows visit duration distribution with time buckets on the x-axis and frequency counts on the y-axis, revealing user engagement patterns.
 ```json
 {
   "columnNames": [
@@ -868,11 +873,12 @@ Creates a histogram of user visit durations. The histogram's duration buckets an
 }
 ```
 
+
+**Visualization Preview:** Shows visit duration distribution with time buckets on the x-axis and frequency counts on the y-axis, revealing user engagement patterns.
 ![Visit Duration (minutes) Histogram Bar Chart](UserProfileVisits/histograms/visits-histogram-duration-barChart.png)
 
 #### Visit Time of Day Histogram Line Chart
 Creates a histogram of user visits by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day.
-**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ```json
 {
   "columnNames": [
@@ -939,11 +945,12 @@ Creates a histogram of user visits by time of day. The histogram's hour of day b
 }
 ```
 
+
+**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ![Visit Time of Day Histogram Line Chart](UserProfileVisits/histograms/visits-histogram-hourAndMinuteOfDay-lineChart.png)
 
 #### Primary Zone Visit Duration (minutes) Histogram Bar Chart
 Creates a histogram of user visits to the primary zone, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions.
-**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ```json
 {
   "columnNames": [
@@ -1019,13 +1026,14 @@ Creates a histogram of user visits to the primary zone, visualised as a bar char
 }
 ```
 
+
+**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ![Primary Zone Visit Duration (minutes) Histogram Bar Chart](UserProfileVisits/histograms/visits-histogram-primaryZoneDuration-barChart.png)
 
 
 ### Main Widgets
 #### Gender Visitors
 Count visits to a venue by visitor's gender
-**Visualization Preview:** Presents gender distribution data in a columnar format, showing demographic breakdowns with missing value handling.
 ```json
 {
   "columnNames": [
@@ -1075,11 +1083,12 @@ Count visits to a venue by visitor's gender
 }
 ```
 
+
+**Visualization Preview:** Presents gender distribution data in a columnar format, showing demographic breakdowns with missing value handling.
 ![Gender Visitors](UserProfileVisits/visits-by-gender-columns.png)
 
 #### visits
 Count visits to a venue by visitor's postcode (only top 5 South Australia postcodes)
-**Visualization Preview:** Displays visit counts by venue location, showing which locations receive the most visitor traffic over the selected time period.
 ```json
 {
   "columnNames": [
@@ -1156,11 +1165,12 @@ Count visits to a venue by visitor's postcode (only top 5 South Australia postco
 }
 ```
 
+
+**Visualization Preview:** Displays visit counts by venue location, showing which locations receive the most visitor traffic over the selected time period.
 ![visits](UserProfileVisits/visits-by-venue-postcode.png)
 
 #### Postcode Numeric Histogram Table (inline buckets)
 Creates a histogram of user postcodes. The histogram's postcode buckets and counts are visualised as a table. The buckets are defined using inline buckets, covering various regions in South Australia and Victoria.
-**Visualization Preview:** Displays visit counts by venue location, showing which locations receive the most visitor traffic over the selected time period.
 ```json
 {
   "columnNames": [
@@ -1247,11 +1257,12 @@ Creates a histogram of user postcodes. The histogram's postcode buckets and coun
 }
 ```
 
+
+**Visualization Preview:** Displays visit counts by venue location, showing which locations receive the most visitor traffic over the selected time period.
 ![Postcode Numeric Histogram Table (inline buckets)](UserProfileVisits/visits-by-venue-zone.png)
 
 #### visits
 Shows visits  broken down by venue. Displayed as a Table.
-**Visualization Preview:** Displays visit counts by venue location, showing which locations receive the most visitor traffic over the selected time period.
 ```json
 {
   "columnNames": [
@@ -1295,11 +1306,12 @@ Shows visits  broken down by venue. Displayed as a Table.
 }
 ```
 
+
+**Visualization Preview:** Displays visit counts by venue location, showing which locations receive the most visitor traffic over the selected time period.
 ![visits](UserProfileVisits/visits-by-venue.png)
 
 #### Primary Zone Visits
 Zone visit counts
-**Visualization Preview:** Displays data segmented by venue zones, showing activity patterns across different areas or sections.
 ```json
 {
   "columnNames": [
@@ -1344,11 +1356,12 @@ Zone visit counts
 }
 ```
 
+
+**Visualization Preview:** Displays data segmented by venue zones, showing activity patterns across different areas or sections.
 ![Primary Zone Visits](UserProfileVisits/visits-by-zone-missing.png)
 
 #### Primary Zone Visits
 Zone visit counts
-**Visualization Preview:** Displays data segmented by venue zones, showing activity patterns across different areas or sections.
 ```json
 {
   "columnNames": [
@@ -1392,6 +1405,8 @@ Zone visit counts
 }
 ```
 
+
+**Visualization Preview:** Displays data segmented by venue zones, showing activity patterns across different areas or sections.
 ![Primary Zone Visits](UserProfileVisits/visits-by-zone.png)
 
 
@@ -1399,7 +1414,6 @@ Zone visit counts
 ### Histograms
 #### WiFi Session Data Usage (MB) Histogram Bar Chart
 Creates a histogram of user WiFi session dataUsage, visualised as a bar chart. The histogram's data usage buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions.
-**Visualization Preview:** Displays age distribution as a histogram with age ranges on the x-axis and user counts on the y-axis, showing the demographic breakdown of users.
 ```json
 {
   "columnNames": [
@@ -1475,11 +1489,12 @@ Creates a histogram of user WiFi session dataUsage, visualised as a bar chart. T
 }
 ```
 
+
+**Visualization Preview:** Displays age distribution as a histogram with age ranges on the x-axis and user counts on the y-axis, showing the demographic breakdown of users.
 ![WiFi Session Data Usage (MB) Histogram Bar Chart](UserProfileWiFiSessions/histograms/wifiSessions-histogram-dataUsage-barChart.png)
 
 #### WiFi Session Duration (minutes) Histogram Bar Chart
 Creates a histogram of user WiFi session durations, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions.
-**Visualization Preview:** Shows visit duration distribution with time buckets on the x-axis and frequency counts on the y-axis, revealing user engagement patterns.
 ```json
 {
   "columnNames": [
@@ -1555,11 +1570,12 @@ Creates a histogram of user WiFi session durations, visualised as a bar chart. T
 }
 ```
 
+
+**Visualization Preview:** Shows visit duration distribution with time buckets on the x-axis and frequency counts on the y-axis, revealing user engagement patterns.
 ![WiFi Session Duration (minutes) Histogram Bar Chart](UserProfileWiFiSessions/histograms/wifiSessions-histogram-duration-barChart.png)
 
 #### WiFi Session Time of Day Histogram Line Chart
 Creates a histogram of user WiFi Sessions by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day.
-**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ```json
 {
   "columnNames": [
@@ -1626,13 +1642,14 @@ Creates a histogram of user WiFi Sessions by time of day. The histogram's hour o
 }
 ```
 
+
+**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ![WiFi Session Time of Day Histogram Line Chart](UserProfileWiFiSessions/histograms/wifiSessions-histogram-hourAndMinuteOfDay-lineChart.png)
 
 
 ### Main Widgets
 #### OS Category (Android & Apple)
 OS categories
-**Visualization Preview:** Shows WiFi session counts by venue, indicating user connectivity patterns and popular locations for digital engagement.
 ```json
 {
   "columnNames": [
@@ -1687,11 +1704,12 @@ OS categories
 }
 ```
 
+
+**Visualization Preview:** Shows WiFi session counts by venue, indicating user connectivity patterns and popular locations for digital engagement.
 ![OS Category (Android & Apple)](UserProfileWiFiSessions/sessions-by-venue-os-categories.png)
 
 #### Sessions
 Shows sessions  broken down by venue. Displayed as a Table.
-**Visualization Preview:** Shows WiFi session counts by venue, indicating user connectivity patterns and popular locations for digital engagement.
 ```json
 {
   "columnNames": [
@@ -1735,6 +1753,8 @@ Shows sessions  broken down by venue. Displayed as a Table.
 }
 ```
 
+
+**Visualization Preview:** Shows WiFi session counts by venue, indicating user connectivity patterns and popular locations for digital engagement.
 ![Sessions](UserProfileWiFiSessions/sessions-by-venue.png)
 
 
@@ -1742,7 +1762,6 @@ Shows sessions  broken down by venue. Displayed as a Table.
 ### Histograms
 #### Age In Years Histogram Table (default buckets)
 Creates a histogram of user ages.  The histogram's age buckets and counts are visualised as a table. The buckets are defaults derived from the histogram's metric and the histogram name.
-**Visualization Preview:** Displays age distribution as a histogram with age ranges on the x-axis and user counts on the y-axis, showing the demographic breakdown of users.
 ```json
 {
   "columnNames": [
@@ -1785,11 +1804,12 @@ Creates a histogram of user ages.  The histogram's age buckets and counts are vi
 }
 ```
 
+
+**Visualization Preview:** Displays age distribution as a histogram with age ranges on the x-axis and user counts on the y-axis, showing the demographic breakdown of users.
 ![Age In Years Histogram Table (default buckets)](UserProfilesNow/histograms/histogram-ageInYears-defaultBuckets-table.png)
 
 #### Age In Years Histogram Table (inline buckets)
 Creates a histogram of user ages. The histogram's age buckets and counts are visualised as a table. The buckets are defined using inline buckets. The first bucket is for ages up to 20, the second bucket is for ages from 20 to 40, and the third bucket is for ages over 40.
-**Visualization Preview:** Displays age distribution as a histogram with age ranges on the x-axis and user counts on the y-axis, showing the demographic breakdown of users.
 ```json
 {
   "columnNames": [
@@ -1838,11 +1858,12 @@ Creates a histogram of user ages. The histogram's age buckets and counts are vis
 }
 ```
 
+
+**Visualization Preview:** Displays age distribution as a histogram with age ranges on the x-axis and user counts on the y-axis, showing the demographic breakdown of users.
 ![Age In Years Histogram Table (inline buckets)](UserProfilesNow/histograms/histogram-ageInYears-inlineBuckets-table.png)
 
 #### 20 to 40 Years Old Count
 Count of users aged between 20 and 40 years old.  This uses an inline bucket for the age range. The count is visualised as a number.
-**Visualization Preview:** Displays age distribution as a histogram with age ranges on the x-axis and user counts on the y-axis, showing the demographic breakdown of users.
 ```json
 {
   "columnNames": [
@@ -1876,11 +1897,12 @@ Count of users aged between 20 and 40 years old.  This uses an inline bucket for
 }
 ```
 
+
+**Visualization Preview:** Displays age distribution as a histogram with age ranges on the x-axis and user counts on the y-axis, showing the demographic breakdown of users.
 ![20 to 40 Years Old Count](UserProfilesNow/histograms/histogram-ageInYears-singleBucket-number.png)
 
 #### Country Calling Code Histogram Table (default buckets)
 Creates a histogram of user country calling codes. The histogram's country calling code buckets and counts are visualised as a table.
-**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ```json
 {
   "columnNames": [
@@ -1923,11 +1945,12 @@ Creates a histogram of user country calling codes. The histogram's country calli
 }
 ```
 
+
+**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ![Country Calling Code Histogram Table (default buckets)](UserProfilesNow/histograms/histogram-countryCallingCode-table.png)
 
 #### Signup Hour Histogram
 Creates a histogram of user signup times by hour of the day. The histogram's hour buckets and counts are visualised as a bar chart. The buckets are hour-of-day defaults, derived from the histogram's metric and the histogram name.
-**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ```json
 {
   "columnNames": [
@@ -2004,11 +2027,12 @@ Creates a histogram of user signup times by hour of the day. The histogram's hou
 }
 ```
 
+
+**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ![Signup Hour Histogram](UserProfilesNow/histograms/histogram-hourAndMinuteOfDay-defaultBuckets-barChart.png)
 
 #### Postcode Numeric Histogram Table (inline buckets)
 Creates a histogram of user postcodes. The histogram's postcode buckets and counts are visualised as a table. The buckets are defined using inline buckets, covering various regions in South Australia and Victoria.
-**Visualization Preview:** Presents postcode distribution as a histogram with postal code ranges and their corresponding user counts.
 ```json
 {
   "columnNames": [
@@ -2146,11 +2170,12 @@ Creates a histogram of user postcodes. The histogram's postcode buckets and coun
 }
 ```
 
+
+**Visualization Preview:** Presents postcode distribution as a histogram with postal code ranges and their corresponding user counts.
 ![Postcode Numeric Histogram Table (inline buckets)](UserProfilesNow/histograms/histogram-postcodeNumeric-inlineBuckets-table.png)
 
 #### Year of Birth Histogram Table (inline buckets)
 Creates a histogram of user year of birth. The histogram's buckets and counts are visualised as a table. The buckets are defined using inline buckets. The three buckets are for years up to 1975, from 1975 to 2000, and from 2000 onwards.
-**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ```json
 {
   "columnNames": [
@@ -2199,13 +2224,14 @@ Creates a histogram of user year of birth. The histogram's buckets and counts ar
 }
 ```
 
+
+**Visualization Preview:** Displays a histogram chart with data distributed across buckets, showing frequency distribution patterns.
 ![Year of Birth Histogram Table (inline buckets)](UserProfilesNow/histograms/histogram-yearOfBirth-inlineBuckets.png)
 
 
 ### Main Widgets
 #### Age in Years
 Age in Years
-**Visualization Preview:** Shows the visualization output representing the queried data in the format specified by the widget configuration.
 ```json
 {
   "columnNames": [
@@ -2249,6 +2275,8 @@ Age in Years
 }
 ```
 
+
+**Visualization Preview:** Shows the visualization output representing the queried data in the format specified by the widget configuration.
 ![Age in Years](UserProfilesNow/ageInYears.png)
 
 #### Country And State
@@ -2564,7 +2592,6 @@ Group registrations by Single Choice Extended Attribute answers
 
 #### Gender Distribution (columns, missing values)
 Demo grouping gender into columns.  Missing values are included.
-**Visualization Preview:** Presents gender distribution data in a columnar format, showing demographic breakdowns with missing value handling.
 ```json
 {
   "visualisation": {
@@ -2606,6 +2633,8 @@ Demo grouping gender into columns.  Missing values are included.
 }
 ```
 
+
+**Visualization Preview:** Presents gender distribution data in a columnar format, showing demographic breakdowns with missing value handling.
 ![Gender Distribution (columns, missing values)](UserProfilesNow/gender-columns-missing.png)
 
 #### Gender Composition
@@ -2934,7 +2963,6 @@ Top 5 non-english locale
 
 #### OS Category (Android & Apple)
 OS categories
-**Visualization Preview:** Displays operating system usage statistics showing the distribution of different OS types among users.
 ```json
 {
   "columnNames": [
@@ -2980,6 +3008,8 @@ OS categories
 }
 ```
 
+
+**Visualization Preview:** Displays operating system usage statistics showing the distribution of different OS types among users.
 ![OS Category (Android & Apple)](UserProfilesNow/os-categories.png)
 
 #### Postcodes
