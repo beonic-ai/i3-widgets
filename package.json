@@ -1,0 +1,26 @@
+{
+  "name": "widgets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generate-prompt.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/skyfiidevelopers/widgets.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/skyfiidevelopers/widgets/issues"
+  },
+  "homepage": "https://bitbucket.org/skyfiidevelopers/widgets#readme",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.60.0"
+  }
+}

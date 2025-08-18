@@ -2,13 +2,22 @@
 
 const fs = require('fs').promises;
 const path = require('path');
+const Anthropic = require('@anthropic-ai/sdk');
 
-// Set to true to use actual Claude vision API for image analysis
-// Requires ANTHROPIC_API_KEY environment variable
-const USE_CLAUDE_VISION = process.env.USE_CLAUDE_VISION === 'true' && process.env.ANTHROPIC_API_KEY;
+// Initialize Anthropic client if API key is available
+const anthropic = process.env.ANTHROPIC_API_KEY ? new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+}) : null;
 
 /**
  * Generate a comprehensive prompt.md from widget examples in the repository
+ * 
+ * Usage:
+ *   # Basic usage (uses filename-based image analysis)
+ *   node generate-prompt.js
+ * 
+ *   # With Claude Vision API (requires API key)
+ *   ANTHROPIC_API_KEY=your_api_key_here node generate-prompt.js
  */
 class WidgetPromptGenerator {
   constructor() {
@@ -21,6 +30,12 @@ class WidgetPromptGenerator {
    */
   async generatePrompt() {
     console.log('🚀 Starting widget prompt generation...');
+    
+    if (anthropic) {
+      console.log('✨ Claude Vision API detected - using AI-powered image analysis');
+    } else {
+      console.log('📝 Using filename-based image analysis (set ANTHROPIC_API_KEY for AI analysis)');
+    }
     
     // Add header
     this.output.push('# Beonic Insights 3.0 (i3) Widget Examples\n');
@@ -229,32 +244,37 @@ class WidgetPromptGenerator {
     try {
       console.log(`    🖼️  Analyzing image ${path.basename(imagePath)}...`);
       
-      // For now, we'll use a smart placeholder based on filename analysis
-      // In a production version, you could integrate with Claude's API like this:
-      //
-      // if (USE_CLAUDE_VISION) {
-      //   const imageBuffer = await fs.readFile(imagePath);
-      //   const base64Image = imageBuffer.toString('base64');
-      //   const response = await anthropic.messages.create({
-      //     model: "claude-3-sonnet-20241022",
-      //     max_tokens: 200,
-      //     messages: [{
-      //       role: "user",
-      //       content: [{
-      //         type: "image",
-      //         source: { type: "base64", media_type: "image/png", data: base64Image }
-      //       }, {
-      //         type: "text",
-      //         text: "Analyze this widget visualization image and describe what it shows."
-      //       }]
-      //     }]
-      //   });
-      //   return response.content[0].text;
-      // }
-      const basename = path.basename(imagePath, '.png');
-      const analysisPrompt = `Analyze this widget visualization image showing ${basename.replace(/-/g, ' ')}.`;
+      // Use Claude Vision API if available
+      if (anthropic) {
+        try {
+          const imageBuffer = await fs.readFile(imagePath);
+          const base64Image = imageBuffer.toString('base64');
+          
+          const response = await anthropic.messages.create({
+            model: "claude-3-5-sonnet-20241022",
+            max_tokens: 150,
+            messages: [{
+              role: "user",
+              content: [{
+                type: "image",
+                source: { type: "base64", media_type: "image/png", data: base64Image }
+              }, {
+                type: "text",
+                text: "Analyze this Beonic Insights widget visualization image. Describe what type of chart/visualization it is, what data it displays, and what insights it provides. Be concise and focus on the visual elements and data representation."
+              }]
+            }]
+          });
+          
+          return response.content[0].text;
+          
+        } catch (apiError) {
+          console.warn(`⚠️  Claude API error for ${path.basename(imagePath)}: ${apiError.message}`);
+          // Fall back to filename-based analysis
+        }
+      }
       
-      // Smart analysis based on filename patterns
+      // Fallback: Smart analysis based on filename patterns
+      const basename = path.basename(imagePath, '.png');
       let analysis = '';
       
       if (basename.includes('histogram')) {
