@@ -1,0 +1,55 @@
+{
+  "keyAliases": {
+    "campaignEventType": [
+      "BOUNCED",
+      "CLICKED",
+      "DELIVERED",
+      "OPENED",
+      "SPAM",
+      "UNSUBSCRIBED"
+    ]
+  },
+  "columnNames": [
+    "Campaign",
+    {
+      "name": "event",
+      "dimension": {
+        "key": "campaignEventType"
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "campaign"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileCampaigns",
+            "value": {
+              "counter": "total"
+            }
+          },
+          "sortSpecification": {
+            "ascending": false,
+            "priority": 1
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count profiles that had an event on a campaign"
+    },
+    "type": "Table",
+    "title": "Profiles by Campaign x Event-Type",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

@@ -3,14 +3,10 @@
     "country": [
       "Australia"
     ],
-    "postcode": [
-      "5000",
-      "5085",
-      "5062",
-      "5008",
-      "5022"
+    "state": [
+      "victoria"
     ],
-    "campaignEventType": [    
+    "campaignEventType": [
       "CLICKED"
     ]
   },
@@ -68,12 +64,14 @@
     }
   ],
   "visualisation": {
-    "description": {
-      "html": "For the given 5 postcodes, count the number of regos that clicked a campaign"
-    },
     "type": "Table",
-    "title": "Selected Postcode Clicks",
+    "title": "Postcode Clicks",
+    "description": {
+      "html": "Count the number of regos that clicked a campaign"
+    },
+    "imageFile": "",
     "tableSettings": {
+      "columnSettings": {},
       "paginate": false,
       "scrollOverflow": true
     }
