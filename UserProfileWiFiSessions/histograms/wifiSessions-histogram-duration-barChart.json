@@ -1,0 +1,72 @@
+{
+  "columnNames": [
+    "session duration",
+    "sessions"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileWiFiSessions",
+              "histogram": "duration"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "histogram": "duration"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user WiFi session durations, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions."
+    },
+    "type": "BarChart",
+    "title": "WiFi Session Duration (minutes) Histogram Bar Chart",
+    "barChartSettings": {
+      "showBarValues": false,
+      "columnSettings": {
+        "Total Visits": {
+          "axis": "left",
+          "type": null,
+          "showOnChart": true,
+          "showOnTooltip": true
+        }
+      },
+      "tooltip": {
+        "show": true
+      },
+      "layout": "vertical",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "no-stack"
+    }
+  }
+}

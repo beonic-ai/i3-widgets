@@ -1,0 +1,45 @@
+{
+  "columnNames": [
+    "yearOfBirth",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "buckets": [
+                {
+                  "to": 1975
+                },
+                {
+                  "from": 1975,
+                  "to": 2000
+                },
+                {
+                  "from": 2000
+                }
+              ]
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "yearOfBirth"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user year of birth. The histogram's buckets and counts are visualised as a table. The buckets are defined using inline buckets. The three buckets are for years up to 1975, from 1975 to 2000, and from 2000 onwards."
+    },
+    "type": "Table",
+    "title": "Year of Birth Histogram Table (inline buckets)"
+  }
+}

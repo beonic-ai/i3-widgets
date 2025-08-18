@@ -1,35 +1,65 @@
 {
-  "columnNames": [
-    "Venue",
-    "Primary Zone",
-    "Count"
-  ],
+  "columnNames": ["postcodeNumeric", "count"],
   "rowSets": [
     {
       "columns": [
         {
-          "dimension": {
-            "key": "venueId"
-          },
           "sortSpecification": {
             "ascending": true,
             "priority": 1
-          }
-        },
-        {
-          "dimension": {
-            "key": "zoneId"
           },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 2
+          "dimension": {
+            "histogram": {
+              "buckets": [
+                {
+                  "key": "SA - Adelaide Metro (5000-5099)",
+                  "from": 5000,
+                  "to": 5099
+                },
+                {
+                  "key": "SA - Adelaide Hills/Eastern (5100-5199)",
+                  "from": 5100,
+                  "to": 5199
+                },
+                {
+                  "key": "SA - Southern Adelaide (5200-5299)",
+                  "from": 5200,
+                  "to": 5299
+                },
+                {
+                  "key": "SA - Barossa/Northern (5300-5399)",
+                  "from": 5300,
+                  "to": 5399
+                },
+                {
+                  "key": "SA - Riverland/Murray (5400-5499)",
+                  "from": 5400,
+                  "to": 5499
+                },
+                {
+                  "key": "SA - Mid North/Yorke Peninsula (5500-5599)",
+                  "from": 5500,
+                  "to": 5599
+                },
+                {
+                  "key": "SA - Eyre Peninsula/West Coast (5600-5699)",
+                  "from": 5600,
+                  "to": 5699
+                },
+                {
+                  "key": "SA - Far North/Outback (5700-5799)",
+                  "from": 5700,
+                  "to": 5799
+                }
+              ]
+            }
           }
         },
         {
           "numericExpression": {
-            "metric": "UserProfileVisits",
+            "metric": "UserProfilesNow",
             "value": {
-              "counter": "total"
+              "histogram": "postcodeNumeric"
             }
           }
         }
@@ -38,10 +68,10 @@
   ],
   "visualisation": {
     "description": {
-      "html": "Zone visit counts"
+      "html": "Creates a histogram of user postcodes. The histogram's postcode buckets and counts are visualised as a table. The buckets are defined using inline buckets, covering various regions in South Australia and Victoria."
     },
     "type": "Table",
-    "title": "Primary Zone Visits",
+    "title": "Postcode Numeric Histogram Table (inline buckets)",
     "tableSettings": {
       "paginate": false,
       "scrollOverflow": true

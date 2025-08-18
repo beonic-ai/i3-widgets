@@ -1,0 +1,64 @@
+{
+  "columnNames": [
+    "hour",
+    "visits"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileVisits",
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user visits by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day."
+    },
+    "type": "LineChart",
+    "title": "Visit Time of Day Histogram Line Chart",
+    "lineChartSettings": {
+      "showLegend": true,
+      "hideAxis": false,
+      "gridLines": "auto",
+      "stackType": "no-stack",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "enableChartSwitching": false,
+      "timeseriesResolutions": false,
+      "columnSettings": {},
+      "tooltip": {
+        "show": true
+      }
+    }
+    
+  }
+}

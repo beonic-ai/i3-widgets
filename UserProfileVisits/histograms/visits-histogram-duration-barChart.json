@@ -1,0 +1,72 @@
+{
+  "columnNames": [
+    "visit duration",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileVisits",
+              "histogram": "duration"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "histogram": "duration"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user visit durations. The histogram's duration buckets and counts are visualised as a bar chart. The buckets are default dwell times for visits and sessions."
+    },
+    "type": "BarChart",
+    "title": "Visit Duration (minutes) Histogram Bar Chart",
+    "barChartSettings": {
+      "showBarValues": false,
+      "columnSettings": {
+        "Total Visits": {
+          "axis": "left",
+          "type": null,
+          "showOnChart": true,
+          "showOnTooltip": true
+        }
+      },
+      "tooltip": {
+        "show": true
+      },
+      "layout": "vertical",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "no-stack"
+    }
+  }
+}

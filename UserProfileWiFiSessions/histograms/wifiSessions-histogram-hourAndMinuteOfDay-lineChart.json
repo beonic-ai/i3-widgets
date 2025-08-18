@@ -1,0 +1,60 @@
+{
+  "columnNames": ["hour", "sessions"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileWiFiSessions",
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user WiFi Sessions by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day."
+    },
+    "type": "LineChart",
+    "title": "WiFi Session Time of Day Histogram Line Chart",
+    "lineChartSettings": {
+      "showLegend": true,
+      "hideAxis": false,
+      "gridLines": "auto",
+      "stackType": "no-stack",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "enableChartSwitching": false,
+      "timeseriesResolutions": false,
+      "columnSettings": {},
+      "tooltip": {
+        "show": true
+      }
+    }
+  }
+}

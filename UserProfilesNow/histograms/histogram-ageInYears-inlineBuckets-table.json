@@ -1,0 +1,45 @@
+{
+  "columnNames": [
+    "ageInYears",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "buckets": [
+                {
+                  "to": 20
+                },
+                {
+                  "from": 20,
+                  "to": 40
+                },
+                {
+                  "from": 40
+                }
+              ]
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "ageInYears"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user ages. The histogram's age buckets and counts are visualised as a table. The buckets are defined using inline buckets. The first bucket is for ages up to 20, the second bucket is for ages from 20 to 40, and the third bucket is for ages over 40."
+    },
+    "type": "Table",
+    "title": "Age In Years Histogram Table (inline buckets)"
+  }
+}

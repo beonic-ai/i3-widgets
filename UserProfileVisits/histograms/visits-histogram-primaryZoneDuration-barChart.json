@@ -1,0 +1,72 @@
+{
+  "columnNames": [
+    "primary zone visit duration",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileVisits",
+              "histogram": "primaryZoneDuration"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "histogram": "primaryZoneDuration"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user visits to the primary zone, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions."
+    },
+    "type": "BarChart",
+    "title": "Primary Zone Visit Duration (minutes) Histogram Bar Chart",
+    "barChartSettings": {
+      "showBarValues": false,
+      "columnSettings": {
+        "Total Visits": {
+          "axis": "left",
+          "type": null,
+          "showOnChart": true,
+          "showOnTooltip": true
+        }
+      },
+      "tooltip": {
+        "show": true
+      },
+      "layout": "vertical",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "no-stack"
+    }
+  }
+}

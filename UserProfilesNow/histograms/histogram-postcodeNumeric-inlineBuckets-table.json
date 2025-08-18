@@ -1,0 +1,131 @@
+{
+  "columnNames": ["postcodeNumeric", "count"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "buckets": [
+                {
+                  "key": "SA - Adelaide Metro (5000-5099)",
+                  "from": 5000,
+                  "to": 5099
+                },
+                {
+                  "key": "SA - Adelaide Hills/Eastern (5100-5199)",
+                  "from": 5100,
+                  "to": 5199
+                },
+                {
+                  "key": "SA - Southern Adelaide (5200-5299)",
+                  "from": 5200,
+                  "to": 5299
+                },
+                {
+                  "key": "SA - Barossa/Northern (5300-5399)",
+                  "from": 5300,
+                  "to": 5399
+                },
+                {
+                  "key": "SA - Riverland/Murray (5400-5499)",
+                  "from": 5400,
+                  "to": 5499
+                },
+                {
+                  "key": "SA - Mid North/Yorke Peninsula (5500-5599)",
+                  "from": 5500,
+                  "to": 5599
+                },
+                {
+                  "key": "SA - Eyre Peninsula/West Coast (5600-5699)",
+                  "from": 5600,
+                  "to": 5699
+                },
+                {
+                  "key": "SA - Far North/Outback (5700-5799)",
+                  "from": 5700,
+                  "to": 5799
+                },
+                {
+                  "key": "VIC - Melbourne CBD/Inner (3000-3099)",
+                  "from": 3000,
+                  "to": 3099
+                },
+                {
+                  "key": "VIC - Melbourne Eastern (3100-3199)",
+                  "from": 3100,
+                  "to": 3199
+                },
+                {
+                  "key": "VIC - Melbourne Western (3200-3299)",
+                  "from": 3200,
+                  "to": 3299
+                },
+                {
+                  "key": "VIC - Melbourne Northern (3300-3399)",
+                  "from": 3300,
+                  "to": 3399
+                },
+                {
+                  "key": "VIC - Geelong/Western Districts (3400-3499)",
+                  "from": 3400,
+                  "to": 3499
+                },
+                {
+                  "key": "VIC - Central Highlands/Ballarat (3500-3599)",
+                  "from": 3500,
+                  "to": 3599
+                },
+                {
+                  "key": "VIC - Gippsland/Eastern (3600-3699)",
+                  "from": 3600,
+                  "to": 3699
+                },
+                {
+                  "key": "VIC - Murray River/North (3700-3799)",
+                  "from": 3700,
+                  "to": 3799
+                },
+                {
+                  "key": "VIC - Wimmera/Mallee (3800-3899)",
+                  "from": 3800,
+                  "to": 3899
+                },
+                {
+                  "key": "VIC - Far East/Alpine (3900-3999)",
+                  "from": 3900,
+                  "to": 3999
+                },
+                {
+                  "key": "VIC - Special Addresses (8000-8999)",
+                  "from": 8000,
+                  "to": 8999
+                }
+              ]
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "postcodeNumeric"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user postcodes. The histogram's postcode buckets and counts are visualised as a table. The buckets are defined using inline buckets, covering various regions in South Australia and Victoria."
+    },
+    "type": "Table",
+    "title": "Postcode Numeric Histogram Table (inline buckets)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

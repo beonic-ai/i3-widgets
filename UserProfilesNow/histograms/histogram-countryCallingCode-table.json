@@ -1,0 +1,36 @@
+{
+  "columnNames": ["countryCallingCodeNumeric", "count"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfilesNow",
+              "histogram": "countryCallingCodeNumeric"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "countryCallingCodeNumeric"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user country calling codes. The histogram's country calling code buckets and counts are visualised as a table."    
+    },
+    "type": "Table",
+    "title": "Country Calling Code Histogram Table (default buckets)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

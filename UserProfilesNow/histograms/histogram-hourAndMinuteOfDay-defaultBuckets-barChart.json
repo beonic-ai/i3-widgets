@@ -1,0 +1,73 @@
+{
+  "columnNames": [
+    "Hour of Day",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfilesNow",
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "imageFile": "",
+    "description": {
+      "html": "Creates a histogram of user signup times by hour of the day. The histogram's hour buckets and counts are visualised as a bar chart. The buckets are hour-of-day defaults, derived from the histogram's metric and the histogram name."
+    },
+    "barChartSettings": {
+      "showBarValues": false,
+      "columnSettings": {
+        "Total Visits": {
+          "axis": "left",
+          "type": null,
+          "showOnChart": true,
+          "showOnTooltip": true
+        }
+      },
+      "tooltip": {
+        "show": true
+      },
+      "layout": "vertical",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "no-stack"
+    },
+    "title": "Signup Hour Histogram",
+    "type": "BarChart"
+  }
+}

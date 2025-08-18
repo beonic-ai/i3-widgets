@@ -1,0 +1,28 @@
+{
+  "columnNames": ["20 to 40"],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "ageInYears",
+              "bucket": {
+                "from": 20,
+                "to": 40
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count of users aged between 20 and 40 years old.  This uses an inline bucket for the age range. The count is visualised as a number."
+    },
+    "type": "Number",
+    "title": "20 to 40 Years Old Count"
+  }
+}
