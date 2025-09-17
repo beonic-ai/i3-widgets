@@ -1,0 +1,13 @@
+This is a histogram table showing age distribution data organized into inline buckets. 
+
+**Visualization Type:** Frequency table/histogram in tabular format
+
+**Data Displayed:** 
+- Age ranges in 10-year intervals from 0-14 up to 75+
+- Count of individuals in each age bracket
+- Total sample size of 6,690 people
+
+**Key Insights:**
+- **Peak demographic:** Ages 25-34 with 2,589 individuals (highest frequency)
+- **Distribution pattern:** Shows a typical population pyramid with higher concentrations in younger-middle age groups
+- **Age gaps:** No individuals in the 0-14 age range, suggesting this

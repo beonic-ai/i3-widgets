@@ -6,7 +6,8 @@
       "DELIVERED",
       "OPENED",
       "SPAM",
-      "UNSUBSCRIBED"
+      "UNSUBSCRIBED",
+      "FAILED"
     ]
   },
   "columnNames": [

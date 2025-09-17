@@ -49,5 +49,5 @@ Thumbs.db
 *.wmv
 
 # Generated analysis cache files
-*.txt
+#*.txt
 

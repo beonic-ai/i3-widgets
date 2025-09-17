@@ -33,7 +33,7 @@
   ],
   "visualisation": {
     "description": {
-      "html": "Count registrations by NSW Postcodes"
+      "html": "Count registrations by Australian Postcodes"
     },
     "type": "Table",
     "title": "Postcodes",

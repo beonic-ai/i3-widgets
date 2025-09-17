@@ -1,0 +1,76 @@
+{
+  "columnNames": [
+    "gender",
+    "country",
+    "verifiedEmail",
+    "language",
+    "locale",
+    "locale code",
+    "source",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "gender",
+            "displayAs": "short"
+          }
+        },
+        {
+          "dimension": {
+            "key": "country"
+          }
+        },
+        {
+          "dimension": {
+            "key": "verifiedEmail"
+          }
+        },
+        {
+          "dimension": {
+            "key": "language"
+          }
+        },
+        {
+          "dimension": {
+            "key": "locale"
+          }
+        },
+        {
+          "dimension": {
+            "key": "locale",
+            "displayAs": "short"
+          }
+        },
+        {
+          "dimension": {
+            "key": "source"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "imageFile": "",
+    "description": {
+      "html": "User profiles friendly labels for enum/boolean values"
+    },
+    "tableSettings": {
+      "columnSettings": {},
+      "paginate": true,
+      "scrollOverflow": true
+    },
+    "title": "Friendly labels",
+    "type": "Table"
+  }
+}

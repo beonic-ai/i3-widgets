@@ -1,0 +1,36 @@
+{
+  "columnNames": [
+    "Year",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Yearly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Year."
+    },
+    "type": "Table",
+    "title": "Yearly Signups",
+    "tableSettings": {
+      "paginate": true,
+      "scrollOverflow": true
+    }
+  }
+}

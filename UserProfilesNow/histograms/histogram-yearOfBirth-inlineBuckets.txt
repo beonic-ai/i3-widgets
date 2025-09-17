@@ -1,0 +1,11 @@
+This is a **histogram table** that displays the distribution of birth years across three time periods using inline bucket formatting.
+
+**Data Display:**
+- **Chart Type:** Tabular histogram with grouped year ranges
+- **Categories:** Three birth year buckets (0-1975, 1975-2000, 2000+)
+- **Counts:** 1,360, 4,142, and 1,953 respectively
+- **Total Sample:** 7,455 individuals
+
+**Key Insights:**
+- The **1975-2000 cohort is dominant**, representing over half the population (55.6%)
+- The **pre-1975 and post-2000

@@ -1,0 +1,12 @@
+This is a **data table visualization** from Beonic Insights showing "Auto Triggered by Venue and Zone" analytics.
+
+**Data Structure:**
+- Three columns: Venue, Zone, and Count
+- All entries are from "Pran Central" venue
+- Shows 8 different zones within the venue
+- Count values range from 1 to 153
+
+**Key Insights:**
+- **Commercial Road Entry** is the most active zone with 153 triggers (59% of total activity)
+- **Chapel Street - Laser Clinics** and **Foodcourt** are tied as secondary hotspots with 36 triggers each
+- Several zones show minimal activity (

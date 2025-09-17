@@ -1,0 +1,12 @@
+This is a histogram bar chart showing the distribution of Primary Zone Visit Duration in minutes. 
+
+**Chart Type:** Histogram with discrete time interval bins on the x-axis and frequency counts on the y-axis.
+
+**Data Displayed:** 
+- Visit duration ranges from 0-5 minutes up to 301+ minutes
+- Count values ranging from approximately 1.5k to 12k visits per time interval
+
+**Key Insights:**
+- **Peak activity:** The highest frequency occurs in the 6-15 minute range (~12k visits)
+- **Right-skewed distribution:** Most visits are concentrated in shorter durations (6-60 minutes)
+- **Rapid decline:**

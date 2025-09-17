@@ -1,0 +1,10 @@
+This is a **table visualization** showing "Clicks by URL" data from Beonic Insights. 
+
+**Data Display:**
+- Lists URLs in the left column with corresponding click counts in the right column
+- Shows 16 different URLs with click counts ranging from 3 to 5,602
+- Data is sortable by both URL and Count columns (indicated by sort arrows)
+
+**Key Insights:**
+- **Top performers:** The main Adelaide Central Plaza website with UTM parameters leads with 5,602 clicks, followed by the Apple App Store link (1,486 clicks) and Google Play Store link (1,004 clicks)
+- **Traffic sources:** Mix of website pages

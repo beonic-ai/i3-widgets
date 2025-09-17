@@ -1,0 +1,11 @@
+This is a simple data table visualization showing visit counts by venue. The table displays two locations:
+
+- **Adelaide Central Plaza**: 180,566 visits
+- **Port Adelaide Plaza**: 61,005 visits
+
+**Key insights:**
+- Adelaide Central Plaza receives nearly 3 times more visits than Port Adelaide Plaza
+- The significant disparity (119,561 visit difference) suggests Adelaide Central Plaza is likely a more prominent or accessible location
+- This appears to be comparative foot traffic data, useful for understanding venue performance or customer flow patterns
+
+The visualization uses a clean, minimalist table format with clear column headers ("Venue" and "Count") and precise numerical data presentation.

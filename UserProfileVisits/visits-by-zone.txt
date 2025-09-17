@@ -1,0 +1,10 @@
+This is a **table visualization** showing "Primary Zone Visits" data. 
+
+**Data displayed:**
+- Lists 6 different primary zones/locations with their corresponding visit counts
+- Zones include retail locations (Aldi, Casual Dining) and mall areas (PAP Big W Centre Court, PAP Coles Food Mall, PAP Fashion Mall, PAP Reject Mall)
+- Visit counts range from 1,523 to 16,726
+
+**Key insights:**
+- **Casual Dining/external** has the highest traffic (16,726 visits)
+- **Aldi/Services/internal** is the second most visited (14,370 visits)

@@ -1,0 +1,40 @@
+{
+  "columnNames": [
+    "OS",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "osCategory",
+            "missing": true
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Create a pie chart of WiFi client operating-system (OS) categories. Includes a count of profiles missing an osCategory."
+    },
+    "type": "PieChart",
+    "title": "OS Category (with missing)",
+    "pieChartSettings": {
+      "label": {
+        "show": true,
+        "labelLine": true,
+        "mode": "name"
+      }
+    }
+  }
+}

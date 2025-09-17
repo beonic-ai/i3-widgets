@@ -1,0 +1,10 @@
+This is a data table visualization showing email campaign performance metrics across different marketing campaigns. 
+
+**Data Displayed:**
+- 12 different campaigns (mostly PRN and BPP branded)
+- 6 key email metrics: Bounced, Clicked, Delivered, Opened, Spam, and Unsubscribed
+- Performance data for each campaign-metric combination
+
+**Key Insights:**
+- **Delivery volumes vary significantly**: Ranges from ~3,000-4,000 (top campaigns) to ~8,000-10,000+ (bottom campaigns)
+- **Click-through rates differ**: Some campaigns like "Pran Survey" show high clicks (170)

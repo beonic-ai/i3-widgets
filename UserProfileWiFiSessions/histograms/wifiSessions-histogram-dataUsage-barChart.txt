@@ -1,0 +1,10 @@
+This is a histogram bar chart displaying WiFi session data usage distribution measured in megabytes (MB). 
+
+**Chart Type:** Histogram with vertical bars showing frequency distribution across data usage ranges.
+
+**Data Displayed:** 
+- X-axis: Data usage ranges in MB (0-4, 5-9, 10-19, 20-39, 40-79, 80-159, 160-319, 320-639, 640-1279, 1280+ MB)
+- Y-axis: Number of sessions (ranging from 0 to 21k)
+
+**Key Insights:**
+- **Highest usage:** The 0-4 MB

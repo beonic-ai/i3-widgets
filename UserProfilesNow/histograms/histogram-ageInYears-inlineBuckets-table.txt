@@ -1,0 +1,12 @@
+This is a **histogram frequency table** showing the distribution of ages across three age groups.
+
+**Data Display:**
+- **0-20 years:** 266 people
+- **20-40 years:** 4,812 people  
+- **40+ years:** 2,377 people
+- **Total sample size:** 7,455 people
+
+**Key Insights:**
+- The **20-40 age group dominates** the dataset, representing about 65% of the population
+- There's a **significant underrepresentation** of younger people (0-20), making up only 3.6% of the sample
+- The distribution shows a **middle-age sk

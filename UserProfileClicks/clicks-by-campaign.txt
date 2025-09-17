@@ -1,0 +1,13 @@
+This is a tabular data visualization showing "Campaign Clicks" performance metrics. It displays a two-column table with:
+
+**Structure:**
+- Left column: Campaign names (sortable, indicated by up arrow)
+- Right column: Click counts (sortable, indicated by up/down arrows)
+
+**Data displayed:**
+Seven different ACP (brand) campaigns with their respective click counts, ranging from 3,289 to 5,426 clicks.
+
+**Key insights:**
+- "ACP - Equestrian" is the top performer with 5,426 clicks
+- "ACP - JAN25 FOOD" follows closely with 4,520 clicks
+- Performance

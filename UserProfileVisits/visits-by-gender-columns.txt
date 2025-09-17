@@ -1,0 +1,7 @@
+This is a data table visualization showing gender visitor demographics across two venues. The table displays visitor counts broken down by three gender categories (Female, Male, and Other) for Chevron Renaissance and MacArthur Central.
+
+**Key insights:**
+- **Chevron Renaissance** has more balanced gender distribution with slightly more male visitors (70,143) than female (65,511), and minimal "Other" category visitors (143)
+- **MacArthur Central** shows a similar pattern but with lower overall traffic - 63,645 male and 57,107 female visitors, but notably higher "Other" category representation (4,682)
+- Both venues attract slightly more male than female visitors
+-

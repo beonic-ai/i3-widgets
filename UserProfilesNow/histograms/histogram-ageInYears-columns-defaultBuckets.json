@@ -1,0 +1,38 @@
+{
+  "columnNames": [
+    {
+      "name": "age",
+      "dimension": {
+        "histogram": {
+          "metric": "UserProfilesNow",
+          "histogram": "ageInYears"
+        }
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "ageInYears"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user ages.  The histogram's age buckets and counts are visualised as a single row table. Each bucket is a single column and the corresponding row value is the bucket count. The buckets are defaults derived from the histogram's metric and the histogram name."
+    },
+    "type": "Table",
+    "title": "Age In Years Histogram Columns (default buckets)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

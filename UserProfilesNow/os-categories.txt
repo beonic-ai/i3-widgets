@@ -1,0 +1,13 @@
+This is a **data table visualization** showing operating system distribution between Android and Apple devices.
+
+**Data displayed:**
+- Android: 22,658 users
+- iOS/OSX: 27,496 users
+- Total sample size: ~50,154 users
+
+**Key insights:**
+- iOS/OSX has a slight majority with 54.8% of users compared to Android's 45.2%
+- The distribution is relatively balanced between the two major mobile/desktop ecosystems
+- iOS/OSX leads by approximately 4,838 users
+
+The visualization uses a clean, minimalist table format with sorting capabilities (indicated by the diamond sorting icons), making it easy to compare the two

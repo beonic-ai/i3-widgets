@@ -1,0 +1,15 @@
+This is a simple table visualization from Beonic Insights showing session data by venue. 
+
+**Chart Type:** Data table with two columns
+
+**Data Displayed:**
+- Venue names (Adelaide Central Plaza, Port Adelaide Plaza)
+- Session counts for each venue
+
+**Key Insights:**
+- Adelaide Central Plaza leads with 121,839 sessions
+- Port Adelaide Plaza has 114,012 sessions
+- The difference between venues is relatively small (~7,800 sessions or about 6.4%)
+- Both venues show strong session volumes, suggesting active user engagement
+
+The visualization uses a clean, minimalist design with sortable columns (indicated by the sort arrows), making it easy to compare performance between

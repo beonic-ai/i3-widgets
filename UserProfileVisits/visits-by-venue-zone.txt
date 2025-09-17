@@ -1,0 +1,11 @@
+This is a **data table visualization** showing "Primary Zone Visits" with three columns:
+
+- **Venue**: Lists shopping centers (Adelaide Central Plaza and Port Adelaide Plaza)
+- **Primary Zone**: Specifies different areas/zones within each venue
+- **Count**: Shows visit numbers ranging from ~14K to ~18K
+
+**Key insights:**
+- Adelaide Central Plaza dominates with 4 of the top 5 zones
+- "Cue" zone has the highest traffic (18,497 visits)
+- "Level 1" follows closely (17,378 visits)
+- Port Adelaide Plaza appears twice with "Casual Dining/external" (16,726) an

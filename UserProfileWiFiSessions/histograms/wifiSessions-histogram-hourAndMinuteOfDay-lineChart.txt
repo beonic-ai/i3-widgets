@@ -1,0 +1,11 @@
+This is a line chart displaying WiFi session activity throughout the day, organized as a histogram showing time-of-day patterns.
+
+**Chart Type:** Line chart with histogram-style time bins
+
+**Data Displayed:** 
+- X-axis: Time periods in 100-minute intervals (0-100, 300-400, etc., up to 2100-2200)
+- Y-axis: Number of WiFi sessions (ranging from 0 to 15k)
+- Single blue line tracking session volume across different time periods
+
+**Key Insights:**
+- **Peak usage period:** Sessions peak between 1200-1600 (noon to 4 PM), reaching approximately 14

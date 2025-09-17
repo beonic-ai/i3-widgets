@@ -1,0 +1,11 @@
+This is a data table visualization showing "Primary Zone Visits" with two columns: "Primary Zone" and "Count".
+
+**Data displayed:**
+- 7 different primary zones with their corresponding visit counts
+- Visit counts range from 1,519 (PAP Reject Mall) to 16,730 (Casual Dining/external)
+- Total dataset appears to cover 61,003 visits across all zones
+
+**Key insights:**
+- **Casual Dining/external** has the highest traffic (16,730 visits)
+- **Aldi/Services/internal** is second highest (14,380 visits)
+- There's a significant portion of **MISSING**

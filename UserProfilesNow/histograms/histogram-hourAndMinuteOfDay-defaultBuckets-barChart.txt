@@ -1,0 +1,11 @@
+This is a histogram showing the distribution of signup hours throughout the day (displayed in 24-hour format on the x-axis). 
+
+**Chart Type:** Bar histogram with blue bars representing count frequency
+
+**Data Displayed:** 
+- X-axis: Time ranges in 100-hour intervals (0-100, 300-400, etc. up to 2100-2200)
+- Y-axis: Count of signups (ranging from 0 to 21k)
+
+**Key Insights:**
+- **Peak signup period:** 1300-1400 hours (1-2 PM) with nearly 20k signups
+- **High activity window:** 1200-

@@ -1,0 +1,11 @@
+This is a pivot table visualization showing OS category data (Android vs iOS/OSX) broken down by venue location.
+
+**Data displayed:**
+- Two venues: Chevron Renaissance and MacArthur Central
+- Two OS categories: Android and iOS_OSX
+- Numerical values representing user counts or device detections
+
+**Key insights:**
+- **Chevron Renaissance**: iOS/OSX users significantly outnumber Android users (64,783 vs 45,665)
+- **MacArthur Central**: Android users outnumber iOS/OSX users (68,913 vs 55,930)
+- The venues show opposite patterns in OS preference, suggesting different demographic profiles or customer

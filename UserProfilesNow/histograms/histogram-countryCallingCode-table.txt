@@ -1,0 +1,10 @@
+This is a **histogram table** that displays the distribution of country calling codes in numeric ranges.
+
+**Data Display:**
+- Shows 7 different ranges of country calling codes (e.g., 1-1, 20-29, 30-49, etc.)
+- Each range shows the count of calling codes within that bucket
+- Total dataset contains 70,922 entries
+
+**Key Insights:**
+- **Heavily concentrated distribution**: The 60-99 range dominates with 68,863 entries (~97% of all data)
+- **Most other ranges are sparsely populated**: Several ranges have very low counts (1-1 has 0, 200-299
