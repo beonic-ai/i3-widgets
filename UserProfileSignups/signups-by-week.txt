@@ -1,0 +1,14 @@
+This is a **table visualization** showing weekly signup data over time from January to March 2025.
+
+**Data displayed:**
+- Weekly time periods (starting dates)
+- Corresponding signup numbers for each week
+- Total of 14 weeks of data
+
+**Key insights:**
+- Signups fluctuate significantly week-to-week, ranging from a low of 207 (31/03/2025) to a high of 1,337 (20/01/2025)
+- Most weeks show healthy signup numbers between 800-1,200
+- Notable drop-off in the final week (207 signups), which could indicate incomplete data for that period
+- Generally strong performance in January-February with some volatility in March
+
+The visualization provides a clear chronological view of signup trends, making it easy to identify patterns and anomalies in user acquisition over the 3-month period.

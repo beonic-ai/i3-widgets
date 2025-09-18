@@ -1,0 +1,18 @@
+This is a table visualization showing "Primary Zone Visits" data. It displays visit counts for different zones/locations:
+
+**Data displayed:**
+- Casual Dining/external: 16,726 visits (highest)
+- Aldi/Services/internal: 14,370 visits
+- PAP Big W Centre Court: 5,348 visits
+- PAP Coles Food Mall: 4,966 visits
+- PAP Fashion Mall: 4,109 visits
+- PAP Reject Mall: 1,523 visits (lowest)
+
+**Key insights:**
+- External casual dining areas attract the most foot traffic
+- Internal services (Aldi area) also show high visitation
+- Shopping mall zones (PAP locations) have significantly lower but varied traffic
+- There's a clear hierarchy of zone popularity, with external dining and internal services dominating visits
+- The data suggests people primarily visit for dining and essential services rather than traditional retail shopping
+
+The visualization effectively ranks zones by popularity, helping identify high-traffic areas for business planning or resource allocation.

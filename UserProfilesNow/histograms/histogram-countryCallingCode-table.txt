@@ -1,0 +1,16 @@
+This is a histogram table showing the distribution of country calling codes by numeric ranges. The visualization displays:
+
+**Chart Type**: Histogram table with frequency buckets
+
+**Data Displayed**: 
+- Country calling code ranges (e.g., 1-1, 20-29, 30-49, etc.)
+- Count of countries/territories in each range
+
+**Key Insights**:
+- The 60-99 range dominates with 68,863 entries, representing the vast majority of calling codes
+- The 30-49 range has the second-highest count at 1,661
+- Other ranges have relatively small counts (30-136 entries each)
+- The 1-1 range shows 0 entries
+- This distribution suggests most countries use calling codes in the 60-99 numeric range
+
+The table reveals a heavily skewed distribution where calling codes are concentrated in specific numeric ranges rather than being evenly distributed across all possible values.

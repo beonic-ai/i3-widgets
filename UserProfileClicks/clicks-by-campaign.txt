@@ -1,0 +1,14 @@
+This is a **table visualization** showing campaign click performance data. It displays:
+
+**Data Structure:**
+- Campaign names in the left column
+- Click counts in the right column
+- Data sorted in descending order by click count
+
+**Key Insights:**
+- **Top performer**: "ACP - Equestrian" leads with 5,426 clicks
+- **Performance range**: Clicks range from 3,289 to 5,426 across campaigns
+- **Campaign focus**: Most campaigns are ACP-branded promotions covering diverse categories (food, fashion, fragrance, sports)
+- **Relatively close performance**: Despite the ranking, all campaigns show reasonably strong engagement with less than 2,200 clicks separating the top and bottom performers
+
+The visualization effectively highlights which marketing campaigns are generating the most user engagement through click-through rates.

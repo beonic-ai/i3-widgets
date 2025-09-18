@@ -1,0 +1,13 @@
+This is a tabular data visualization showing "Monthly Signups" data in a simple two-column format.
+
+**Data displayed:**
+- Time period: January 2024 through July 2024 (7 months)
+- Monthly signup numbers ranging from approximately 3,970 to 6,092
+
+**Key insights:**
+- March 2024 had the highest signups (6,092), representing a notable peak
+- April 2024 shows the lowest signups (3,970), indicating a significant drop after March
+- Overall trend shows fluctuation rather than consistent growth, with signup numbers varying by about 2,100 between the highest and lowest months
+- Recent months (May-July 2024) show relatively stable performance around 4,100 signups
+
+The visualization uses a clean, minimalist table design that makes it easy to compare monthly performance and identify patterns in user acquisition over this 7-month period.

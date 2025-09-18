@@ -1,0 +1,7 @@
+This is a simple metric card or KPI widget displaying a single data point. The visualization shows:
+
+**Type**: Basic numerical display/metric card
+**Data**: Count of females = 3
+**Representation**: Large number format with category label
+
+**Insights**: This appears to be part of a demographic breakdown, showing there are 3 females in the measured population or dataset. As a standalone metric, it provides a quick reference for gender distribution, likely complementing other demographic widgets to give a complete picture of the population being analyzed.

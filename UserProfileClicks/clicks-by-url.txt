@@ -1,0 +1,12 @@
+This is a **table visualization** showing "Clicks by URL" data. It displays:
+
+**Data Type**: Web analytics data with two columns - URL and Count (click frequency)
+
+**Key Insights**:
+- **Top performer**: The main Adelaide Central Plaza website with UTM tracking parameters received 5,602 clicks
+- **Second highest**: Apple App Store link (1,486 clicks) and Google Play Store link (1,004 clicks) indicate strong mobile app engagement
+- **Main website**: Direct homepage received 250 clicks
+- **Content performance**: Blog posts and special offers show moderate engagement (16-168 clicks)
+- **Campaign tracking**: Multiple UTM-tagged URLs suggest active digital marketing campaigns
+
+**Data Pattern**: Shows a typical long-tail distribution with a few high-performing URLs and many lower-traffic pages, indicating concentrated user interest in key destinations while maintaining diverse content engagement across the Adelaide Central Plaza digital ecosystem.

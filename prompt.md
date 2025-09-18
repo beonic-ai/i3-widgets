@@ -86,16 +86,20 @@ Count the number of regos that clicked a campaign
 ```
 
 
-**Visualization Preview:** This is a **data table visualization** showing "Postcode Clicks" performance metrics.
+**Visualization Preview:** This is a tabular data visualization showing "Postcode Clicks" performance metrics. The table displays three columns:
 
-**Data displayed:**
-- 9 postcodes (3181, 3141, 3182, 3004, 3183, 3000, 3142, 3121, 3143)
-- Number of clicks per postcode
-- Click-through rates (Postcode Click Ratio) as percentages
+1. **Postcode** - Geographic postal codes (3181, 3141, 3182, etc.)
+2. **Clicked** - Number of clicks received from each postcode
+3. **Postcode Click Ratio** - Click rate percentage for each area
 
-**Key insights:**
-- **Postcode 3181** is the top performer with 240 clicks and highest click ratio at 26.55%
-- **Postcode 3141** ranks second with 161 clicks and 17.81% click
+**Key Insights:**
+- Postcode 3181 is the top performer with 240 clicks and the highest click ratio at 26.55%
+- Postcode 3141 follows with 161 clicks (17.81% ratio)
+- Performance drops significantly after the top two, with remaining postcodes showing much lower engagement
+- The data reveals clear geographic performance disparities, with some areas generating 10x+ more clicks than others
+- This information is valuable for targeted marketing and resource allocation decisions based on geographic response rates
+
+The visualization effectively ranks postcodes by engagement, helping identify high-performing geographic segments for campaign optimization.
 ![Postcode Clicks](UserProfileCampaigns/campaign-clicks-by-postcode.png)
 
 #### campaigns
@@ -164,7 +168,8 @@ Count profiles that had an event on a campaign
       "DELIVERED",
       "OPENED",
       "SPAM",
-      "UNSUBSCRIBED"
+      "UNSUBSCRIBED",
+      "FAILED"
     ]
   },
   "columnNames": [
@@ -214,16 +219,20 @@ Count profiles that had an event on a campaign
 ```
 
 
-**Visualization Preview:** This is a data table visualization showing email campaign performance metrics across different marketing campaigns. 
+**Visualization Preview:** This is a tabular data visualization showing email campaign performance metrics across different event types. 
 
-**Data Displayed:**
-- 12 different campaigns (mostly PRN and BPP branded)
-- 6 key email metrics: Bounced, Clicked, Delivered, Opened, Spam, and Unsubscribed
-- Performance data for each campaign-metric combination
+**Data Structure:**
+- Rows: 12 different marketing campaigns (mostly PRN and BPP branded)
+- Columns: 6 email engagement metrics (Bounced, Clicked, Delivered, Opened, Spam, Unsubscribed)
 
 **Key Insights:**
-- **Delivery volumes vary significantly**: Ranges from ~3,000-4,000 (top campaigns) to ~8,000-10,000+ (bottom campaigns)
-- **Click-through rates differ**: Some campaigns like "Pran Survey" show high clicks (170)
+- **Delivery volume varies significantly**: Ranges from 3,851 (PRN Lockdown Offer) to 10,614 (PRN BBP App Download)
+- **Click-through rates differ widely**: From 15 clicks (Pran WholeLife NOW OPEN) to 170 clicks (Pran Survey)
+- **Open rates show strong engagement**: Most campaigns achieve 1,000+ opens, with Pran Survey leading at 1,536 opens
+- **Low spam/bounce rates**: Most campaigns show minimal bounces (68-676) and very low spam rates (0-7)
+- **Moderate unsubscribe rates**: Generally low unsubscribe numbers (12-95), indicating good list quality
+
+The visualization effectively compares campaign performance across multiple engagement metrics, allowing for quick identification of high-performing campaigns and potential areas for optimization.
 ![Profiles by Campaign x Event-Type](UserProfileCampaigns/campaign-events-by-campaign.png)
 
 #### Campaign Postcodes
@@ -386,18 +395,22 @@ Count the regos that triggered a campaign in a zone
 ```
 
 
-**Visualization Preview:** This is a **data table visualization** from Beonic Insights showing "Auto Triggered by Venue and Zone" analytics.
+**Visualization Preview:** This is a tabular data visualization showing "Auto Triggered by Venue and Zone" data for Pran Central shopping center.
 
-**Data Structure:**
-- Three columns: Venue, Zone, and Count
+**Chart Type**: Simple data table with three columns (Venue, Zone, Count)
+
+**Data Displayed**: 
 - All entries are from "Pran Central" venue
-- Shows 8 different zones within the venue
-- Count values range from 1 to 153
+- Shows 8 different zones/locations within the venue
+- Count values represent frequency of auto-triggered events in each zone
 
-**Key Insights:**
-- **Commercial Road Entry** is the most active zone with 153 triggers (59% of total activity)
-- **Chapel Street - Laser Clinics** and **Foodcourt** are tied as secondary hotspots with 36 triggers each
-- Several zones show minimal activity (
+**Key Insights**:
+- **Commercial Road Entry** has the highest activity (153 counts), suggesting it's the main entrance or high-traffic area
+- **Chapel Street - Laser Clinics** and **Foodcourt** are equally active (36 counts each)
+- **Wattle Street Entry** shows moderate activity (23 counts) as a secondary entrance
+- Several zones show minimal activity (1-11 counts), indicating lower foot traffic or fewer trigger events
+
+The data suggests this tracks automated events (likely foot traffic, sensors, or transactions) across different zones within the Pran Central shopping center, with clear patterns showing main traffic flows and popular areas.
 ![Auto Triggered by Venue and Zone](UserProfileCampaigns/campaigns-by-venue-zone.png)
 
 #### campaigns
@@ -586,16 +599,19 @@ Shows clicks  broken down by campaign gender. Displayed as a Table.
 ```
 
 
-**Visualization Preview:** This is a **data table visualization** showing campaign performance metrics broken down by gender demographics.
+**Visualization Preview:** This is a tabular data visualization showing campaign click data segmented by gender across specific postcodes (5000, 5082, 5085, 5066, 5067).
 
-**Data Displayed:**
-- Campaign names (Winter Warmers, WIN Designer or Diamonds, Vogue Festival 2021, School Holidays Sept21)
-- Gender segments (Female/Male)
-- Click counts for specific postcodes (5000, 5082, 5085, 5066, 5067)
+**Data Structure:**
+- Three columns: Campaign name, Gender (Postcode), and Click Count
+- Four campaigns listed: Winter Warmers, WIN Designer or Diamonds, Vogue Festival 2021, and School Holidays Sept21
 
 **Key Insights:**
-- **Strong female skew**: All campaigns show significantly higher female engagement, with females generating 14-18 clicks per campaign compared to only 1 click from males
-- **Consistent pattern**: The gender disparity is remarkably consistent across all
+- **Strong female skew**: Females dramatically outnumber males across all campaigns (14-18 female clicks vs. only 1 male click per campaign)
+- **Consistent gender pattern**: Every campaign shows the same 14:1 or higher female-to-male ratio
+- **Campaign performance**: Vogue Festival 2021 had the highest female engagement (18 clicks), followed by School Holidays Sept21 (15 clicks)
+- **Geographic focus**: Data is filtered to specific postcode areas, suggesting targeted local marketing analysis
+
+The visualization effectively highlights a clear gender preference in campaign engagement, indicating these campaigns strongly resonate with female audiences in the analyzed postal areas.
 ![Campaign Clickers by Gender (postcodes 5000,5082,5085,5066,5067)](UserProfileClicks/clicks-by-campaign-gender.png)
 
 #### Campaign Clicks
@@ -644,19 +660,20 @@ Shows clicks  broken down by campaign. Displayed as a Table.
 ```
 
 
-**Visualization Preview:** This is a tabular data visualization showing "Campaign Clicks" performance metrics. It displays a two-column table with:
+**Visualization Preview:** This is a **table visualization** showing campaign click performance data. It displays:
 
-**Structure:**
-- Left column: Campaign names (sortable, indicated by up arrow)
-- Right column: Click counts (sortable, indicated by up/down arrows)
+**Data Structure:**
+- Campaign names in the left column
+- Click counts in the right column
+- Data sorted in descending order by click count
 
-**Data displayed:**
-Seven different ACP (brand) campaigns with their respective click counts, ranging from 3,289 to 5,426 clicks.
+**Key Insights:**
+- **Top performer**: "ACP - Equestrian" leads with 5,426 clicks
+- **Performance range**: Clicks range from 3,289 to 5,426 across campaigns
+- **Campaign focus**: Most campaigns are ACP-branded promotions covering diverse categories (food, fashion, fragrance, sports)
+- **Relatively close performance**: Despite the ranking, all campaigns show reasonably strong engagement with less than 2,200 clicks separating the top and bottom performers
 
-**Key insights:**
-- "ACP - Equestrian" is the top performer with 5,426 clicks
-- "ACP - JAN25 FOOD" follows closely with 4,520 clicks
-- Performance
+The visualization effectively highlights which marketing campaigns are generating the most user engagement through click-through rates.
 ![Campaign Clicks](UserProfileClicks/clicks-by-campaign.png)
 
 #### Auto Campaign Clicks by PageType
@@ -795,16 +812,18 @@ Shows clicks  broken down by url. Displayed as a Table.
 ```
 
 
-**Visualization Preview:** This is a **table visualization** showing "Clicks by URL" data from Beonic Insights. 
+**Visualization Preview:** This is a **table visualization** showing "Clicks by URL" data. It displays:
 
-**Data Display:**
-- Lists URLs in the left column with corresponding click counts in the right column
-- Shows 16 different URLs with click counts ranging from 3 to 5,602
-- Data is sortable by both URL and Count columns (indicated by sort arrows)
+**Data Type**: Web analytics data with two columns - URL and Count (click frequency)
 
-**Key Insights:**
-- **Top performers:** The main Adelaide Central Plaza website with UTM parameters leads with 5,602 clicks, followed by the Apple App Store link (1,486 clicks) and Google Play Store link (1,004 clicks)
-- **Traffic sources:** Mix of website pages
+**Key Insights**:
+- **Top performer**: The main Adelaide Central Plaza website with UTM tracking parameters received 5,602 clicks
+- **Second highest**: Apple App Store link (1,486 clicks) and Google Play Store link (1,004 clicks) indicate strong mobile app engagement
+- **Main website**: Direct homepage received 250 clicks
+- **Content performance**: Blog posts and special offers show moderate engagement (16-168 clicks)
+- **Campaign tracking**: Multiple UTM-tagged URLs suggest active digital marketing campaigns
+
+**Data Pattern**: Shows a typical long-tail distribution with a few high-performing URLs and many lower-traffic pages, indicating concentrated user interest in key destinations while maintaining diverse content engagement across the Adelaide Central Plaza digital ecosystem.
 ![Clicks by URL](UserProfileClicks/clicks-by-url.png)
 
 #### Auto Campaign Clicks by Venue
@@ -851,6 +870,600 @@ Shows clicks  broken down by venue. Displayed as a Table.
   }
 }
 ```
+
+
+## UserProfileSignups
+#### Females
+Count female signups
+```json
+{
+  "keyAliases": {
+    "gender": [
+      "FEMALE"
+    ]
+  },
+  "columnNames": [
+    "Females"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count female signups"
+    },
+    "type": "Number",
+    "title": "Females"
+  }
+}
+```
+
+
+**Visualization Preview:** This is a simple metric card or KPI widget displaying a single data point. The visualization shows:
+
+**Type**: Basic numerical display/metric card
+**Data**: Count of females = 3
+**Representation**: Large number format with category label
+
+**Insights**: This appears to be part of a demographic breakdown, showing there are 3 females in the measured population or dataset. As a standalone metric, it provides a quick reference for gender distribution, likely complementing other demographic widgets to give a complete picture of the population being analyzed.
+![Females](UserProfileSignups/female-signups.png)
+
+#### Friendly labels
+User profiles friendly labels for enum/boolean values
+```json
+{
+  "columnNames": [
+    "gender",
+    "country",
+    "verifiedEmail",
+    "language",
+    "locale",
+    "locale code",
+    "source",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "gender",
+            "displayAs": "short"
+          }
+        },
+        {
+          "dimension": {
+            "key": "country"
+          }
+        },
+        {
+          "dimension": {
+            "key": "verifiedEmail"
+          }
+        },
+        {
+          "dimension": {
+            "key": "language"
+          }
+        },
+        {
+          "dimension": {
+            "key": "locale"
+          }
+        },
+        {
+          "dimension": {
+            "key": "locale",
+            "displayAs": "short"
+          }
+        },
+        {
+          "dimension": {
+            "key": "source"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "imageFile": "",
+    "description": {
+      "html": "User profiles friendly labels for enum/boolean values"
+    },
+    "tableSettings": {
+      "columnSettings": {},
+      "paginate": true,
+      "scrollOverflow": true
+    },
+    "title": "Friendly labels",
+    "type": "Table"
+  }
+}
+```
+
+#### 15-Minutely Signups
+Creates a table of registration signups by Day Date Hour:15-Minute
+```json
+{
+  "columnNames": [
+    "15 Minute",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "FifteenMinutely"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Day Date Hour:15-Minute"
+    },
+    "type": "Table",
+    "title": "15-Minutely Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **time-series table visualization** showing 15-minute interval signup data for Saturday, September 13, 2025.
+
+**Data Display:**
+- Left column: 15-minute time slots from 10:30 AM to 4:45 PM
+- Right column: Number of signups per time slot (ranging from 0-9)
+
+**Key Insights:**
+- **Peak activity**: 12:30 PM with 9 signups
+- **Multiple busy periods**: 11:15-11:45 AM (5-6 signups) and 1:00 PM (8 signups)
+- **Low activity periods**: 10:45 AM, 3:45 PM, and 4:15 PM with 0 signups
+- **Overall pattern**: Higher signup concentration during late morning through early afternoon hours
+- **Total visible signups**: Approximately 80+ signups across the displayed timeframe
+
+This visualization helps identify optimal timing patterns and capacity planning for signup-related activities or events.
+![15-Minutely Signups](UserProfileSignups/signups-by-15minute.png)
+
+#### 5-Minutely Signups
+Creates a table of registration signups by Day Date Hour:5-Minute
+```json
+{
+  "columnNames": [
+    "5 Minute",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "FiveMinutely"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Day Date Hour:5-Minute"
+    },
+    "type": "Table",
+    "title": "5-Minutely Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **time-series data table** showing 5-minute interval signup data for Saturday, September 13, 2025.
+
+**Data Display:**
+- Lists consecutive 5-minute time slots from 12:00 PM to 2:05 PM
+- Shows signup counts for each interval (all showing 0 signups except one)
+- Single data point: 1 signup at 1:35 PM
+
+**Key Insights:**
+- Extremely low signup activity during this 2+ hour period
+- Only one conversion occurred at 1:35 PM
+- Suggests either low traffic, poor conversion rates, or this may be outside peak user activity hours
+- The granular 5-minute tracking allows for precise identification of when engagement occurs
+
+This visualization is useful for identifying specific time periods when user activity spikes and optimizing marketing efforts or user experience accordingly.
+![5-Minutely Signups](UserProfileSignups/signups-by-5minute.png)
+
+#### Daily Signups
+Creates a table of registration signups by day.
+```json
+{
+  "columnNames": [
+    "Date",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by day."
+    },
+    "type": "Table",
+    "title": "Daily Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **table visualization** showing daily signup data over a one-week period in September 2025.
+
+**Data displayed:**
+- Date range: Monday, September 8th through Sunday, September 14th, 2025
+- Daily signup counts ranging from 102 to 141
+
+**Key insights:**
+- **Friday (12/09) had the highest signups** with 141 users
+- **Sunday (14/09) had the lowest signups** with 102 users
+- **Weekday pattern**: Generally higher signup activity during weekdays (115-141) compared to weekend (102-108)
+- **Weekly total**: Approximately 838 signups across the 7-day period
+- **Average**: About 120 signups per day
+
+The visualization effectively shows signup trends throughout the week, highlighting that business days tend to drive higher user registration activity compared to weekends.
+![Daily Signups](UserProfileSignups/signups-by-day.png)
+
+#### Hourly Signups
+Creates a table of registration signups by Day Date Hour
+```json
+{
+  "columnNames": [
+    "Hour",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Hourly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Day Date Hour"
+    },
+    "type": "Table",
+    "title": "Hourly Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **tabular data visualization** showing "Hourly Signups" for Saturday, September 13, 2025.
+
+**Data Type:** Time series data displaying signup counts aggregated by hour over a 24-hour period.
+
+**Key Insights:**
+- **Peak activity period:** 11 AM - 1 PM, with the highest signup volume at 12 PM (20 signups)
+- **Secondary peak:** 11 AM (18 signups) and 1 PM (15 signups)
+- **Low activity periods:** Early morning (12 AM - 9 AM) and late evening (7 PM - 11 PM) with mostly 0-1 signups
+- **Total pattern:** Clear daytime preference for signups, following typical business/daylight hours
+- **Gradual decline:** Afternoon signups steadily decrease from 2 PM (12) through 6 PM (4)
+
+This visualization effectively shows user engagement patterns throughout the day, indicating when users are most likely to sign up for the service.
+![Hourly Signups](UserProfileSignups/signups-by-hour.png)
+
+#### Minutely Signups
+Creates a table of registration signups by Day Date Hour:Minute
+```json
+{
+  "columnNames": [
+    "Minute",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Minutely"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Day Date Hour:Minute"
+    },
+    "type": "Table",
+    "title": "Minutely Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **time series table** showing "Minutely Signups" data from Beonic Insights. 
+
+**Data Display:**
+- Time period: Saturday 13/09/2025, from 12:54 PM to approximately 1:20 PM
+- Granularity: Minute-by-minute breakdown
+- Metric: Number of user signups per minute
+
+**Key Insights:**
+- Most minutes show **0 signups**, indicating sporadic user registration activity
+- Peak activity occurs at **1:08 PM with 2 signups** and **1:13 PM with 2 signups**
+- Several minutes show **1 signup**: 12:57 PM, 1:00 PM, 1:02 PM, 1:07 PM, and 1:10 PM
+- **Total observable signups**: 10 signups over the ~26-minute period
+- The data suggests **low but consistent signup activity** with occasional minor spikes
+
+This visualization is useful for monitoring real-time user acquisition patterns and identifying peak signup periods at a granular level.
+![Minutely Signups](UserProfileSignups/signups-by-minute.png)
+
+#### Monthly Signups
+Creates a table of registration signups by Month Year.
+```json
+{
+  "columnNames": [
+    "Month",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Monthly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Month Year."
+    },
+    "type": "Table",
+    "title": "Monthly Signups",
+    "tableSettings": {
+      "paginate": true,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a tabular data visualization showing "Monthly Signups" data in a simple two-column format.
+
+**Data displayed:**
+- Time period: January 2024 through July 2024 (7 months)
+- Monthly signup numbers ranging from approximately 3,970 to 6,092
+
+**Key insights:**
+- March 2024 had the highest signups (6,092), representing a notable peak
+- April 2024 shows the lowest signups (3,970), indicating a significant drop after March
+- Overall trend shows fluctuation rather than consistent growth, with signup numbers varying by about 2,100 between the highest and lowest months
+- Recent months (May-July 2024) show relatively stable performance around 4,100 signups
+
+The visualization uses a clean, minimalist table design that makes it easy to compare monthly performance and identify patterns in user acquisition over this 7-month period.
+![Monthly Signups](UserProfileSignups/signups-by-month.png)
+
+#### Weekly Signups
+Creates a table of registration signups by Week Date
+```json
+{
+  "columnNames": [
+    "Week",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Weekly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Week Date"
+    },
+    "type": "Table",
+    "title": "Weekly Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **table visualization** showing weekly signup data over time from January to March 2025.
+
+**Data displayed:**
+- Weekly time periods (starting dates)
+- Corresponding signup numbers for each week
+- Total of 14 weeks of data
+
+**Key insights:**
+- Signups fluctuate significantly week-to-week, ranging from a low of 207 (31/03/2025) to a high of 1,337 (20/01/2025)
+- Most weeks show healthy signup numbers between 800-1,200
+- Notable drop-off in the final week (207 signups), which could indicate incomplete data for that period
+- Generally strong performance in January-February with some volatility in March
+
+The visualization provides a clear chronological view of signup trends, making it easy to identify patterns and anomalies in user acquisition over the 3-month period.
+![Weekly Signups](UserProfileSignups/signups-by-week.png)
+
+#### Yearly Signups
+Creates a table of registration signups by Year.
+```json
+{
+  "columnNames": [
+    "Year",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Yearly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Year."
+    },
+    "type": "Table",
+    "title": "Yearly Signups",
+    "tableSettings": {
+      "paginate": true,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a simple data table visualization showing "Yearly Signups" over a three-year period. The table displays:
+
+**Data Structure:**
+- Two columns: Year and Signups
+- Three years of data (2023-2025)
+
+**Key Data Points:**
+- 2023: 15,254 signups
+- 2024: 22,232 signups (peak year)
+- 2025: 6,280 signups
+
+**Insights:**
+- Signups increased by 46% from 2023 to 2024
+- Dramatic 72% decline in 2025 signups compared to 2024
+- 2024 represents the highest signup volume in the dataset
+
+This tabular format provides a clear numerical comparison of signup trends, though the significant drop in 2025 may warrant further investigation (could be incomplete year data or actual performance decline).
+![Yearly Signups](UserProfileSignups/signups-by-year.png)
 
 
 ## UserProfileVisits
@@ -933,18 +1546,16 @@ Creates a histogram of user visit durations. The histogram's duration buckets an
 ```
 
 
-**Visualization Preview:** This is a histogram bar chart showing the distribution of website visit durations in minutes. 
+**Visualization Preview:** This is a histogram bar chart showing the distribution of website visit durations measured in minutes. The chart displays visitor counts (y-axis, ranging from 0 to 40k) across different time duration bins (x-axis).
 
-**Chart Type:** Histogram with discrete time interval bins on the x-axis and visitor count on the y-axis.
+**Key insights:**
+- The highest engagement occurs in the 61-120 minute range (~37k visits), indicating strong user retention
+- The 31-60 minute range also shows high engagement (~35k visits)
+- Medium engagement levels are seen in 6-15 minutes (~32k) and 16-30 minutes (~28k) ranges
+- There's a significant drop-off for longer sessions, with only ~14k visits lasting 121-180 minutes
+- Very few visitors stay for extremely short (0-5 minutes) or very long sessions (181+ minutes)
 
-**Data Displayed:** 
-- Visit duration ranges from 0-5 minutes up to 301+ minutes
-- Visitor counts ranging from 0 to approximately 40,000
-- Seven distinct time intervals as bins
-
-**Key Insights:**
-- **Peak engagement occurs in medium-duration visits:** The highest counts are in the 61-120 minute range (~37k visitors), followed closely by 31-60 minutes (~35k visitors)
-- **Strong mid-range
+The distribution suggests the website successfully retains users for substantial periods, with peak engagement occurring in the 1-2 hour range, indicating quality content or engaging user experience.
 ![Visit Duration (minutes) Histogram Bar Chart](UserProfileVisits/histograms/visits-histogram-duration-barChart.png)
 
 #### Visit Time of Day Histogram Line Chart
@@ -1018,15 +1629,23 @@ Creates a histogram of user visits by time of day. The histogram's hour of day b
 
 **Visualization Preview:** This is a line chart showing website visits over time periods. The visualization displays:
 
-**Chart Type:** Single-line graph with a blue line tracking visits across time intervals
+**Chart Type**: Single-line graph with time intervals on the x-axis and visit counts on the y-axis (scaled in thousands)
 
-**Data Displayed:** 
-- Y-axis: Number of visits (ranging from 0 to 7.0k)
-- X-axis: Time periods in ranges (0-100, 400-500, 800-900, etc. up to 2000-2100)
+**Data Pattern**: 
+- Visits start near zero (0-500 time period)
+- Gradual increase begins around 400-500
+- Steep growth from 800-1200, reaching peak performance
+- Peak visits of ~6.5k during 1500-1600 period  
+- Sharp decline after 1700, dropping to ~2.5k by 2000-2100
+- Nearly returns to baseline by the end
 
-**Key Insights:**
-- **Peak Performance:** Visits reach their highest point around the 1500-1600 time period at approximately 6.5k visits
-- **Growth Pattern:** Sharp increase starting around the 800-
+**Key Insights**:
+- Clear bell-curve distribution with sustained high activity from 1200-1600
+- Peak traffic period represents a 6.5x increase from baseline
+- The pattern suggests time-based user behavior (possibly daily/hourly traffic cycles)
+- Significant traffic concentration during the middle periods, indicating predictable usage patterns
+
+This visualization effectively shows traffic flow patterns that could inform resource allocation and user engagement strategies.
 ![Visit Time of Day Histogram Line Chart](UserProfileVisits/histograms/visits-histogram-hourAndMinuteOfDay-lineChart.png)
 
 #### Primary Zone Visit Duration (minutes) Histogram Bar Chart
@@ -1107,18 +1726,23 @@ Creates a histogram of user visits to the primary zone, visualised as a bar char
 ```
 
 
-**Visualization Preview:** This is a histogram bar chart showing the distribution of Primary Zone Visit Duration in minutes. 
+**Visualization Preview:** This is a histogram bar chart showing the distribution of Primary Zone visit durations in minutes. The chart displays visitor counts across different time intervals:
 
-**Chart Type:** Histogram with discrete time interval bins on the x-axis and frequency counts on the y-axis.
+**Chart Type**: Histogram with 8 duration bins ranging from 0-5 minutes to 301+ minutes
 
-**Data Displayed:** 
-- Visit duration ranges from 0-5 minutes up to 301+ minutes
-- Count values ranging from approximately 1.5k to 12k visits per time interval
+**Key Data Points**:
+- Peak activity: 6-15 minutes (~12k visits)
+- Second highest: 16-30 minutes (~10k visits) 
+- Third highest: 31-60 minutes (~9k visits)
+- Shorter visits (0-5 min): ~4.5k visits
+- Longer visits show declining frequency: 61-120 min (~6.5k), 121-180 min (~1.5k)
+- Very few extended visits in 181-300 min and 301+ categories
 
-**Key Insights:**
-- **Peak activity:** The highest frequency occurs in the 6-15 minute range (~12k visits)
-- **Right-skewed distribution:** Most visits are concentrated in shorter durations (6-60 minutes)
-- **Rapid decline:**
+**Key Insights**:
+- Most visitors spend 6-60 minutes in the primary zone, indicating moderate engagement
+- The distribution shows a right-skewed pattern typical of dwell time data
+- Very short visits (0-5 min) are less common than moderate durations, suggesting the space successfully retains initial visitors
+- Extended stays beyond 2 hours are rare, indicating natural visit completion patterns
 ![Primary Zone Visit Duration (minutes) Histogram Bar Chart](UserProfileVisits/histograms/visits-histogram-primaryZoneDuration-barChart.png)
 
 
@@ -1175,13 +1799,15 @@ Count visits to a venue by visitor's gender
 ```
 
 
-**Visualization Preview:** This is a data table visualization showing gender visitor demographics across two venues. The table displays visitor counts broken down by three gender categories (Female, Male, and Other) for Chevron Renaissance and MacArthur Central.
+**Visualization Preview:** This is a data table visualization showing gender demographics of visitors across two venues. The table displays visitor counts broken down by three gender categories (Female, Male, Other) for Chevron Renaissance and MacArthur Central.
 
 **Key insights:**
-- **Chevron Renaissance** has more balanced gender distribution with slightly more male visitors (70,143) than female (65,511), and minimal "Other" category visitors (143)
-- **MacArthur Central** shows a similar pattern but with lower overall traffic - 63,645 male and 57,107 female visitors, but notably higher "Other" category representation (4,682)
-- Both venues attract slightly more male than female visitors
--
+- **Chevron Renaissance** has higher overall traffic (135,797 total visitors) with a slight male majority (70,143 vs 65,511 females)
+- **MacArthur Central** has lower traffic (125,434 total visitors) but also shows male majority (63,645 vs 57,107 females)
+- **"Other" category representation** varies significantly between venues - minimal at Chevron Renaissance (143) but substantial at MacArthur Central (4,682)
+- Both venues show relatively balanced gender distribution, with males having a slight edge of approximately 51-52% at each location
+
+The visualization effectively presents demographic segmentation data in a clean, comparative table format that allows for easy cross-venue analysis.
 ![Gender Visitors](UserProfileVisits/visits-by-gender-columns.png)
 
 #### visits
@@ -1263,17 +1889,21 @@ Count visits to a venue by visitor's postcode (only top 5 South Australia postco
 ```
 
 
-**Visualization Preview:** This is a **data table visualization** showing website visit statistics for two shopping venues in Adelaide, Australia.
+**Visualization Preview:** This is a tabular data visualization showing visitor counts by venue and postcode. The table displays:
 
-**Data displayed:**
-- **Venues:** Adelaide Central Plaza and Port Adelaide Plaza
-- **Postcodes:** Various codes (5000, 5066, 5067, 5082, 5085)
-- **Visit counts:** Ranging from 33 to 28,858 visits
+**Data Structure:**
+- **Venue**: Two locations (Adelaide Central Plaza and Port Adelaide Plaza)
+- **Postcode**: Various postal codes (5000, 5066, 5067, 5082, 5085)
+- **Count**: Number of visits per venue-postcode combination
 
-**Key insights:**
-- Adelaide Central Plaza significantly outperforms Port Adelaide Plaza in visitor traffic
-- Postcode 5000 generates the highest traffic for Adelaide Central Plaza (28,858 visits) but much lower for Port Adelaide Plaza (1,109 visits)
-- Adelaide Central Plaza
+**Key Insights:**
+- Adelaide Central Plaza dominates visitor traffic with 38,390 total visits across all postcodes
+- Postcode 5000 generates the highest traffic overall (29,967 visits), with Adelaide Central Plaza capturing the majority (28,858 vs 1,109 for Port Adelaide Plaza)
+- Port Adelaide Plaza has significantly lower visitor counts, with only 1,142 total visits
+- Adelaide Central Plaza shows more geographically diverse visitor origins across multiple postcodes
+- The data suggests strong location-based preferences, with visitors predominantly choosing the venue closest to postcode 5000
+
+This visualization effectively compares venue performance across different geographic catchment areas, helping identify market penetration and location effectiveness.
 ![visits](UserProfileVisits/visits-by-venue-postcode.png)
 
 #### Postcode Numeric Histogram Table (inline buckets)
@@ -1365,17 +1995,20 @@ Creates a histogram of user postcodes. The histogram's postcode buckets and coun
 ```
 
 
-**Visualization Preview:** This is a **data table visualization** showing "Primary Zone Visits" with three columns:
+**Visualization Preview:** This is a tabular data visualization showing "Primary Zone Visits" with three columns: Venue, Primary Zone, and Count.
 
-- **Venue**: Lists shopping centers (Adelaide Central Plaza and Port Adelaide Plaza)
-- **Primary Zone**: Specifies different areas/zones within each venue
-- **Count**: Shows visit numbers ranging from ~14K to ~18K
+**Data displayed:**
+- Two main venues: Adelaide Central Plaza and Port Adelaide Plaza
+- Various primary zones within each venue (Cue, Level 1, Casual Dining/external, Veronika Maine, Aldi/Services/internal)
+- Visit counts ranging from 14,370 to 18,497
 
 **Key insights:**
-- Adelaide Central Plaza dominates with 4 of the top 5 zones
-- "Cue" zone has the highest traffic (18,497 visits)
-- "Level 1" follows closely (17,378 visits)
-- Port Adelaide Plaza appears twice with "Casual Dining/external" (16,726) an
+- Adelaide Central Plaza's "Cue" zone has the highest traffic (18,497 visits)
+- Adelaide Central Plaza generally outperforms Port Adelaide Plaza in visitor counts
+- The data appears to show foot traffic patterns across different retail/commercial zones
+- Visit counts are relatively high and closely clustered, suggesting all zones maintain strong visitor engagement
+
+The table format allows for easy comparison of performance across different zones and venues, making it useful for retail analytics and space utilization assessment.
 ![Postcode Numeric Histogram Table (inline buckets)](UserProfileVisits/visits-by-venue-zone.png)
 
 #### visits
@@ -1424,17 +2057,18 @@ Shows visits  broken down by venue. Displayed as a Table.
 ```
 
 
-**Visualization Preview:** This is a simple data table visualization showing visit counts by venue. The table displays two locations:
+**Visualization Preview:** This is a tabular data visualization showing venue visit counts. The widget displays:
 
-- **Adelaide Central Plaza**: 180,566 visits
-- **Port Adelaide Plaza**: 61,005 visits
+**Data Type**: Visit frequency data for two Adelaide shopping venues
+- Adelaide Central Plaza: 180,566 visits
+- Port Adelaide Plaza: 61,005 visits
 
-**Key insights:**
-- Adelaide Central Plaza receives nearly 3 times more visits than Port Adelaide Plaza
-- The significant disparity (119,561 visit difference) suggests Adelaide Central Plaza is likely a more prominent or accessible location
-- This appears to be comparative foot traffic data, useful for understanding venue performance or customer flow patterns
+**Key Insights**: 
+- Adelaide Central Plaza receives nearly 3x more visits than Port Adelaide Plaza
+- Central Plaza is clearly the more popular/busier venue with significantly higher foot traffic
+- The data suggests a substantial difference in venue size, location attractiveness, or accessibility between these two shopping destinations
 
-The visualization uses a clean, minimalist table format with clear column headers ("Venue" and "Count") and precise numerical data presentation.
+The visualization uses a simple two-column table format (Venue | Count) making it easy to compare the relative performance of these retail locations.
 ![visits](UserProfileVisits/visits-by-venue.png)
 
 #### Primary Zone Visits
@@ -1484,17 +2118,22 @@ Zone visit counts
 ```
 
 
-**Visualization Preview:** This is a data table visualization showing "Primary Zone Visits" with two columns: "Primary Zone" and "Count".
+**Visualization Preview:** This is a tabular data visualization showing "Primary Zone Visits" with two columns: Primary Zone names and their corresponding visit counts.
 
 **Data displayed:**
-- 7 different primary zones with their corresponding visit counts
-- Visit counts range from 1,519 (PAP Reject Mall) to 16,730 (Casual Dining/external)
-- Total dataset appears to cover 61,003 visits across all zones
+- 7 different zones/locations with visit counts ranging from 1,519 to 16,730
+- Top performer: Casual Dining/external (16,730 visits)
+- Second highest: Aldi/Services/internal (14,380 visits)
+- Notable data quality issue: 13,943 visits are marked as "MISSING"
 
 **Key insights:**
-- **Casual Dining/external** has the highest traffic (16,730 visits)
-- **Aldi/Services/internal** is second highest (14,380 visits)
-- There's a significant portion of **MISSING**
+- External casual dining attracts the most foot traffic
+- Internal services (Aldi) also generate significant visits
+- Shopping centers (PAP locations) show varying performance, with Big W Centre Court leading (5,356) and Reject Mall trailing (1,519)
+- Data completeness is a concern, with missing zone data representing the third-largest category
+- Clear performance hierarchy among retail locations, suggesting different zones have distinct visitor appeal levels
+
+The visualization effectively presents location-based visitor analytics in a simple, sortable format ideal for operational decision-making.
 ![Primary Zone Visits](UserProfileVisits/visits-by-zone-missing.png)
 
 #### Primary Zone Visits
@@ -1543,16 +2182,24 @@ Zone visit counts
 ```
 
 
-**Visualization Preview:** This is a **table visualization** showing "Primary Zone Visits" data. 
+**Visualization Preview:** This is a table visualization showing "Primary Zone Visits" data. It displays visit counts for different zones/locations:
 
 **Data displayed:**
-- Lists 6 different primary zones/locations with their corresponding visit counts
-- Zones include retail locations (Aldi, Casual Dining) and mall areas (PAP Big W Centre Court, PAP Coles Food Mall, PAP Fashion Mall, PAP Reject Mall)
-- Visit counts range from 1,523 to 16,726
+- Casual Dining/external: 16,726 visits (highest)
+- Aldi/Services/internal: 14,370 visits
+- PAP Big W Centre Court: 5,348 visits
+- PAP Coles Food Mall: 4,966 visits
+- PAP Fashion Mall: 4,109 visits
+- PAP Reject Mall: 1,523 visits (lowest)
 
 **Key insights:**
-- **Casual Dining/external** has the highest traffic (16,726 visits)
-- **Aldi/Services/internal** is the second most visited (14,370 visits)
+- External casual dining areas attract the most foot traffic
+- Internal services (Aldi area) also show high visitation
+- Shopping mall zones (PAP locations) have significantly lower but varied traffic
+- There's a clear hierarchy of zone popularity, with external dining and internal services dominating visits
+- The data suggests people primarily visit for dining and essential services rather than traditional retail shopping
+
+The visualization effectively ranks zones by popularity, helping identify high-traffic areas for business planning or resource allocation.
 ![Primary Zone Visits](UserProfileVisits/visits-by-zone.png)
 
 
@@ -1636,16 +2283,20 @@ Creates a histogram of user WiFi session dataUsage, visualised as a bar chart. T
 ```
 
 
-**Visualization Preview:** This is a histogram bar chart displaying WiFi session data usage distribution measured in megabytes (MB). 
+**Visualization Preview:** This is a histogram bar chart showing the distribution of WiFi session data usage measured in megabytes (MB). 
 
-**Chart Type:** Histogram with vertical bars showing frequency distribution across data usage ranges.
-
-**Data Displayed:** 
+**Data Representation:**
 - X-axis: Data usage ranges in MB (0-4, 5-9, 10-19, 20-39, 40-79, 80-159, 160-319, 320-639, 640-1279, 1280+ MB)
 - Y-axis: Number of sessions (ranging from 0 to 21k)
+- Blue bars represent the frequency of sessions within each data usage range
 
 **Key Insights:**
-- **Highest usage:** The 0-4 MB
+- **Bimodal distribution**: The highest frequency (~19k sessions) occurs in the lowest usage range (0-4 MB), indicating many brief or low-data sessions
+- **Secondary peak**: Sessions using 40-79 MB and 80-159 MB also show high frequencies (~17k sessions each)
+- **Long tail**: Usage drops significantly for higher data consumption ranges, with very few sessions exceeding 640 MB
+- This pattern suggests a mix of light browsing/basic usage sessions and moderate data consumption, with heavy data users being relatively rare
+
+The visualization effectively shows that most WiFi sessions consume minimal data, with a smaller subset of users accounting for moderate data usage.
 ![WiFi Session Data Usage (MB) Histogram Bar Chart](UserProfileWiFiSessions/histograms/wifiSessions-histogram-dataUsage-barChart.png)
 
 #### WiFi Session Duration (minutes) Histogram Bar Chart
@@ -1726,16 +2377,15 @@ Creates a histogram of user WiFi session durations, visualised as a bar chart. T
 ```
 
 
-**Visualization Preview:** This is a histogram bar chart displaying WiFi session duration data across different time intervals measured in minutes.
+**Visualization Preview:** This is a histogram bar chart showing the distribution of WiFi session durations measured in minutes. The chart displays 8 duration ranges from "0-5" minutes to "301+" minutes on the x-axis, with the number of sessions (in thousands) on the y-axis.
 
-**Chart Type**: Histogram with 8 duration bins ranging from 0-5 minutes to 301+ minutes
+**Key insights:**
+- **Peak usage**: The highest frequency occurs in the 16-30 minute range (~27k sessions), followed by 6-15 minutes (~24k sessions)
+- **Usage pattern**: Most WiFi sessions are relatively short, with about 80% falling within the first four categories (0-60 minutes)
+- **Long tail distribution**: Very few users have extended sessions, with dramatic drops after 60 minutes
+- **Short sessions**: A significant portion (~11k) are very brief (0-5 minutes), suggesting quick connectivity checks or failed connections
 
-**Data Displayed**: 
-- X-axis: Session duration intervals (0-5, 6-15, 16-30, 31-60, 61-120, 121-180, 181-300, 301+ minutes)
-- Y-axis: Number of sessions (ranging from 0 to 30k)
-
-**Key Insights**:
-- **Peak usage**: The 16-30 minute range has the highest frequency (~27k
+The data reveals typical WiFi usage behavior where most users connect for moderate durations (6-30 minutes), likely for specific tasks, with relatively few engaging in extended browsing sessions.
 ![WiFi Session Duration (minutes) Histogram Bar Chart](UserProfileWiFiSessions/histograms/wifiSessions-histogram-duration-barChart.png)
 
 #### WiFi Session Time of Day Histogram Line Chart
@@ -1807,17 +2457,15 @@ Creates a histogram of user WiFi Sessions by time of day. The histogram's hour o
 ```
 
 
-**Visualization Preview:** This is a line chart displaying WiFi session activity throughout the day, organized as a histogram showing time-of-day patterns.
-
-**Chart Type:** Line chart with histogram-style time bins
-
-**Data Displayed:** 
-- X-axis: Time periods in 100-minute intervals (0-100, 300-400, etc., up to 2100-2200)
-- Y-axis: Number of WiFi sessions (ranging from 0 to 15k)
-- Single blue line tracking session volume across different time periods
+**Visualization Preview:** This is a line chart displaying WiFi session frequency throughout the day, showing time periods on the x-axis (from 0-100 to 2100-2200) and number of sessions on the y-axis (ranging from 0 to 15k).
 
 **Key Insights:**
-- **Peak usage period:** Sessions peak between 1200-1600 (noon to 4 PM), reaching approximately 14
+- **Peak usage period**: Sessions peak between 1200-1600 (noon to 4 PM) at approximately 14,000 sessions
+- **Usage pattern**: Shows a typical daily activity curve with very low overnight usage (0-600), gradual morning increase starting around 700, sustained high usage during midday/afternoon, then sharp decline after 1600
+- **Off-peak hours**: Minimal activity during early morning (0-600) and late evening (2100-2200)
+- **Business hours correlation**: The pattern suggests this could be workplace or public space WiFi usage, aligning with typical business/activity hours
+
+The visualization effectively shows clear daily usage patterns with a pronounced midday peak and minimal overnight activity.
 ![WiFi Session Time of Day Histogram Line Chart](UserProfileWiFiSessions/histograms/wifiSessions-histogram-hourAndMinuteOfDay-lineChart.png)
 
 
@@ -1879,17 +2527,20 @@ OS categories
 ```
 
 
-**Visualization Preview:** This is a pivot table visualization showing OS category data (Android vs iOS/OSX) broken down by venue location.
+**Visualization Preview:** This is a cross-tabulation table showing OS category usage (Android vs iOS/OSX) across two venues. 
 
 **Data displayed:**
 - Two venues: Chevron Renaissance and MacArthur Central
-- Two OS categories: Android and iOS_OSX
-- Numerical values representing user counts or device detections
+- Device usage broken down by Android and iOS_OSX operating systems
+- Numerical values representing user counts or visits
 
 **Key insights:**
-- **Chevron Renaissance**: iOS/OSX users significantly outnumber Android users (64,783 vs 45,665)
-- **MacArthur Central**: Android users outnumber iOS/OSX users (68,913 vs 55,930)
-- The venues show opposite patterns in OS preference, suggesting different demographic profiles or customer
+- **Chevron Renaissance**: iOS/OSX users (64,783) significantly outnumber Android users (45,665)
+- **MacArthur Central**: Android users (68,913) slightly outnumber iOS/OSX users (55,930)
+- The venues show opposite OS preferences, suggesting different demographic profiles or target audiences
+- MacArthur Central has higher overall traffic volume compared to Chevron Renaissance
+
+This visualization effectively compares mobile operating system preferences across different physical locations, useful for understanding audience demographics and optimizing platform-specific strategies.
 ![OS Category (Android & Apple)](UserProfileWiFiSessions/sessions-by-venue-os-categories.png)
 
 #### Sessions
@@ -1938,26 +2589,80 @@ Shows sessions  broken down by venue. Displayed as a Table.
 ```
 
 
-**Visualization Preview:** This is a simple table visualization from Beonic Insights showing session data by venue. 
+**Visualization Preview:** This is a simple data table visualization showing session counts by venue. The table displays two locations:
 
-**Chart Type:** Data table with two columns
+- **Adelaide Central Plaza**: 121,839 sessions
+- **Port Adelaide Plaza**: 114,012 sessions
 
-**Data Displayed:**
-- Venue names (Adelaide Central Plaza, Port Adelaide Plaza)
-- Session counts for each venue
+The data is presented in a clean, sortable table format with venue names in the left column and corresponding session counts in the right column. Both columns appear to have sorting capabilities (indicated by the sort icons).
 
-**Key Insights:**
-- Adelaide Central Plaza leads with 121,839 sessions
-- Port Adelaide Plaza has 114,012 sessions
-- The difference between venues is relatively small (~7,800 sessions or about 6.4%)
-- Both venues show strong session volumes, suggesting active user engagement
-
-The visualization uses a clean, minimalist design with sortable columns (indicated by the sort arrows), making it easy to compare performance between
+**Key Insight**: Adelaide Central Plaza generates approximately 6.9% more sessions than Port Adelaide Plaza, with Adelaide Central Plaza being the higher-performing venue by about 7,827 sessions. The relatively close numbers suggest both venues have similar levels of activity or traffic.
 ![Sessions](UserProfileWiFiSessions/sessions-by-venue.png)
 
 
 ## UserProfilesNow
 ### Histograms
+#### Age In Years Histogram Columns (default buckets)
+Creates a histogram of user ages.  The histogram's age buckets and counts are visualised as a single row table. Each bucket is a single column and the corresponding row value is the bucket count. The buckets are defaults derived from the histogram's metric and the histogram name.
+```json
+{
+  "columnNames": [
+    {
+      "name": "age",
+      "dimension": {
+        "histogram": {
+          "metric": "UserProfilesNow",
+          "histogram": "ageInYears"
+        }
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "ageInYears"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user ages.  The histogram's age buckets and counts are visualised as a single row table. Each bucket is a single column and the corresponding row value is the bucket count. The buckets are defaults derived from the histogram's metric and the histogram name."
+    },
+    "type": "Table",
+    "title": "Age In Years Histogram Columns (default buckets)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a horizontal histogram/bar chart showing age distribution across different age groups measured in years.
+
+**Data Display:**
+- Shows 8 age brackets from 0-14 years to 75+ years
+- Each age group displays its corresponding population count
+- Uses default bucket ranges in 10-year intervals (except the youngest and oldest groups)
+
+**Key Insights:**
+- **Peak demographic**: Ages 25-34 with 2,684 individuals (highest count)
+- **Secondary peak**: Ages 15-24 with 1,415 individuals  
+- **Clear decline**: Population decreases steadily after age 35
+- **Very low representation**: Ages 0-14 (only 6 individuals) and 75+ (197 individuals)
+- **Working-age concentration**: Most of the population falls between ages 15-54
+
+The distribution suggests this dataset represents a working-age population with very few children and elderly individuals, possibly indicating a professional or employment-related dataset.
+![Age In Years Histogram Columns (default buckets)](UserProfilesNow/histograms/histogram-ageInYears-columns-defaultBuckets.png)
+
 #### Age In Years Histogram Table (default buckets)
 Creates a histogram of user ages.  The histogram's age buckets and counts are visualised as a table. The buckets are defaults derived from the histogram's metric and the histogram name.
 ```json
@@ -2003,19 +2708,22 @@ Creates a histogram of user ages.  The histogram's age buckets and counts are vi
 ```
 
 
-**Visualization Preview:** This is a histogram table showing age distribution data organized into inline buckets. 
+**Visualization Preview:** This is a histogram table showing the age distribution of a population across predefined age brackets (inline buckets). The visualization displays:
 
-**Visualization Type:** Frequency table/histogram in tabular format
+**Chart Type:** Histogram table with age ranges as buckets
 
-**Data Displayed:** 
-- Age ranges in 10-year intervals from 0-14 up to 75+
+**Data Displayed:**
+- Age ranges from 0-14 years up to 75+ years
 - Count of individuals in each age bracket
 - Total sample size of 6,690 people
 
 **Key Insights:**
-- **Peak demographic:** Ages 25-34 with 2,589 individuals (highest frequency)
-- **Distribution pattern:** Shows a typical population pyramid with higher concentrations in younger-middle age groups
-- **Age gaps:** No individuals in the 0-14 age range, suggesting this
+- **Peak demographic:** Ages 25-34 (2,589 people, ~39% of population)
+- **Second largest group:** Ages 15-24 (1,138 people)
+- **Population skew:** Heavily weighted toward younger adults, with counts declining steadily after age 34
+- **Minimal representation:** No individuals under 15, very few over 75 (203 people)
+
+This distribution suggests a young adult-focused dataset, possibly representing a workforce, student population, or user base of a service that primarily attracts people in their 20s and 30s.
 ![Age In Years Histogram Table (default buckets)](UserProfilesNow/histograms/histogram-ageInYears-defaultBuckets-table.png)
 
 #### Age In Years Histogram Table (inline buckets)
@@ -2069,18 +2777,22 @@ Creates a histogram of user ages. The histogram's age buckets and counts are vis
 ```
 
 
-**Visualization Preview:** This is a **histogram frequency table** showing the distribution of ages across three age groups.
+**Visualization Preview:** This is a histogram table displaying age distribution data with inline bucket notation. The visualization shows:
 
-**Data Display:**
-- **0-20 years:** 266 people
-- **20-40 years:** 4,812 people  
-- **40+ years:** 2,377 people
-- **Total sample size:** 7,455 people
+**Chart Type:** Frequency distribution table (histogram in tabular form)
+
+**Data Displayed:** 
+- Age ranges in years across three buckets
+- Count of individuals in each age group
+- Total sample size of 7,455 individuals
 
 **Key Insights:**
-- The **20-40 age group dominates** the dataset, representing about 65% of the population
-- There's a **significant underrepresentation** of younger people (0-20), making up only 3.6% of the sample
-- The distribution shows a **middle-age sk
+- The 20-40 age group dominates the dataset (4,812 people, ~65% of total)
+- Middle-aged adults (40+) represent the second largest segment (2,377 people, ~32%)
+- Young adults and minors (0-20) are the smallest group (266 people, ~4%)
+- The distribution shows a concentration in the working-age population with relatively few younger individuals
+
+The data suggests this might represent a workforce, customer base, or similar population where middle-aged adults are predominant.
 ![Age In Years Histogram Table (inline buckets)](UserProfilesNow/histograms/histogram-ageInYears-inlineBuckets-table.png)
 
 #### 20 to 40 Years Old Count
@@ -2119,19 +2831,21 @@ Count of users aged between 20 and 40 years old.  This uses an inline bucket for
 ```
 
 
-**Visualization Preview:** This is a simple metric card or KPI widget displaying a single data point. 
+**Visualization Preview:** This is a **metric card** or **KPI widget** displaying a single key performance indicator.
 
-**Visualization Type:** Numeric display card/metric widget
+**Data displayed:**
+- Count of individuals aged 20 to 40 years old
+- Value: 4,812 people
 
-**Data Displayed:** A count of 4,812 people in the 20 to 40 years old age demographic
+**Visualization type:**
+Simple numerical display with large, prominent typography for easy readability
 
-**Visual Elements:** 
-- Clean, minimalist design with white background
-- Large, prominent number (4,812) as the focal point
-- Descriptive header text identifying the metric
-- Simple border/container styling
+**Insights:**
+- Provides a quick snapshot of the population segment between 20-40 years
+- Likely part of a demographic dashboard for population analysis, marketing segmentation, or organizational planning
+- The clean, minimalist design emphasizes the metric's importance as a key data point
 
-**Insights Provided:** This widget provides a quick snapshot of the population size within a specific age range (20-40 years), likely part of a larger demographic analysis dashboard. The large, clear presentation makes
+This type of widget is commonly used in executive dashboards where stakeholders need immediate access to critical demographic counts without additional visual complexity.
 ![20 to 40 Years Old Count](UserProfilesNow/histograms/histogram-ageInYears-singleBucket-number.png)
 
 #### Country Calling Code Histogram Table (default buckets)
@@ -2179,16 +2893,22 @@ Creates a histogram of user country calling codes. The histogram's country calli
 ```
 
 
-**Visualization Preview:** This is a **histogram table** that displays the distribution of country calling codes in numeric ranges.
+**Visualization Preview:** This is a histogram table showing the distribution of country calling codes by numeric ranges. The visualization displays:
 
-**Data Display:**
-- Shows 7 different ranges of country calling codes (e.g., 1-1, 20-29, 30-49, etc.)
-- Each range shows the count of calling codes within that bucket
-- Total dataset contains 70,922 entries
+**Chart Type**: Histogram table with frequency buckets
 
-**Key Insights:**
-- **Heavily concentrated distribution**: The 60-99 range dominates with 68,863 entries (~97% of all data)
-- **Most other ranges are sparsely populated**: Several ranges have very low counts (1-1 has 0, 200-299
+**Data Displayed**: 
+- Country calling code ranges (e.g., 1-1, 20-29, 30-49, etc.)
+- Count of countries/territories in each range
+
+**Key Insights**:
+- The 60-99 range dominates with 68,863 entries, representing the vast majority of calling codes
+- The 30-49 range has the second-highest count at 1,661
+- Other ranges have relatively small counts (30-136 entries each)
+- The 1-1 range shows 0 entries
+- This distribution suggests most countries use calling codes in the 60-99 numeric range
+
+The table reveals a heavily skewed distribution where calling codes are concentrated in specific numeric ranges rather than being evenly distributed across all possible values.
 ![Country Calling Code Histogram Table (default buckets)](UserProfilesNow/histograms/histogram-countryCallingCode-table.png)
 
 #### Signup Hour Histogram
@@ -2270,17 +2990,15 @@ Creates a histogram of user signup times by hour of the day. The histogram's hou
 ```
 
 
-**Visualization Preview:** This is a histogram showing the distribution of signup hours throughout the day (displayed in 24-hour format on the x-axis). 
-
-**Chart Type:** Bar histogram with blue bars representing count frequency
-
-**Data Displayed:** 
-- X-axis: Time ranges in 100-hour intervals (0-100, 300-400, etc. up to 2100-2200)
-- Y-axis: Count of signups (ranging from 0 to 21k)
+**Visualization Preview:** This is a histogram showing the distribution of signup times throughout a 24-hour period (displayed in military time format from 0-2300 hours).
 
 **Key Insights:**
-- **Peak signup period:** 1300-1400 hours (1-2 PM) with nearly 20k signups
-- **High activity window:** 1200-
+- **Peak signup activity** occurs during afternoon/early evening hours (1200-1400), with the highest bar reaching approximately 20k signups around 1300 hours (1 PM)
+- **Activity pattern** shows a clear bell curve, with very low activity during overnight hours (0-600) and late night (2100-2300)
+- **Business hours correlation** - signup activity closely follows typical waking/business hours, suggesting users primarily sign up during active daytime periods
+- **Gradual build-up** from morning (800-900) leading to the afternoon peak, followed by steady decline through evening hours
+
+This data would be valuable for optimizing marketing campaigns, server capacity planning, and customer support staffing around peak signup times.
 ![Signup Hour Histogram](UserProfilesNow/histograms/histogram-hourAndMinuteOfDay-defaultBuckets-barChart.png)
 
 #### Postcode Numeric Histogram Table (inline buckets)
@@ -2423,16 +3141,20 @@ Creates a histogram of user postcodes. The histogram's postcode buckets and coun
 ```
 
 
-**Visualization Preview:** This is a **frequency distribution table** (histogram table) showing postcode data organized into numeric ranges.
+**Visualization Preview:** This is a **histogram table** showing the distribution of postcode numeric ranges and their corresponding frequencies.
 
-**Data displayed:**
-- Postcode ranges from 5000-5699 grouped into 100-unit buckets
-- Count of occurrences for each postcode range
+**Data Displayed:**
+- Postcode ranges in 100-unit intervals (5000-5099, 5100-5199, etc.)
+- Count of occurrences for each range
+- Covers postcodes from 5000 to 5699
 
-**Key insights:**
-- **Heavily skewed distribution**: The 5000-5099 range dominates with 30,732 occurrences (roughly 77% of total data)
-- **Rapid decline pattern**: Each subsequent range shows dramatically fewer occurrences
-- **Geographic concentration**: Suggests data is concentrated in a specific postal area (likely South Australia, based on 5000-series postcodes
+**Key Insights:**
+- **Heavily skewed distribution**: The 5000-5099 range dominates with 30,732 occurrences (about 77% of total data)
+- **Sharp decline**: Frequency drops dramatically after the first range, with 5100-5199 having only 5,181 occurrences
+- **Consistent low ranges**: Postcodes 5300+ show relatively low, stable frequencies (298-701 occurrences)
+- **Total dataset**: Approximately 39,754 postcode entries
+
+This suggests a geographic concentration in the 5000-5099 postcode area, likely indicating a major urban center or high-density region in what appears to be an Australian postal system (5000 series postcodes).
 ![Postcode Numeric Histogram Table (inline buckets)](UserProfilesNow/histograms/histogram-postcodeNumeric-inlineBuckets-table.png)
 
 #### Year of Birth Histogram Table (inline buckets)
@@ -2486,17 +3208,23 @@ Creates a histogram of user year of birth. The histogram's buckets and counts ar
 ```
 
 
-**Visualization Preview:** This is a **histogram table** that displays the distribution of birth years across three time periods using inline bucket formatting.
+**Visualization Preview:** This is a histogram table showing the distribution of birth years across three time periods using inline buckets.
 
-**Data Display:**
-- **Chart Type:** Tabular histogram with grouped year ranges
-- **Categories:** Three birth year buckets (0-1975, 1975-2000, 2000+)
-- **Counts:** 1,360, 4,142, and 1,953 respectively
-- **Total Sample:** 7,455 individuals
+**Data Representation:**
+- **Chart Type:** Histogram table with grouped time intervals
+- **Variables:** Year of birth (categorical buckets) vs. count (frequency)
+- **Time Periods:** 
+  - 0-1975: 1,360 individuals
+  - 1975-2000: 4,142 individuals  
+  - 2000+: 1,953 individuals
 
 **Key Insights:**
-- The **1975-2000 cohort is dominant**, representing over half the population (55.6%)
-- The **pre-1975 and post-2000
+- The 1975-2000 generation represents the largest cohort, comprising over half the dataset (55.6%)
+- There's a notable decline in the post-2000 group compared to the peak 1975-2000 period
+- The pre-1975 group is the smallest, suggesting either an older demographic with lower representation or data collection focused on more recent births
+- Total sample size: 7,455 individuals across all time periods
+
+This visualization effectively shows generational distribution patterns in the dataset, with Generation X and Millennials (1975-2000) being the dominant demographic.
 ![Year of Birth Histogram Table (inline buckets)](UserProfilesNow/histograms/histogram-yearOfBirth-inlineBuckets.png)
 
 
@@ -2549,14 +3277,18 @@ Age in Years
 
 **Visualization Preview:** This is a histogram (bar chart) showing the distribution of ages in years across a population. 
 
-**Chart Type:** Histogram with age groups on the x-axis (ranging from 100 to 92 years - likely meant to be 0 to 92 years) and frequency counts on the y-axis (up to 500).
+**Chart Type**: Histogram with age ranges on the x-axis (0-92 years) and frequency counts on the y-axis (0-500).
 
-**Data Display:** The chart shows population counts for different age groups, with bars representing the number of individuals in each age bracket.
+**Data Displayed**: The distribution shows age frequencies across the entire lifespan, with each bar representing the count of individuals in specific age ranges.
 
-**Key Insights:**
-- The distribution shows a classic demographic pyramid pattern, heavily skewed toward younger ages
-- Peak population occurs around ages 25-27, with the highest bar reaching nearly 500 individuals
-- There's
+**Key Insights**:
+- **Peak at ~25 years**: The highest frequency (~480 individuals) occurs around age 25
+- **Right-skewed distribution**: The data shows a typical population pyramid pattern with more younger individuals
+- **Gradual decline**: Frequencies steadily decrease from the peak through middle age and beyond
+- **Long tail**: The distribution extends to age 92 with very low frequencies in the elderly population
+- **Age range**: The population spans from approximately 10 to 92 years old
+
+This visualization suggests a relatively young population with the majority concentrated in the 20-40 age range, which could represent a workforce, student body, or similar demographic group.
 ![Age in Years](UserProfilesNow/ageInYears.png)
 
 #### Country And State
@@ -2678,8 +3410,8 @@ Count registrations by County Calling Code
 }
 ```
 
-#### Device Category
-Device categories
+#### Device Category (with missing)
+Create a pie chart of WiFi client device categories. Includes a count of profiles missing a deviceCategory.
 ```json
 {
   "columnNames": [
@@ -2697,11 +3429,8 @@ Device categories
       "columns": [
         {
           "dimension": {
-            "key": "deviceCategory"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
+            "key": "deviceCategory",
+            "missing": true
           }
         },
         {
@@ -2717,13 +3446,40 @@ Device categories
   ],
   "visualisation": {
     "description": {
-      "html": "Device categories"
+      "html": "Create a pie chart of WiFi client device categories. Includes a count of profiles missing a deviceCategory."
     },
     "type": "PieChart",
-    "title": "Device Category"
+    "title": "Device Category (with missing)",
+    "pieChartSettings": {
+      "label": {
+        "show": true,
+        "labelLine": true,
+        "mode": "name"
+      }
+    }
   }
 }
 ```
+
+
+**Visualization Preview:** This is a pie chart titled "Device Category (with missing)" that shows the distribution of device types used to access a service or platform.
+
+**Chart Type:** Pie chart with four segments
+
+**Data Displayed:**
+- Mobile (blue) - appears to be the largest segment, roughly 40-45%
+- MISSING (teal/green) - second largest segment, approximately 35-40%
+- Laptop (light green) - smaller segment, around 10-15%
+- Tablet (purple) - smallest segment, roughly 5-10%
+
+**Key Insights:**
+1. **Mobile dominance:** Mobile devices represent the plurality of traffic/usage
+2. **Significant data gap:** A substantial portion of device data is missing or unidentified, which could indicate tracking issues or privacy settings
+3. **Desktop/laptop usage:** Laptops show moderate usage compared to mobile
+4. **Limited tablet adoption:** Tablets have the smallest share among identified devices
+
+The high percentage of "MISSING" data suggests potential issues with device detection or user privacy settings that prevent proper categorization.
+![Device Category (with missing)](UserProfilesNow/device-categories-pieChart.png)
 
 #### Email
 Subscribed registrations with Email
@@ -2914,21 +3670,21 @@ Demo grouping gender into columns.  Missing values are included.
 ```
 
 
-**Visualization Preview:** This is a horizontal bar chart showing gender distribution data with four categories displayed as columns. The visualization presents:
+**Visualization Preview:** This is a horizontal bar chart showing gender distribution data across four categories: Female, Male, Missing, and Other.
 
-**Chart Type**: Horizontal bar chart with categorical breakdown
-
-**Data Displayed**:
-- Female: 33,266 (largest segment)
+**Data displayed:**
+- Female: 33,266 (largest group)
 - Male: 14,050 
 - Missing: 5,317
 - Other: 5,690
 
-**Key Insights**:
-- Females represent the majority at approximately 57% of the total dataset
-- There's a significant gender imbalance with females outnumbering males by more than 2:1
-- Notable data quality issue with 5,317 missing values
-- The "Other" category (5,690
+**Key insights:**
+- Strong female majority, representing approximately 57% of the total population
+- Significant gender imbalance with females outnumbering males by more than 2:1
+- Notable data quality issue with 5,317 missing gender values
+- The "Other" category (5,690) is slightly larger than the missing values, suggesting inclusive gender options in data collection
+
+The visualization effectively highlights both the gender composition and data completeness, with the missing values prominently displayed as a separate category rather than being hidden.
 ![Gender Distribution (columns, missing values)](UserProfilesNow/gender-columns-missing.png)
 
 #### Gender Composition
@@ -3154,6 +3910,24 @@ Top 5 non-english languages
 }
 ```
 
+
+**Visualization Preview:** This is a pie chart visualization showing the distribution of "Non-En Languages" (Non-English Languages) with a total of 200 data points.
+
+**Chart Type:** Pie chart with numerical labels
+
+**Data Displayed:**
+- Dutch: 49 (largest segment, highlighted with tooltip)
+- Four other unnamed language segments with values: 178, 79, 49, and 38
+
+**Key Insights:**
+- Dutch represents approximately 25% of non-English language usage
+- One segment (178) dominates with nearly 90% of the distribution
+- The remaining three segments are relatively small and similar in size
+- This appears to be analyzing language diversity in a multilingual context, possibly for website analytics or user demographics
+
+The visualization effectively shows language distribution patterns, with one dominant non-English language and Dutch being a notable secondary language.
+![Non-English Languages](UserProfilesNow/language-pieChart.png)
+
 #### List Size
 Subscribed and Unsubscribed users by Marketing List (and registration status is subscribed)
 ```json
@@ -3255,6 +4029,89 @@ Top 5 non-english locale
 }
 ```
 
+
+**Visualization Preview:** This is a pie chart visualization titled "Non-En Locales" showing the distribution of different language locales or regions.
+
+**Chart Type**: Pie chart with labeled segments and values
+
+**Data Displayed**: 
+- Total of 7 different non-English locales
+- Values shown: 139, 138, 64, 43, 35, 5, 3, and 1
+- Total appears to be 428 units
+
+**Key Insights**:
+- Two dominant locales account for the majority (~65%) with values of 139 and 138
+- Highly skewed distribution - the top 2 locales represent nearly two-thirds of the total
+- Long tail distribution with 5 smaller locales having significantly lower values (64 and below)
+- The smallest locale has only 1 unit, showing extreme variance in locale representation
+
+This visualization effectively shows market concentration in non-English locales, with clear dominance by two primary markets and several smaller, potentially emerging or niche markets.
+![Non-English Languages](UserProfilesNow/locale-pieChart.png)
+
+#### OS Category (with missing)
+Create a pie chart of WiFi client operating-system (OS) categories. Includes a count of profiles missing an osCategory.
+```json
+{
+  "columnNames": [
+    "OS",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "osCategory",
+            "missing": true
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Create a pie chart of WiFi client operating-system (OS) categories. Includes a count of profiles missing an osCategory."
+    },
+    "type": "PieChart",
+    "title": "OS Category (with missing)",
+    "pieChartSettings": {
+      "label": {
+        "show": true,
+        "labelLine": true,
+        "mode": "name"
+      }
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a pie chart titled "OS Category (with missing)" that displays the distribution of operating systems in a dataset.
+
+**Chart Type:** Pie chart with color-coded segments
+
+**Data Displayed:** 
+- MISSING (largest segment, approximately 60-70%)
+- iOS_OSX (light blue segment)
+- Windows (small gray segment)
+- Android (small dark segment)
+- Blackberry (smallest segment)
+
+**Key Insights:**
+- The majority of data points have missing OS information, indicating significant data quality issues
+- Among the known OS categories, iOS_OSX appears to have the largest representation
+- Windows, Android, and Blackberry have relatively small shares
+- The high proportion of missing data suggests this dataset may need data cleaning or collection improvements before drawing meaningful conclusions about OS distribution
+![OS Category (with missing)](UserProfilesNow/os-categories-pieChart.png)
+
 #### OS Category (Android & Apple)
 OS categories
 ```json
@@ -3303,19 +4160,20 @@ OS categories
 ```
 
 
-**Visualization Preview:** This is a **data table visualization** showing operating system distribution between Android and Apple devices.
+**Visualization Preview:** This is a simple data table visualization showing OS (Operating System) category distribution between Android and Apple devices.
 
 **Data displayed:**
-- Android: 22,658 users
-- iOS/OSX: 27,496 users
-- Total sample size: ~50,154 users
+- Android: 22,658 count
+- iOS_OSX (Apple): 27,496 count
+- Total dataset: 50,154 devices
 
 **Key insights:**
-- iOS/OSX has a slight majority with 54.8% of users compared to Android's 45.2%
-- The distribution is relatively balanced between the two major mobile/desktop ecosystems
-- iOS/OSX leads by approximately 4,838 users
+- Apple devices (iOS/OSX) represent the majority at 54.8% of the dataset
+- Android devices account for 45.2% of the total
+- There's a relatively modest difference of 4,838 devices between the two platforms
+- The distribution shows a fairly balanced but Apple-leaning user base
 
-The visualization uses a clean, minimalist table format with sorting capabilities (indicated by the diamond sorting icons), making it easy to compare the two
+This table format provides a clear, straightforward comparison of mobile/desktop OS market share within this specific dataset.
 ![OS Category (Android & Apple)](UserProfilesNow/os-categories.png)
 
 #### Postcodes
@@ -3431,7 +4289,7 @@ Postcode
 ```
 
 #### Postcodes
-Count registrations by NSW Postcodes
+Count registrations by Australian Postcodes
 ```json
 {
   "columnNames": [
@@ -3468,7 +4326,7 @@ Count registrations by NSW Postcodes
   ],
   "visualisation": {
     "description": {
-      "html": "Count registrations by NSW Postcodes"
+      "html": "Count registrations by Australian Postcodes"
     },
     "type": "Table",
     "title": "Postcodes",
@@ -3714,6 +4572,27 @@ Year of Birth
   }
 }
 ```
+
+
+**Visualization Preview:** This is a histogram/bar chart showing the distribution of birth years from 1915 to 2011. The visualization displays:
+
+**Chart Type**: Histogram with vertical bars representing frequency counts by birth year
+
+**Data Pattern**: 
+- Peak concentration around 1999-2001 (approximately 500 individuals)
+- Strong concentration from mid-1990s to early 2000s
+- Gradual decline in frequency for earlier birth years
+- Very low frequencies for births before 1950
+- Sparse data for births before 1940
+
+**Key Insights**:
+- The dataset is heavily skewed toward people born in the late 1990s/early 2000s
+- This suggests the population being analyzed is predominantly young (early 20s if measured recently)
+- Could represent a student population, recent graduates, or users of a platform popular among younger demographics
+- The distribution shows a clear generational bias rather than a representative age distribution across the full population
+
+The visualization effectively shows age demographics concentrated in a specific generational cohort.
+![Year of Birth](UserProfilesNow/year-of-birth.png)
 
 
 ## UserProfilesRegistrationGroup

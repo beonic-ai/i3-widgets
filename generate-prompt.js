@@ -274,7 +274,7 @@ class WidgetPromptGenerator {
 
                     const response = await anthropic.messages.create({
                         model: "claude-sonnet-4-20250514",
-                        max_tokens: 150,
+                        max_tokens: 1000,
                         messages: [{
                             role: "user",
                             content: [{
@@ -282,7 +282,7 @@ class WidgetPromptGenerator {
                                 source: {type: "base64", media_type: "image/png", data: base64Image}
                             }, {
                                 type: "text",
-                                text: "Analyze this Beonic Insights widget visualization image. Describe what type of chart/visualization it is, what data it displays, and what insights it provides. Be concise and focus on the visual elements and data representation."
+                                text: "Analyze this Beonic Insights widget visualization image. Describe the type of chart/visualization, the data it displays and the insights it provides. Be concise and focus on the data representation."
                             }]
                         }]
                     });

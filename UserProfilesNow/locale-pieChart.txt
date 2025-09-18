@@ -1,0 +1,16 @@
+This is a pie chart visualization titled "Non-En Locales" showing the distribution of different language locales or regions.
+
+**Chart Type**: Pie chart with labeled segments and values
+
+**Data Displayed**: 
+- Total of 7 different non-English locales
+- Values shown: 139, 138, 64, 43, 35, 5, 3, and 1
+- Total appears to be 428 units
+
+**Key Insights**:
+- Two dominant locales account for the majority (~65%) with values of 139 and 138
+- Highly skewed distribution - the top 2 locales represent nearly two-thirds of the total
+- Long tail distribution with 5 smaller locales having significantly lower values (64 and below)
+- The smallest locale has only 1 unit, showing extreme variance in locale representation
+
+This visualization effectively shows market concentration in non-English locales, with clear dominance by two primary markets and several smaller, potentially emerging or niche markets.

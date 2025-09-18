@@ -1,0 +1,14 @@
+This is a **time-series table visualization** showing 15-minute interval signup data for Saturday, September 13, 2025.
+
+**Data Display:**
+- Left column: 15-minute time slots from 10:30 AM to 4:45 PM
+- Right column: Number of signups per time slot (ranging from 0-9)
+
+**Key Insights:**
+- **Peak activity**: 12:30 PM with 9 signups
+- **Multiple busy periods**: 11:15-11:45 AM (5-6 signups) and 1:00 PM (8 signups)
+- **Low activity periods**: 10:45 AM, 3:45 PM, and 4:15 PM with 0 signups
+- **Overall pattern**: Higher signup concentration during late morning through early afternoon hours
+- **Total visible signups**: Approximately 80+ signups across the displayed timeframe
+
+This visualization helps identify optimal timing patterns and capacity planning for signup-related activities or events.

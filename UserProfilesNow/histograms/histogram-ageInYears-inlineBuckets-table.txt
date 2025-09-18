@@ -1,0 +1,16 @@
+This is a histogram table displaying age distribution data with inline bucket notation. The visualization shows:
+
+**Chart Type:** Frequency distribution table (histogram in tabular form)
+
+**Data Displayed:** 
+- Age ranges in years across three buckets
+- Count of individuals in each age group
+- Total sample size of 7,455 individuals
+
+**Key Insights:**
+- The 20-40 age group dominates the dataset (4,812 people, ~65% of total)
+- Middle-aged adults (40+) represent the second largest segment (2,377 people, ~32%)
+- Young adults and minors (0-20) are the smallest group (266 people, ~4%)
+- The distribution shows a concentration in the working-age population with relatively few younger individuals
+
+The data suggests this might represent a workforce, customer base, or similar population where middle-aged adults are predominant.

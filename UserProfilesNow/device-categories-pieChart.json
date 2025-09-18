@@ -14,11 +14,8 @@
       "columns": [
         {
           "dimension": {
-            "key": "deviceCategory"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
+            "key": "deviceCategory",
+            "missing": true
           }
         },
         {
@@ -34,9 +31,16 @@
   ],
   "visualisation": {
     "description": {
-      "html": "Device categories"
+      "html": "Create a pie chart of WiFi client device categories. Includes a count of profiles missing a deviceCategory."
     },
     "type": "PieChart",
-    "title": "Device Category"
+    "title": "Device Category (with missing)",
+    "pieChartSettings": {
+      "label": {
+        "show": true,
+        "labelLine": true,
+        "mode": "name"
+      }
+    }
   }
 }

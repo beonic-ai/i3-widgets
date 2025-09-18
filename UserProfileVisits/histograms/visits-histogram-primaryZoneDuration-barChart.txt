@@ -1,0 +1,17 @@
+This is a histogram bar chart showing the distribution of Primary Zone visit durations in minutes. The chart displays visitor counts across different time intervals:
+
+**Chart Type**: Histogram with 8 duration bins ranging from 0-5 minutes to 301+ minutes
+
+**Key Data Points**:
+- Peak activity: 6-15 minutes (~12k visits)
+- Second highest: 16-30 minutes (~10k visits) 
+- Third highest: 31-60 minutes (~9k visits)
+- Shorter visits (0-5 min): ~4.5k visits
+- Longer visits show declining frequency: 61-120 min (~6.5k), 121-180 min (~1.5k)
+- Very few extended visits in 181-300 min and 301+ categories
+
+**Key Insights**:
+- Most visitors spend 6-60 minutes in the primary zone, indicating moderate engagement
+- The distribution shows a right-skewed pattern typical of dwell time data
+- Very short visits (0-5 min) are less common than moderate durations, suggesting the space successfully retains initial visitors
+- Extended stays beyond 2 hours are rare, indicating natural visit completion patterns

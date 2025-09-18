@@ -1,0 +1,14 @@
+This is a simple data table visualization showing OS (Operating System) category distribution between Android and Apple devices.
+
+**Data displayed:**
+- Android: 22,658 count
+- iOS_OSX (Apple): 27,496 count
+- Total dataset: 50,154 devices
+
+**Key insights:**
+- Apple devices (iOS/OSX) represent the majority at 54.8% of the dataset
+- Android devices account for 45.2% of the total
+- There's a relatively modest difference of 4,838 devices between the two platforms
+- The distribution shows a fairly balanced but Apple-leaning user base
+
+This table format provides a clear, straightforward comparison of mobile/desktop OS market share within this specific dataset.

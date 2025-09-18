@@ -1,0 +1,14 @@
+This is a histogram bar chart showing the distribution of WiFi session data usage measured in megabytes (MB). 
+
+**Data Representation:**
+- X-axis: Data usage ranges in MB (0-4, 5-9, 10-19, 20-39, 40-79, 80-159, 160-319, 320-639, 640-1279, 1280+ MB)
+- Y-axis: Number of sessions (ranging from 0 to 21k)
+- Blue bars represent the frequency of sessions within each data usage range
+
+**Key Insights:**
+- **Bimodal distribution**: The highest frequency (~19k sessions) occurs in the lowest usage range (0-4 MB), indicating many brief or low-data sessions
+- **Secondary peak**: Sessions using 40-79 MB and 80-159 MB also show high frequencies (~17k sessions each)
+- **Long tail**: Usage drops significantly for higher data consumption ranges, with very few sessions exceeding 640 MB
+- This pattern suggests a mix of light browsing/basic usage sessions and moderate data consumption, with heavy data users being relatively rare
+
+The visualization effectively shows that most WiFi sessions consume minimal data, with a smaller subset of users accounting for moderate data usage.

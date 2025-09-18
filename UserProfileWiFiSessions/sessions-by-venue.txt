@@ -1,0 +1,8 @@
+This is a simple data table visualization showing session counts by venue. The table displays two locations:
+
+- **Adelaide Central Plaza**: 121,839 sessions
+- **Port Adelaide Plaza**: 114,012 sessions
+
+The data is presented in a clean, sortable table format with venue names in the left column and corresponding session counts in the right column. Both columns appear to have sorting capabilities (indicated by the sort icons).
+
+**Key Insight**: Adelaide Central Plaza generates approximately 6.9% more sessions than Port Adelaide Plaza, with Adelaide Central Plaza being the higher-performing venue by about 7,827 sessions. The relatively close numbers suggest both venues have similar levels of activity or traffic.

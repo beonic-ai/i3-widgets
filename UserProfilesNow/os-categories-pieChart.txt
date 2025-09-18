@@ -1,0 +1,16 @@
+This is a pie chart titled "OS Category (with missing)" that displays the distribution of operating systems in a dataset.
+
+**Chart Type:** Pie chart with color-coded segments
+
+**Data Displayed:** 
+- MISSING (largest segment, approximately 60-70%)
+- iOS_OSX (light blue segment)
+- Windows (small gray segment)
+- Android (small dark segment)
+- Blackberry (smallest segment)
+
+**Key Insights:**
+- The majority of data points have missing OS information, indicating significant data quality issues
+- Among the known OS categories, iOS_OSX appears to have the largest representation
+- Windows, Android, and Blackberry have relatively small shares
+- The high proportion of missing data suggests this dataset may need data cleaning or collection improvements before drawing meaningful conclusions about OS distribution

@@ -1,0 +1,14 @@
+This is a tabular data visualization showing "Postcode Clicks" performance metrics. The table displays three columns:
+
+1. **Postcode** - Geographic postal codes (3181, 3141, 3182, etc.)
+2. **Clicked** - Number of clicks received from each postcode
+3. **Postcode Click Ratio** - Click rate percentage for each area
+
+**Key Insights:**
+- Postcode 3181 is the top performer with 240 clicks and the highest click ratio at 26.55%
+- Postcode 3141 follows with 161 clicks (17.81% ratio)
+- Performance drops significantly after the top two, with remaining postcodes showing much lower engagement
+- The data reveals clear geographic performance disparities, with some areas generating 10x+ more clicks than others
+- This information is valuable for targeted marketing and resource allocation decisions based on geographic response rates
+
+The visualization effectively ranks postcodes by engagement, helping identify high-performing geographic segments for campaign optimization.

@@ -1,0 +1,14 @@
+This is a tabular data visualization showing email campaign performance metrics across different event types. 
+
+**Data Structure:**
+- Rows: 12 different marketing campaigns (mostly PRN and BPP branded)
+- Columns: 6 email engagement metrics (Bounced, Clicked, Delivered, Opened, Spam, Unsubscribed)
+
+**Key Insights:**
+- **Delivery volume varies significantly**: Ranges from 3,851 (PRN Lockdown Offer) to 10,614 (PRN BBP App Download)
+- **Click-through rates differ widely**: From 15 clicks (Pran WholeLife NOW OPEN) to 170 clicks (Pran Survey)
+- **Open rates show strong engagement**: Most campaigns achieve 1,000+ opens, with Pran Survey leading at 1,536 opens
+- **Low spam/bounce rates**: Most campaigns show minimal bounces (68-676) and very low spam rates (0-7)
+- **Moderate unsubscribe rates**: Generally low unsubscribe numbers (12-95), indicating good list quality
+
+The visualization effectively compares campaign performance across multiple engagement metrics, allowing for quick identification of high-performing campaigns and potential areas for optimization.

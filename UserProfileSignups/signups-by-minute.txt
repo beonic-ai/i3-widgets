@@ -1,0 +1,15 @@
+This is a **time series table** showing "Minutely Signups" data from Beonic Insights. 
+
+**Data Display:**
+- Time period: Saturday 13/09/2025, from 12:54 PM to approximately 1:20 PM
+- Granularity: Minute-by-minute breakdown
+- Metric: Number of user signups per minute
+
+**Key Insights:**
+- Most minutes show **0 signups**, indicating sporadic user registration activity
+- Peak activity occurs at **1:08 PM with 2 signups** and **1:13 PM with 2 signups**
+- Several minutes show **1 signup**: 12:57 PM, 1:00 PM, 1:02 PM, 1:07 PM, and 1:10 PM
+- **Total observable signups**: 10 signups over the ~26-minute period
+- The data suggests **low but consistent signup activity** with occasional minor spikes
+
+This visualization is useful for monitoring real-time user acquisition patterns and identifying peak signup periods at a granular level.
