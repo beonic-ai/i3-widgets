@@ -1,12 +1,16 @@
-This is a **data table visualization** from Beonic Insights showing "Auto Triggered by Venue and Zone" analytics.
+This is a tabular data visualization showing "Auto Triggered by Venue and Zone" data for Pran Central shopping center.
 
-**Data Structure:**
-- Three columns: Venue, Zone, and Count
+**Chart Type**: Simple data table with three columns (Venue, Zone, Count)
+
+**Data Displayed**: 
 - All entries are from "Pran Central" venue
-- Shows 8 different zones within the venue
-- Count values range from 1 to 153
+- Shows 8 different zones/locations within the venue
+- Count values represent frequency of auto-triggered events in each zone
 
-**Key Insights:**
-- **Commercial Road Entry** is the most active zone with 153 triggers (59% of total activity)
-- **Chapel Street - Laser Clinics** and **Foodcourt** are tied as secondary hotspots with 36 triggers each
-- Several zones show minimal activity (
+**Key Insights**:
+- **Commercial Road Entry** has the highest activity (153 counts), suggesting it's the main entrance or high-traffic area
+- **Chapel Street - Laser Clinics** and **Foodcourt** are equally active (36 counts each)
+- **Wattle Street Entry** shows moderate activity (23 counts) as a secondary entrance
+- Several zones show minimal activity (1-11 counts), indicating lower foot traffic or fewer trigger events
+
+The data suggests this tracks automated events (likely foot traffic, sensors, or transactions) across different zones within the Pran Central shopping center, with clear patterns showing main traffic flows and popular areas.

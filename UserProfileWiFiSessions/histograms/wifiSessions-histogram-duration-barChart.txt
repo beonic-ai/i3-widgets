@@ -1,10 +1,9 @@
-This is a histogram bar chart displaying WiFi session duration data across different time intervals measured in minutes.
+This is a histogram bar chart showing the distribution of WiFi session durations measured in minutes. The chart displays 8 duration ranges from "0-5" minutes to "301+" minutes on the x-axis, with the number of sessions (in thousands) on the y-axis.
 
-**Chart Type**: Histogram with 8 duration bins ranging from 0-5 minutes to 301+ minutes
+**Key insights:**
+- **Peak usage**: The highest frequency occurs in the 16-30 minute range (~27k sessions), followed by 6-15 minutes (~24k sessions)
+- **Usage pattern**: Most WiFi sessions are relatively short, with about 80% falling within the first four categories (0-60 minutes)
+- **Long tail distribution**: Very few users have extended sessions, with dramatic drops after 60 minutes
+- **Short sessions**: A significant portion (~11k) are very brief (0-5 minutes), suggesting quick connectivity checks or failed connections
 
-**Data Displayed**: 
-- X-axis: Session duration intervals (0-5, 6-15, 16-30, 31-60, 61-120, 121-180, 181-300, 301+ minutes)
-- Y-axis: Number of sessions (ranging from 0 to 30k)
-
-**Key Insights**:
-- **Peak usage**: The 16-30 minute range has the highest frequency (~27k
+The data reveals typical WiFi usage behavior where most users connect for moderate durations (6-30 minutes), likely for specific tasks, with relatively few engaging in extended browsing sessions.

@@ -1,0 +1,14 @@
+This is a **table visualization** showing daily signup data over a one-week period in September 2025.
+
+**Data displayed:**
+- Date range: Monday, September 8th through Sunday, September 14th, 2025
+- Daily signup counts ranging from 102 to 141
+
+**Key insights:**
+- **Friday (12/09) had the highest signups** with 141 users
+- **Sunday (14/09) had the lowest signups** with 102 users
+- **Weekday pattern**: Generally higher signup activity during weekdays (115-141) compared to weekend (102-108)
+- **Weekly total**: Approximately 838 signups across the 7-day period
+- **Average**: About 120 signups per day
+
+The visualization effectively shows signup trends throughout the week, highlighting that business days tend to drive higher user registration activity compared to weekends.

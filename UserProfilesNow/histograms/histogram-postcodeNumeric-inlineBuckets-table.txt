@@ -1,10 +1,14 @@
-This is a **frequency distribution table** (histogram table) showing postcode data organized into numeric ranges.
+This is a **histogram table** showing the distribution of postcode numeric ranges and their corresponding frequencies.
 
-**Data displayed:**
-- Postcode ranges from 5000-5699 grouped into 100-unit buckets
-- Count of occurrences for each postcode range
+**Data Displayed:**
+- Postcode ranges in 100-unit intervals (5000-5099, 5100-5199, etc.)
+- Count of occurrences for each range
+- Covers postcodes from 5000 to 5699
 
-**Key insights:**
-- **Heavily skewed distribution**: The 5000-5099 range dominates with 30,732 occurrences (roughly 77% of total data)
-- **Rapid decline pattern**: Each subsequent range shows dramatically fewer occurrences
-- **Geographic concentration**: Suggests data is concentrated in a specific postal area (likely South Australia, based on 5000-series postcodes
+**Key Insights:**
+- **Heavily skewed distribution**: The 5000-5099 range dominates with 30,732 occurrences (about 77% of total data)
+- **Sharp decline**: Frequency drops dramatically after the first range, with 5100-5199 having only 5,181 occurrences
+- **Consistent low ranges**: Postcodes 5300+ show relatively low, stable frequencies (298-701 occurrences)
+- **Total dataset**: Approximately 39,754 postcode entries
+
+This suggests a geographic concentration in the 5000-5099 postcode area, likely indicating a major urban center or high-density region in what appears to be an Australian postal system (5000 series postcodes).

@@ -1,0 +1,17 @@
+This is a pie chart titled "Device Category (with missing)" that shows the distribution of device types used to access a service or platform.
+
+**Chart Type:** Pie chart with four segments
+
+**Data Displayed:**
+- Mobile (blue) - appears to be the largest segment, roughly 40-45%
+- MISSING (teal/green) - second largest segment, approximately 35-40%
+- Laptop (light green) - smaller segment, around 10-15%
+- Tablet (purple) - smallest segment, roughly 5-10%
+
+**Key Insights:**
+1. **Mobile dominance:** Mobile devices represent the plurality of traffic/usage
+2. **Significant data gap:** A substantial portion of device data is missing or unidentified, which could indicate tracking issues or privacy settings
+3. **Desktop/laptop usage:** Laptops show moderate usage compared to mobile
+4. **Limited tablet adoption:** Tablets have the smallest share among identified devices
+
+The high percentage of "MISSING" data suggests potential issues with device detection or user privacy settings that prevent proper categorization.

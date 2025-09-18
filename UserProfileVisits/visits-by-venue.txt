@@ -1,11 +1,12 @@
-This is a simple data table visualization showing visit counts by venue. The table displays two locations:
+This is a tabular data visualization showing venue visit counts. The widget displays:
 
-- **Adelaide Central Plaza**: 180,566 visits
-- **Port Adelaide Plaza**: 61,005 visits
+**Data Type**: Visit frequency data for two Adelaide shopping venues
+- Adelaide Central Plaza: 180,566 visits
+- Port Adelaide Plaza: 61,005 visits
 
-**Key insights:**
-- Adelaide Central Plaza receives nearly 3 times more visits than Port Adelaide Plaza
-- The significant disparity (119,561 visit difference) suggests Adelaide Central Plaza is likely a more prominent or accessible location
-- This appears to be comparative foot traffic data, useful for understanding venue performance or customer flow patterns
+**Key Insights**: 
+- Adelaide Central Plaza receives nearly 3x more visits than Port Adelaide Plaza
+- Central Plaza is clearly the more popular/busier venue with significantly higher foot traffic
+- The data suggests a substantial difference in venue size, location attractiveness, or accessibility between these two shopping destinations
 
-The visualization uses a clean, minimalist table format with clear column headers ("Venue" and "Count") and precise numerical data presentation.
+The visualization uses a simple two-column table format (Venue | Count) making it easy to compare the relative performance of these retail locations.

@@ -1,11 +1,14 @@
-This is a pivot table visualization showing OS category data (Android vs iOS/OSX) broken down by venue location.
+This is a cross-tabulation table showing OS category usage (Android vs iOS/OSX) across two venues. 
 
 **Data displayed:**
 - Two venues: Chevron Renaissance and MacArthur Central
-- Two OS categories: Android and iOS_OSX
-- Numerical values representing user counts or device detections
+- Device usage broken down by Android and iOS_OSX operating systems
+- Numerical values representing user counts or visits
 
 **Key insights:**
-- **Chevron Renaissance**: iOS/OSX users significantly outnumber Android users (64,783 vs 45,665)
-- **MacArthur Central**: Android users outnumber iOS/OSX users (68,913 vs 55,930)
-- The venues show opposite patterns in OS preference, suggesting different demographic profiles or customer
+- **Chevron Renaissance**: iOS/OSX users (64,783) significantly outnumber Android users (45,665)
+- **MacArthur Central**: Android users (68,913) slightly outnumber iOS/OSX users (55,930)
+- The venues show opposite OS preferences, suggesting different demographic profiles or target audiences
+- MacArthur Central has higher overall traffic volume compared to Chevron Renaissance
+
+This visualization effectively compares mobile operating system preferences across different physical locations, useful for understanding audience demographics and optimizing platform-specific strategies.

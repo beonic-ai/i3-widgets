@@ -1,12 +1,10 @@
-This is a histogram bar chart showing the distribution of website visit durations in minutes. 
+This is a histogram bar chart showing the distribution of website visit durations measured in minutes. The chart displays visitor counts (y-axis, ranging from 0 to 40k) across different time duration bins (x-axis).
 
-**Chart Type:** Histogram with discrete time interval bins on the x-axis and visitor count on the y-axis.
+**Key insights:**
+- The highest engagement occurs in the 61-120 minute range (~37k visits), indicating strong user retention
+- The 31-60 minute range also shows high engagement (~35k visits)
+- Medium engagement levels are seen in 6-15 minutes (~32k) and 16-30 minutes (~28k) ranges
+- There's a significant drop-off for longer sessions, with only ~14k visits lasting 121-180 minutes
+- Very few visitors stay for extremely short (0-5 minutes) or very long sessions (181+ minutes)
 
-**Data Displayed:** 
-- Visit duration ranges from 0-5 minutes up to 301+ minutes
-- Visitor counts ranging from 0 to approximately 40,000
-- Seven distinct time intervals as bins
-
-**Key Insights:**
-- **Peak engagement occurs in medium-duration visits:** The highest counts are in the 61-120 minute range (~37k visitors), followed closely by 31-60 minutes (~35k visitors)
-- **Strong mid-range
+The distribution suggests the website successfully retains users for substantial periods, with peak engagement occurring in the 1-2 hour range, indicating quality content or engaging user experience.

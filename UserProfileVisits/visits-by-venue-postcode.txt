@@ -1,11 +1,15 @@
-This is a **data table visualization** showing website visit statistics for two shopping venues in Adelaide, Australia.
+This is a tabular data visualization showing visitor counts by venue and postcode. The table displays:
 
-**Data displayed:**
-- **Venues:** Adelaide Central Plaza and Port Adelaide Plaza
-- **Postcodes:** Various codes (5000, 5066, 5067, 5082, 5085)
-- **Visit counts:** Ranging from 33 to 28,858 visits
+**Data Structure:**
+- **Venue**: Two locations (Adelaide Central Plaza and Port Adelaide Plaza)
+- **Postcode**: Various postal codes (5000, 5066, 5067, 5082, 5085)
+- **Count**: Number of visits per venue-postcode combination
 
-**Key insights:**
-- Adelaide Central Plaza significantly outperforms Port Adelaide Plaza in visitor traffic
-- Postcode 5000 generates the highest traffic for Adelaide Central Plaza (28,858 visits) but much lower for Port Adelaide Plaza (1,109 visits)
-- Adelaide Central Plaza
+**Key Insights:**
+- Adelaide Central Plaza dominates visitor traffic with 38,390 total visits across all postcodes
+- Postcode 5000 generates the highest traffic overall (29,967 visits), with Adelaide Central Plaza capturing the majority (28,858 vs 1,109 for Port Adelaide Plaza)
+- Port Adelaide Plaza has significantly lower visitor counts, with only 1,142 total visits
+- Adelaide Central Plaza shows more geographically diverse visitor origins across multiple postcodes
+- The data suggests strong location-based preferences, with visitors predominantly choosing the venue closest to postcode 5000
+
+This visualization effectively compares venue performance across different geographic catchment areas, helping identify market penetration and location effectiveness.

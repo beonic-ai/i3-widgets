@@ -1,15 +1,15 @@
-This is a horizontal bar chart showing gender distribution data with four categories displayed as columns. The visualization presents:
+This is a horizontal bar chart showing gender distribution data across four categories: Female, Male, Missing, and Other.
 
-**Chart Type**: Horizontal bar chart with categorical breakdown
-
-**Data Displayed**:
-- Female: 33,266 (largest segment)
+**Data displayed:**
+- Female: 33,266 (largest group)
 - Male: 14,050 
 - Missing: 5,317
 - Other: 5,690
 
-**Key Insights**:
-- Females represent the majority at approximately 57% of the total dataset
-- There's a significant gender imbalance with females outnumbering males by more than 2:1
-- Notable data quality issue with 5,317 missing values
-- The "Other" category (5,690
+**Key insights:**
+- Strong female majority, representing approximately 57% of the total population
+- Significant gender imbalance with females outnumbering males by more than 2:1
+- Notable data quality issue with 5,317 missing gender values
+- The "Other" category (5,690) is slightly larger than the missing values, suggesting inclusive gender options in data collection
+
+The visualization effectively highlights both the gender composition and data completeness, with the missing values prominently displayed as a separate category rather than being hidden.

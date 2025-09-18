@@ -1,10 +1,13 @@
-This is a **data table visualization** showing campaign performance metrics broken down by gender demographics.
+This is a tabular data visualization showing campaign click data segmented by gender across specific postcodes (5000, 5082, 5085, 5066, 5067).
 
-**Data Displayed:**
-- Campaign names (Winter Warmers, WIN Designer or Diamonds, Vogue Festival 2021, School Holidays Sept21)
-- Gender segments (Female/Male)
-- Click counts for specific postcodes (5000, 5082, 5085, 5066, 5067)
+**Data Structure:**
+- Three columns: Campaign name, Gender (Postcode), and Click Count
+- Four campaigns listed: Winter Warmers, WIN Designer or Diamonds, Vogue Festival 2021, and School Holidays Sept21
 
 **Key Insights:**
-- **Strong female skew**: All campaigns show significantly higher female engagement, with females generating 14-18 clicks per campaign compared to only 1 click from males
-- **Consistent pattern**: The gender disparity is remarkably consistent across all
+- **Strong female skew**: Females dramatically outnumber males across all campaigns (14-18 female clicks vs. only 1 male click per campaign)
+- **Consistent gender pattern**: Every campaign shows the same 14:1 or higher female-to-male ratio
+- **Campaign performance**: Vogue Festival 2021 had the highest female engagement (18 clicks), followed by School Holidays Sept21 (15 clicks)
+- **Geographic focus**: Data is filtered to specific postcode areas, suggesting targeted local marketing analysis
+
+The visualization effectively highlights a clear gender preference in campaign engagement, indicating these campaigns strongly resonate with female audiences in the analyzed postal areas.

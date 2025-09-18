@@ -1,11 +1,17 @@
-This is a **histogram table** that displays the distribution of birth years across three time periods using inline bucket formatting.
+This is a histogram table showing the distribution of birth years across three time periods using inline buckets.
 
-**Data Display:**
-- **Chart Type:** Tabular histogram with grouped year ranges
-- **Categories:** Three birth year buckets (0-1975, 1975-2000, 2000+)
-- **Counts:** 1,360, 4,142, and 1,953 respectively
-- **Total Sample:** 7,455 individuals
+**Data Representation:**
+- **Chart Type:** Histogram table with grouped time intervals
+- **Variables:** Year of birth (categorical buckets) vs. count (frequency)
+- **Time Periods:** 
+  - 0-1975: 1,360 individuals
+  - 1975-2000: 4,142 individuals  
+  - 2000+: 1,953 individuals
 
 **Key Insights:**
-- The **1975-2000 cohort is dominant**, representing over half the population (55.6%)
-- The **pre-1975 and post-2000
+- The 1975-2000 generation represents the largest cohort, comprising over half the dataset (55.6%)
+- There's a notable decline in the post-2000 group compared to the peak 1975-2000 period
+- The pre-1975 group is the smallest, suggesting either an older demographic with lower representation or data collection focused on more recent births
+- Total sample size: 7,455 individuals across all time periods
+
+This visualization effectively shows generational distribution patterns in the dataset, with Generation X and Millennials (1975-2000) being the dominant demographic.

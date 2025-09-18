@@ -1,0 +1,15 @@
+This is a pie chart visualization showing the distribution of "Non-En Languages" (Non-English Languages) with a total of 200 data points.
+
+**Chart Type:** Pie chart with numerical labels
+
+**Data Displayed:**
+- Dutch: 49 (largest segment, highlighted with tooltip)
+- Four other unnamed language segments with values: 178, 79, 49, and 38
+
+**Key Insights:**
+- Dutch represents approximately 25% of non-English language usage
+- One segment (178) dominates with nearly 90% of the distribution
+- The remaining three segments are relatively small and similar in size
+- This appears to be analyzing language diversity in a multilingual context, possibly for website analytics or user demographics
+
+The visualization effectively shows language distribution patterns, with one dominant non-English language and Dutch being a notable secondary language.

@@ -1,11 +1,9 @@
-This is a histogram showing the distribution of signup hours throughout the day (displayed in 24-hour format on the x-axis). 
-
-**Chart Type:** Bar histogram with blue bars representing count frequency
-
-**Data Displayed:** 
-- X-axis: Time ranges in 100-hour intervals (0-100, 300-400, etc. up to 2100-2200)
-- Y-axis: Count of signups (ranging from 0 to 21k)
+This is a histogram showing the distribution of signup times throughout a 24-hour period (displayed in military time format from 0-2300 hours).
 
 **Key Insights:**
-- **Peak signup period:** 1300-1400 hours (1-2 PM) with nearly 20k signups
-- **High activity window:** 1200-
+- **Peak signup activity** occurs during afternoon/early evening hours (1200-1400), with the highest bar reaching approximately 20k signups around 1300 hours (1 PM)
+- **Activity pattern** shows a clear bell curve, with very low activity during overnight hours (0-600) and late night (2100-2300)
+- **Business hours correlation** - signup activity closely follows typical waking/business hours, suggesting users primarily sign up during active daytime periods
+- **Gradual build-up** from morning (800-900) leading to the afternoon peak, followed by steady decline through evening hours
+
+This data would be valuable for optimizing marketing campaigns, server capacity planning, and customer support staffing around peak signup times.

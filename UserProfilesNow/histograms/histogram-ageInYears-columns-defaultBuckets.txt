@@ -1,0 +1,15 @@
+This is a horizontal histogram/bar chart showing age distribution across different age groups measured in years.
+
+**Data Display:**
+- Shows 8 age brackets from 0-14 years to 75+ years
+- Each age group displays its corresponding population count
+- Uses default bucket ranges in 10-year intervals (except the youngest and oldest groups)
+
+**Key Insights:**
+- **Peak demographic**: Ages 25-34 with 2,684 individuals (highest count)
+- **Secondary peak**: Ages 15-24 with 1,415 individuals  
+- **Clear decline**: Population decreases steadily after age 35
+- **Very low representation**: Ages 0-14 (only 6 individuals) and 75+ (197 individuals)
+- **Working-age concentration**: Most of the population falls between ages 15-54
+
+The distribution suggests this dataset represents a working-age population with very few children and elderly individuals, possibly indicating a professional or employment-related dataset.

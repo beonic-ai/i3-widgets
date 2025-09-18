@@ -1,0 +1,17 @@
+This is a simple data table visualization showing "Yearly Signups" over a three-year period. The table displays:
+
+**Data Structure:**
+- Two columns: Year and Signups
+- Three years of data (2023-2025)
+
+**Key Data Points:**
+- 2023: 15,254 signups
+- 2024: 22,232 signups (peak year)
+- 2025: 6,280 signups
+
+**Insights:**
+- Signups increased by 46% from 2023 to 2024
+- Dramatic 72% decline in 2025 signups compared to 2024
+- 2024 represents the highest signup volume in the dataset
+
+This tabular format provides a clear numerical comparison of signup trends, though the significant drop in 2025 may warrant further investigation (could be incomplete year data or actual performance decline).

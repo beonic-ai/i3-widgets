@@ -1,0 +1,12 @@
+This is a **tabular data visualization** showing "Hourly Signups" for Saturday, September 13, 2025.
+
+**Data Type:** Time series data displaying signup counts aggregated by hour over a 24-hour period.
+
+**Key Insights:**
+- **Peak activity period:** 11 AM - 1 PM, with the highest signup volume at 12 PM (20 signups)
+- **Secondary peak:** 11 AM (18 signups) and 1 PM (15 signups)
+- **Low activity periods:** Early morning (12 AM - 9 AM) and late evening (7 PM - 11 PM) with mostly 0-1 signups
+- **Total pattern:** Clear daytime preference for signups, following typical business/daylight hours
+- **Gradual decline:** Afternoon signups steadily decrease from 2 PM (12) through 6 PM (4)
+
+This visualization effectively shows user engagement patterns throughout the day, indicating when users are most likely to sign up for the service.
