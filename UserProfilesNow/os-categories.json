@@ -36,7 +36,7 @@
     "description": {
       "html": "OS categories"
     },
-    "type": "PieChart",
+    "type": "Table",
     "title": "OS Category (Android & Apple)"
   }
 }
