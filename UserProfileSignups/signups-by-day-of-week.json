@@ -1,0 +1,36 @@
+{
+  "columnNames": [
+    "Day",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeek"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by the day of the week they signed-up (local time)."
+    },
+    "type": "Table",
+    "title": "Signups by Day of Week",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

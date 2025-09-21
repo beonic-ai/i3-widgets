@@ -1,0 +1,36 @@
+{
+  "columnNames": [
+    "Hour",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "HourOfDay"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by the hour of the day they signed-up (local time)."
+    },
+    "type": "Table",
+    "title": "Signups by Hour of the Day",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

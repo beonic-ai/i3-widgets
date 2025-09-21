@@ -1,0 +1,40 @@
+{
+  "columnNames": [
+    "month",
+    {
+      "name": "age",
+      "dimension": {
+        "histogram": {
+          "metric": "UserProfilesNow",
+          "histogram": "ageInYears"
+        }
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "MonthOfYear"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "ageInYears"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user ages for each signup month of the year. The data is presented as a table.  The x-axis are the (default) buckets of age in years, and the y-axis is the month of the year."
+    },
+    "type": "Table",
+    "title": "Age In Years Histogram x Signup Month Table"
+  }
+}

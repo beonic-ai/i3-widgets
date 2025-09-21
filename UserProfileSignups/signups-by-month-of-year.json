@@ -1,0 +1,36 @@
+{
+  "columnNames": [
+    "Month",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "MonthOfYear"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by the month of the year they signed-up (local time)."
+    },
+    "type": "Table",
+    "title": "Signups by Month of the Year",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

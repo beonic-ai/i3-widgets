@@ -1,0 +1,36 @@
+{
+  "columnNames": [
+    "Week Part",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeekType"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by the part of the week (weekday/weekend) they signed-up (local time)."
+    },
+    "type": "Table",
+    "title": "Signups by Part of Week",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
