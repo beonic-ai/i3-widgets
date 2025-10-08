@@ -1,0 +1,12 @@
+This is a simple data table visualization showing "Signups by Part of Week." 
+
+**Data displayed:**
+- Weekday signups: 14,076
+- Weekend signups: 6,941
+
+**Key insights:**
+- Weekdays generate significantly more signups than weekends (approximately 2:1 ratio)
+- Total signups across the week: 21,017
+- Weekdays account for about 67% of all signups, while weekends represent 33%
+
+This suggests user engagement or marketing activities are more effective during weekdays, which could inform timing strategies for campaigns or product launches.

@@ -1,0 +1,14 @@
+This is a simple data table visualization showing "Yearly WiFi Sessions" data. 
+
+**Visualization Type**: Tabular display with two columns (Date and Count)
+
+**Data Displayed**: 
+- 2024: 8,037 WiFi sessions
+- 2025: 13,389 WiFi sessions
+
+**Key Insights**:
+- Shows a significant 66% increase in WiFi sessions from 2024 to 2025
+- Growth of 5,352 additional sessions year-over-year
+- Indicates growing WiFi usage/adoption over the two-year period
+
+The visualization uses a clean, minimal table format to present this comparative annual data clearly and concisely.

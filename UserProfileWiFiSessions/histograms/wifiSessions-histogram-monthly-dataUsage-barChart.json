@@ -1,0 +1,72 @@
+{
+  "visualisation": {
+    "description": {
+      "html": "Creates a monthly histogram of user WiFi session dataUsage, visualised as a horizontal, stacked bar chart. The histogram's data usage buckets and counts are displayed in the chart for each month. The buckets are the default data-usage (MB) ranges for sessions. The data is filtered by the venue's registration group to optimise query performance."
+    },
+    "barChartSettings": {
+      "showBarValues": false,
+      "tooltip": {
+        "show": true
+      },
+      "layout": "horizontal",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "stack"
+    },
+    "title": "Monthly WiFi Session Data Usage (MB) Histogram Horizontal Stacked Bar Chart",
+    "type": "BarChart"
+  },
+  "columnNames": [
+    "time",
+    {
+      "name": "sessions",
+      "dimension": {
+        "histogram": {
+          "histogram": "dataUsage",
+          "metric": "UserProfileWiFiSessions"
+        }
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Monthly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "histogram": "dataUsage"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "rg": "venueId.registrationGroup"
+  }
+}

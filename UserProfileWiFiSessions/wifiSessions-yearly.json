@@ -1,0 +1,36 @@
+{
+  "columnNames": [
+    "Date",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Yearly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of WiFiSessions by year."
+    },
+    "type": "Table",
+    "title": "Yearly WiFi Sessions",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

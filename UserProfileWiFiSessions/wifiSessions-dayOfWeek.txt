@@ -1,0 +1,14 @@
+This is a **data table visualization** showing WiFi session counts by day of the week.
+
+**Data displayed:**
+- 7 rows representing each day of the week
+- Session counts ranging from 112 (Saturday, lowest) to 221 (Wednesday, highest)
+- Total of 1,211 WiFi sessions across the week
+
+**Key insights:**
+- **Wednesday has peak usage** (221 sessions)
+- **Weekend shows lowest activity** - Saturday (112) and Friday (121) have the fewest sessions
+- **Mid-week dominance** - Tuesday through Thursday show consistently higher usage (175-221 sessions)
+- **Sunday rebounds** with 203 sessions, suggesting different usage patterns than typical weekend days
+
+The visualization effectively shows weekly WiFi usage patterns, indicating this is likely a business or educational environment with higher weekday activity.
