@@ -1,0 +1,15 @@
+This is a horizontal stacked bar chart showing monthly WiFi session data usage distribution across different usage ranges (measured in MB) from 2024 through December.
+
+**Data Representation:**
+- Each bar represents a month's total WiFi sessions
+- Bars are segmented by 9 usage categories ranging from 0-4 MB (lightest blue) to 1280+ MB (darkest blue)
+- The width of each colored segment indicates the relative proportion of sessions in that usage range
+
+**Key Insights:**
+- **Low usage dominance**: The majority of sessions across all months fall into the lower usage categories (0-79 MB), particularly the 0-4 MB and 5-9 MB ranges
+- **Consistent patterns**: Usage distribution remains relatively stable month-to-month, suggesting consistent user behavior patterns
+- **Heavy users are minimal**: Very few sessions exceed 640 MB, with the 1280+ MB category representing a tiny fraction
+- **Gradual decline**: There's a clear pattern where higher usage categories represent progressively smaller portions of total sessions
+- **Seasonal stability**: No dramatic seasonal variations in usage patterns are evident across the months shown
+
+This visualization effectively shows that most WiFi sessions involve light data usage, which is typical for basic browsing, email, and social media activities.

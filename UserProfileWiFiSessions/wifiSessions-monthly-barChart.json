@@ -1,0 +1,50 @@
+{
+  "visualisation": {
+    "description": {
+      "html": "Counts monthly WiFi sessions, visualised as a horizontal bar chart. The data is filtered by the venue's registration group to optimise query performance."
+    },
+    "barChartSettings": {
+      "showBarValues": false,
+      "tooltip": {
+        "show": true
+      },
+      "layout": "horizontal",
+      "xAxis": {
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "yAxis": {
+        "splitNumber": 5
+      },
+      "showLegend": true
+    },
+    "title": "Monthly WiFi Sessions Horizontal Bar Chart",
+    "type": "BarChart"
+  },
+  "columnNames": [
+    "time",
+    "sessions"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Monthly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "rg": "venueId.registrationGroup"
+  }
+}

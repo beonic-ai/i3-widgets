@@ -1,0 +1,13 @@
+This is a data table visualization showing "Signups by Month of the Year" with two columns: Month and Signups.
+
+**Data displayed:**
+- Monthly signup counts from January through September
+- Values range from 472 (February, lowest) to 1,125 (May, highest)
+
+**Key insights:**
+- **Peak signup periods:** March (1,123) and May (1,125) show the highest user acquisition
+- **Lowest activity:** February (472) and July (492) have significantly fewer signups
+- **Seasonal pattern:** There appears to be stronger signup activity in spring months (March-May) compared to winter/summer periods
+- **Summer decline:** July shows a notable drop after June's moderate performance (853)
+
+The table format allows for easy comparison of exact values across months, making it simple to identify trends and outliers in user acquisition patterns.

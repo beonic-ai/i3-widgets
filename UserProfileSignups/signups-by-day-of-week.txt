@@ -1,0 +1,10 @@
+This is a table visualization showing "Signups by Day of Week" data. It displays signup counts for each day of the week in a simple two-column format with days listed vertically and corresponding signup numbers on the right.
+
+**Key insights:**
+- Thursday has the highest signup activity (4,348)
+- Tuesday shows the lowest signup activity (2,213)
+- There's a clear pattern with mid-to-late week performing better (Wednesday-Friday range from 2,517 to 4,348)
+- Weekend activity (Saturday: 3,437, Sunday: 2,857) falls in the middle range
+- The data suggests user engagement peaks on Thursday, possibly indicating optimal timing for marketing campaigns or product launches
+
+The visualization effectively presents weekly signup patterns in a clean, sortable table format that makes it easy to identify performance trends across different days.

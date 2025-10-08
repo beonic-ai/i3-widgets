@@ -1,0 +1,55 @@
+{
+  "columnNames": [
+    "age range",
+    "venue",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "buckets": [
+                {
+                  "to": 20
+                },
+                {
+                  "from": 20,
+                  "to": 40
+                },
+                {
+                  "from": 40
+                }
+              ]
+            }
+          }
+        },
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "histogram": "ageInYears"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user visit by age range. The histogram's buckets and counts are visualised as a bar chart. The buckets are default (yearly) age ranges."
+    },
+    "type": "Table",
+    "title": "Vists by Age Range (inline buckets)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

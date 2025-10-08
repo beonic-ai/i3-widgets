@@ -1,0 +1,14 @@
+This is a **tabular data visualization** showing monthly website visits from January to September 2025.
+
+**Data Display:**
+- Two columns: Date (month/year) and Count (number of visits)
+- 9 months of chronological data
+- Visit counts ranging from 195 to 341
+
+**Key Insights:**
+- **Growth trend**: Steady increase from Jan (195) to May (341), representing a 75% growth over 5 months
+- **Peak performance**: May 2025 had the highest visits (341)
+- **Summer decline**: Notable drop in June-July (302→229), followed by partial recovery in August (305)
+- **Recent dip**: September shows another decline to 249 visits
+
+The data suggests seasonal patterns with strong spring growth, summer volatility, and potential seasonal slowdowns in July and September.

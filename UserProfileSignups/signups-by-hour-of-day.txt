@@ -1,0 +1,13 @@
+This is a two-column data table showing "Signups by Hour of the Day." 
+
+**Data displayed:**
+- Left column: Hours (12 am through 4 pm shown)
+- Right column: Number of signups for each hour
+
+**Key insights:**
+- **Peak activity**: Highest signups occur during business hours, with 1 pm showing the maximum (597 signups)
+- **Low activity**: Overnight hours (2-5 am) show minimal signups (8-16 signups)
+- **Growth pattern**: Signups steadily increase from early morning (30 at 6 am) through midday, peaking in early afternoon
+- **Business hours dominance**: The pattern clearly reflects typical waking/working hours, with dramatic increases starting around 7-8 am
+
+This visualization effectively shows user signup behavior follows predictable daily patterns, which could inform marketing timing and resource allocation decisions.

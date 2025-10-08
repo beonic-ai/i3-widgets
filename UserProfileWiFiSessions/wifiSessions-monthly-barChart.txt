@@ -1,0 +1,9 @@
+This is a horizontal bar chart displaying monthly WiFi sessions data. The chart shows WiFi usage patterns across different months, with each blue bar representing the number of sessions for that period.
+
+**Key insights:**
+- **Peak usage**: December shows the highest WiFi sessions (~2,500), followed closely by April and May (~2,100 each)
+- **Seasonal patterns**: Higher usage appears in winter months (Dec, Nov ~2,000) and spring months (Apr, May)
+- **Lower usage periods**: January 2024 shows significantly lower sessions (~1,400), suggesting either a seasonal drop or data collection period
+- **Consistent mid-range usage**: Summer and fall months (Jun-Oct) show relatively stable usage around 1,700-1,900 sessions
+
+The visualization effectively shows WiFi usage trends over time, indicating potential seasonal variations in user behavior or facility usage patterns. The data suggests peak networking activity during certain months, which could inform capacity planning and network management decisions.

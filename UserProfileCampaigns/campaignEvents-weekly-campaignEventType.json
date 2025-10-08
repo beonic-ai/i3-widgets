@@ -1,0 +1,42 @@
+{
+  "columnNames": [
+    "Date",
+    "EventType",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Weekly"
+          }
+        },
+        {
+          "dimension": {
+            "key": "campaignEventType"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileCampaigns",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of Campaigns by week and campaign event type."
+    },
+    "type": "Table",
+    "title": "Weekly Campaign events",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}

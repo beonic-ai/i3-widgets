@@ -1,0 +1,14 @@
+This is a cross-tabulation table (contingency table) showing the distribution of user signups by age group and month. 
+
+**Data displayed:**
+- Rows: 12 months (January-December)
+- Columns: 7 age groups (0-14, 15-24, 25-34, 35-44, 45-54, 55-64, 65-74)
+- Values: Number of signups in each age/month combination
+
+**Key insights:**
+1. **Seasonal patterns**: December shows the highest signup volumes across most age groups, while January has the lowest
+2. **Age distribution**: The 25-34 age group has the highest signup numbers consistently across all months
+3. **Demographic trends**: Younger adults (15-44) represent the majority of signups, with participation declining in older age groups
+4. **Growth pattern**: There's a general upward trend from January to December, suggesting either business growth or seasonal effects
+
+The table format allows for easy comparison across both dimensions and identification of peak periods and target demographics.
