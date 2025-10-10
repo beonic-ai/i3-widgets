@@ -30,7 +30,7 @@ clean:
     @echo "Cleaned dist/ directory"
 
 # Preview the generated site
-preview:
+serve:
     cd dist && npx serve
 
 # Find widgets missing PNG previews
@@ -39,15 +39,15 @@ check-previews:
     @for json in UserProfile*/*.json; do \
         png="$${json%.json}.png"; \
         if [ ! -f "$$png" ]; then \
-            echo "  $$json"; \
+            echo "  $json"; \
         fi \
     done
-
+    @echo
     @echo "Widgets missing TXT descriptions:"
     @for json in UserProfile*/*.json; do \
         txt="$${json%.json}.txt"; \
         if [ ! -f "$$txt" ]; then \
-            echo "  $$json"; \
+            echo "  $json"; \
         fi \
     done
 
