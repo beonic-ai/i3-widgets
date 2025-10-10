@@ -30,7 +30,7 @@ clean:
     @echo "Cleaned dist/ directory"
 
 # Preview the generated site
-serve:
+serve: generate-site
     cd dist && npx serve
 
 # Find widgets missing PNG previews

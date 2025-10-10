@@ -528,12 +528,16 @@ class WidgetGalleryGenerator {
             `${widget.category}/${widget.basename}.png` :
             '';
 
-        // Handle description - it might be a string, object, or undefined
+        // Handle description - extract first line only
         let cleanDescription = '';
         if (typeof widget.description === 'string') {
-            cleanDescription = widget.description
+            // Get the first line (up to first newline)
+            const firstLine = widget.description.split('\n')[0].trim();
+            // Remove any HTML/markdown formatting
+            cleanDescription = firstLine
                 .replace(/<[^>]*>/g, '')
-                .substring(0, 200);
+                .replace(/\*\*([^*]+)\*\*/g, '$1')  // Remove bold markers
+                .replace(/\*([^*]+)\*/g, '$1');      // Remove italic markers
         } else if (widget.description && typeof widget.description === 'object') {
             // Handle case where description is an object (shouldn't happen but just in case)
             cleanDescription = JSON.stringify(widget.description).substring(0, 200);
@@ -689,6 +693,44 @@ class WidgetGalleryGenerator {
             color: #555;
         }
 
+        .description h1,
+        .description h2,
+        .description h3 {
+            color: #333;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .description h1 {
+            font-size: 1.5rem;
+        }
+
+        .description h2 {
+            font-size: 1.3rem;
+        }
+
+        .description h3 {
+            font-size: 1.1rem;
+        }
+
+        .description p {
+            margin-bottom: 1rem;
+        }
+
+        .description ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .description li {
+            margin-bottom: 0.5rem;
+        }
+
+        .description strong {
+            color: #333;
+            font-weight: 600;
+        }
+
         .code-block {
             position: relative;
             background: #1e1e1e;
@@ -823,7 +865,7 @@ class WidgetGalleryGenerator {
         ${widget.description ? `
         <div class="section">
             <h2>📝 Description</h2>
-            <div class="description">${typeof widget.description === 'string' ? widget.description : ''}</div>
+            <div class="description">${typeof widget.description === 'string' ? this.markdownToHtml(widget.description) : ''}</div>
         </div>
         ` : ''}
 
@@ -927,6 +969,73 @@ class WidgetGalleryGenerator {
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#039;');
+    }
+
+    /**
+     * Utility: Convert markdown to HTML
+     */
+    markdownToHtml(markdown) {
+        if (!markdown || typeof markdown !== 'string') {
+            return '';
+        }
+
+        let html = markdown;
+
+        // Headers
+        html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+        html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+        html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+
+        // Bold
+        html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+        // Process lists more carefully
+        const lines = html.split('\n');
+        const result = [];
+        let inList = false;
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const trimmed = line.trim();
+
+            // Check if this is a list item (starts with "- ")
+            if (trimmed.startsWith('- ')) {
+                if (!inList) {
+                    result.push('<ul>');
+                    inList = true;
+                }
+                result.push(`<li>${trimmed.substring(2)}</li>`);
+            } else {
+                // Not a list item
+                if (inList) {
+                    result.push('</ul>');
+                    inList = false;
+                }
+                result.push(line);
+            }
+        }
+
+        // Close any open list
+        if (inList) {
+            result.push('</ul>');
+        }
+
+        html = result.join('\n');
+
+        // Paragraphs (split by double newlines)
+        const paragraphs = html.split('\n\n');
+        html = paragraphs
+            .map(p => {
+                p = p.trim();
+                if (!p) return '';
+                // Don't wrap if already has HTML tags
+                if (p.startsWith('<')) return p;
+                return `<p>${p.replace(/\n/g, '<br>')}</p>`;
+            })
+            .filter(p => p)
+            .join('\n');
+
+        return html;
     }
 }
 
