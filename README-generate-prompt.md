@@ -69,7 +69,7 @@ Creates a histogram of user visit durations...
 
 **Visualization Preview:** AI-generated description of the chart...
 
-![Visit Duration (minutes) Histogram Bar Chart](UserProfileVisits/histograms/visits-histogram-duration-barChart.png)
+![Visit Duration (minutes) Histogram Bar Chart](UserProfileVisits/visits-histogram-duration-barChart.png)
 
 ### Main Widgets
 
