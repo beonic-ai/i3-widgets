@@ -86,36 +86,10 @@ class WidgetPromptGenerator {
 
         this.output.push(`## ${dirName}\n`);
 
-        // Check for histograms subdirectory first
-        const histogramDir = path.join(dirName, 'histograms');
-        if (await this.directoryExists(histogramDir)) {
-            this.output.push('### Histograms\n');
-            await this.processHistogramDirectory(histogramDir);
-        }
+        // Process all JSON files in the directory
+        const jsonFiles = await this.findJsonFiles(dirName, false);
 
-        // Process main directory JSON files
-        const mainJsonFiles = await this.findJsonFiles(dirName, false);
-        if (mainJsonFiles.length > 0) {
-            // Only add header if we have histograms too
-            if (await this.directoryExists(histogramDir)) {
-                this.output.push('### Main Widgets\n');
-            }
-
-            for (const jsonFile of mainJsonFiles) {
-                await this.processWidget(jsonFile);
-            }
-        }
-
-        this.output.push('\n');
-    }
-
-    /**
-     * Process the histograms subdirectory
-     */
-    async processHistogramDirectory(histogramDir) {
-        const histogramFiles = await this.findJsonFiles(histogramDir, true);
-
-        for (const jsonFile of histogramFiles) {
+        for (const jsonFile of jsonFiles) {
             await this.processWidget(jsonFile);
         }
 

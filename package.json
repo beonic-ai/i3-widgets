@@ -1,12 +1,14 @@
 {
   "name": "widgets",
   "version": "1.0.0",
-  "description": "",
+  "description": "Beonic Insights 3.0 Widget Examples and Gallery",
   "main": "generate-prompt.js",
   "directories": {
     "example": "examples"
   },
   "scripts": {
+    "build": "node generate-site.js",
+    "generate-prompt": "node generate-prompt.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
