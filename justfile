@@ -36,7 +36,7 @@ serve: generate-site
 # Find widgets missing PNG previews
 check-previews:
     @echo "Widgets missing PNG previews:"
-    @for json in UserProfile*/*.json; do \
+    @for json in UserProfile*/*.json templates/*.json; do \
         png="$${json%.json}.png"; \
         if [ ! -f "$$png" ]; then \
             echo "  $json"; \
@@ -44,7 +44,7 @@ check-previews:
     done
     @echo
     @echo "Widgets missing TXT descriptions:"
-    @for json in UserProfile*/*.json; do \
+    @for json in UserProfile*/*.json templates/*.json; do \
         txt="$${json%.json}.txt"; \
         if [ ! -f "$$txt" ]; then \
             echo "  $json"; \
@@ -55,17 +55,17 @@ check-previews:
 validate-json:
     @echo "Validating JSON files..."
     @errors=0; \
-    for json in UserProfile*/*.json; do \
-        if ! node -e "JSON.parse(require('fs').readFileSync('$$json', 'utf8'))" 2>/dev/null; then \
-            echo "  ❌ $$json"; \
-            errors=$$((errors + 1)); \
+    for json in UserProfile*/*.json templates/*.json; do \
+        if ! node -e "JSON.parse(require('fs').readFileSync('$json', 'utf8'))" 2>/dev/null; then \
+            echo "  ❌ $json"; \
+            errors=$((errors + 1)); \
         fi \
     done; \
-    if [ $$errors -eq 0 ]; then \
+    if [ $errors -eq 0 ]; then \
         echo "  ✅ All JSON files are valid"; \
     else \
         echo ""; \
-        echo "  Found $$errors invalid JSON file(s)"; \
+        echo "  Found $errors invalid JSON file(s)"; \
         exit 1; \
     fi
 

@@ -71,14 +71,21 @@ class WidgetGalleryGenerator {
     }
 
     /**
-     * Find all UserProfile* directories
+     * Find all UserProfile* directories and templates directory
      */
     async findUserProfileDirectories() {
         const items = await fs.readdir('.', { withFileTypes: true });
-        return items
+        const directories = items
             .filter(item => item.isDirectory() && item.name.startsWith('UserProfile'))
             .map(item => item.name)
             .sort();
+
+        // Add templates directory if it exists
+        if (await this.directoryExists('templates')) {
+            directories.push('templates');
+        }
+
+        return directories;
     }
 
     /**
