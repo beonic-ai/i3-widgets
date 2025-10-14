@@ -4,13 +4,15 @@
     "description": " ",
     "type": "Number"
   },
-  "columnNames": ["Traffic"],
+  "columnNames": [
+    "Traffic"
+  ],
   "rowSets": [
     {
       "columns": [
         {
           "numericExpression": {
-            "metric": "BlixVisit",
+            "metric": "Visit",
             "value": {
               "counter": "total"
             }

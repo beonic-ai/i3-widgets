@@ -16,16 +16,21 @@
     }
   },
   "filterOverrides": null,
-  "columnNames": ["visitorType", "value"],
+  "columnNames": [
+    "visitorType",
+    "value"
+  ],
   "rowSets": [
     {
       "columns": [
         {
-          "dimension": { "segment": "VISITOR_TYPE" }
+          "dimension": {
+            "segment": "VISITOR_TYPE"
+          }
         },
         {
           "numericExpression": {
-            "metric": "BlixVisit",
+            "metric": "Visit",
             "value": {
               "counter": "total"
             }

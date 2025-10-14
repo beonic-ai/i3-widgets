@@ -1,12 +1,11 @@
 {
   "visualisation": {
-    "title": "New vs return graph",
+    "title": "Columns Across",
     "description": "",
-    "type": "BarChart"
+    "type": "Table"
   },
   "filterOverrides": null,
   "columnNames": [
-    "timestamp",
     {
       "name": "Visits",
       "dimension": {
@@ -17,9 +16,6 @@
   "rowSets": [
     {
       "columns": [
-        {
-          "numericExpression": 1
-        },
         {
           "numericExpression": {
             "metric": "Visit",

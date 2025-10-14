@@ -13,7 +13,10 @@
       }
     }
   },
-  "columnNames": ["date", "Traffic"],
+  "columnNames": [
+    "date",
+    "Traffic"
+  ],
   "rowSets": [
     {
       "columns": [
@@ -24,7 +27,7 @@
         },
         {
           "numericExpression": {
-            "metric": "BlixVisit",
+            "metric": "Visit",
             "value": {
               "counter": "total"
             },

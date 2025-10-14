@@ -8,7 +8,10 @@
         "missing": true
       }
     }
-  ],  
+  ],
+  "keyAliases": {
+    "rg": "venueId.registrationGroup"
+  },
   "rowSets": [
     {
       "columns": [

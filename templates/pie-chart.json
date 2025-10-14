@@ -1,6 +1,6 @@
 {
   "visualisation": {
-    "title": "A Table",
+    "title": "Pie Chart",
     "description": "Table",
     "type": "PieChart",
     "tableSettings": {
@@ -10,10 +10,15 @@
         "mode": "value"
       },
       "scrollOverflow": true,
-      "legend": { "show": true }
+      "legend": {
+        "show": true
+      }
     }
   },
-  "columnNames": ["Location", "Traffic"],
+  "columnNames": [
+    "Location",
+    "Traffic"
+  ],
   "rowSets": [
     {
       "columns": [
@@ -25,7 +30,7 @@
         {
           "description": "Traffic",
           "numericExpression": {
-            "metric": "BlixVisit",
+            "metric": "Visit",
             "value": {
               "counter": "total"
             }

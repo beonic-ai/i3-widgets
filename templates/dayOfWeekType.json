@@ -1,16 +1,25 @@
 {
   "visualisation": {
     "title": "Weekend, Weekday",
-    "description": "Using the DayOfWeekType dimension",
+    "description": "Using the DayOfWeekType time-based dimension",
     "type": "Table"
   },
-  "columnNames": ["Weekend", "Weekday"],
+  "columnNames": [
+    "Venue",
+    "Weekend",
+    "Weekday"
+  ],
   "rowSets": [
     {
       "columns": [
         {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
           "numericExpression": {
-            "metric": "BlixVisit",
+            "metric": "Visit",
             "value": {
               "counter": "total"
             },
@@ -22,7 +31,7 @@
         },
         {
           "numericExpression": {
-            "metric": "BlixVisit",
+            "metric": "Visit",
             "value": {
               "counter": "total"
             },

@@ -4,7 +4,9 @@
     "description": " ",
     "type": "Number"
   },
-  "columnNames": ["Dwell"],
+  "columnNames": [
+    "Dwell"
+  ],
   "rowSets": [
     {
       "columns": [
@@ -12,13 +14,13 @@
           "numericExpression": {
             "$divide": [
               {
-                "metric": "BlixVisit",
+                "metric": "Visit",
                 "value": {
                   "counter": "dwell"
                 }
               },
               {
-                "metric": "BlixVisit",
+                "metric": "Visit",
                 "value": {
                   "counter": "total"
                 }

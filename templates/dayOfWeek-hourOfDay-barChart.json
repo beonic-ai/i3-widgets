@@ -1,0 +1,69 @@
+{
+  "columnNames": [
+    "hourOfDay",
+    {
+      "name": "day",
+      "dimension": {
+        "timeBasedDimension": "DayOfWeek",
+        "format": "Short"
+      }
+    }
+  ],
+  "keyAliases": {
+    "rg": "venueId.registrationGroup"
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "HourOfDay"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "Visit",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a stacked bar chart showing the total number of visits by hour of day (x-axis) and day of week (y-axis)."
+    },
+    "barChartSettings": {
+      "showBarValues": false,
+      "tooltip": {
+        "show": true
+      },
+      "layout": "vertical",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "stack"
+    },
+    "title": "Visits by Hour of Day and Day of Week",
+    "type": "BarChart"
+  }
+}
