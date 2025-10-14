@@ -1,0 +1,13 @@
+This is a **Key Performance Indicator (KPI) widget** displaying total traffic metrics.
+
+**Data displayed:**
+- Current period: 54,152 total traffic
+- Comparison period: 112,701 total traffic  
+- Period-over-period change: -51.95% (decrease)
+
+**Key insights:**
+- Traffic has declined significantly by more than half compared to the previous period
+- The red downward arrow and negative percentage clearly indicate poor performance
+- This represents a substantial drop that likely requires immediate attention and analysis
+
+The visualization uses a clean, minimalist design typical of dashboard widgets, emphasizing the critical metric with clear visual indicators (red color, down arrow) to quickly communicate the negative trend.

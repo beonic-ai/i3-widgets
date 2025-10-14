@@ -1,0 +1,13 @@
+This is a comparison table visualization showing venue performance data segmented by weekend vs. weekday periods.
+
+**Data displayed:**
+- Two venues: Retail Plaza and Harbour Shopping
+- Metrics for Weekend and Weekday performance (likely visitor counts or foot traffic)
+
+**Key insights:**
+- Both venues show significantly higher activity on weekends compared to weekdays
+- Harbour Shopping has slightly higher weekend traffic (9,386 vs 9,305) than Retail Plaza
+- Harbour Shopping also outperforms Retail Plaza on weekdays (2,613 vs 2,469)
+- The weekend-to-weekday ratio is substantial for both venues (approximately 3.8:1 for Retail Plaza and 3.6:1 for Harbour Shopping)
+
+The visualization effectively highlights the stark difference between weekend and weekday performance patterns across both retail venues.

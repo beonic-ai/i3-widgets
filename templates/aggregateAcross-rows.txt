@@ -1,0 +1,15 @@
+This is a simple data table visualization showing daily revenue percentages over a one-week period in November 2021.
+
+**Data displayed:**
+- Date range: Monday, November 8th through Sunday, November 14th, 2021
+- Single metric: Revenue % for each day
+- Shows 7 consecutive days of performance data
+
+**Key insights:**
+- Thursday (11/11/2021) had the highest revenue performance at 22.23%
+- Monday (08/11/2021) had the lowest at 6.95%
+- There's significant daily variation, with revenue percentages ranging from ~7% to ~22%
+- Mid-week and weekend days generally performed better than the beginning of the week
+- The data appears to show daily revenue as a percentage (likely of total weekly revenue or a target)
+
+This tabular format provides a clear, precise view of daily performance metrics without visual embellishments, making it easy to compare exact values across the week.

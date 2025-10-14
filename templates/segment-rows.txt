@@ -1,0 +1,12 @@
+This is a **data table visualization** showing visitor segmentation by visitor type. 
+
+**Data displayed:**
+- **New visitors:** 5,594
+- **Returning visitors:** 18,179
+
+**Key insights:**
+- Returning visitors significantly outnumber new visitors by more than 3:1 ratio
+- Total traffic of 23,773 visitors is heavily skewed toward repeat users (76% returning vs 24% new)
+- This suggests strong user retention and engagement, with the majority of traffic coming from an established audience rather than new user acquisition
+
+The simple two-row format provides a clear breakdown of the fundamental visitor loyalty metric, making it easy to assess the balance between audience retention and growth.

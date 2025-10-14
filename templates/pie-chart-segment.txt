@@ -1,0 +1,15 @@
+This is a pie chart visualization showing "New vs Return Traffic" distribution. 
+
+**Chart Type:** Simple two-segment pie chart
+
+**Data Displayed:**
+- New visitors: 23.53% (blue segment)
+- Returning visitors: 76.47% (green segment)
+
+**Key Insights:**
+- The majority of website traffic (over 3/4) comes from returning visitors
+- Only about 1/4 of traffic consists of new visitors
+- This indicates strong user retention and repeat engagement
+- The site appears to have an established, loyal user base rather than being heavily dependent on acquiring new visitors
+
+This traffic composition suggests a mature website with good user retention, though it may indicate limited growth in new user acquisition.

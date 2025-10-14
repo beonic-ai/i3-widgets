@@ -1,0 +1,14 @@
+This is a **cross-tabulation table** (pivot table) showing mobile device usage data across two shopping venues.
+
+**Data displayed:**
+- **Venues:** Harbour Shopping and Retail Plaza
+- **OS Categories:** Android vs iOS/OSX device counts
+- **Values:** Raw counts of devices detected at each location
+
+**Key insights:**
+- **Harbour Shopping** shows higher Android usage (797) compared to iOS/OSX (629)
+- **Retail Plaza** demonstrates nearly equal usage between platforms (608 Android vs 603 iOS/OSX)
+- **Android dominance** at Harbour Shopping suggests different demographic or customer preferences between venues
+- **Total traffic** appears higher at Harbour Shopping (1,426 total) versus Retail Plaza (1,211 total)
+
+This type of venue analytics helps retailers understand their customer base's technology preferences and relative foot traffic patterns across locations.

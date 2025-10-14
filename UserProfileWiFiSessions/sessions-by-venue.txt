@@ -1,0 +1,13 @@
+This is a **table visualization** showing session data by venue. 
+
+**Data displayed:**
+- Two venues: "Harbour Shopping" and "Retail Plaza"
+- Session counts: 1,505 and 1,503 respectively
+
+**Key insights:**
+- The venues have nearly identical session volumes, with only a 2-session difference
+- Harbour Shopping has a slight edge with 1,505 sessions
+- This suggests balanced foot traffic distribution between these two retail locations
+- The minimal difference indicates comparable customer engagement at both venues
+
+The visualization uses a simple tabular format that makes it easy to compare performance metrics between the two locations.

@@ -1,0 +1,15 @@
+This is a simple comparison table widget showing user segmentation data across two categories:
+
+**Visualization Type**: Two-column data table
+
+**Data Displayed**: 
+- New users: 5,594
+- Returning users: 18,179
+
+**Key Insights**:
+- Returning users significantly outnumber new users by more than 3:1 ratio
+- Total user base of 23,773 users
+- Strong user retention indicated by the high proportion (76.5%) of returning users
+- Suggests an established product/service with loyal user base rather than rapid new user acquisition phase
+
+This widget provides a quick snapshot of user engagement patterns and audience composition.

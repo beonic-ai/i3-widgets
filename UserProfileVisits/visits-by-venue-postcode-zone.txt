@@ -1,0 +1,14 @@
+This is a **histogram table** showing the distribution of postcode numeric values organized into inline buckets (100-unit ranges from 5000-5799).
+
+**Data Display:**
+- Each row represents a postcode range (e.g., 5000-5099, 5100-5199)
+- The count column shows frequency of postcodes within each range
+- Total of 8 postcode ranges covering 800 possible postcode values
+
+**Key Insights:**
+- **Highly skewed distribution**: The 5000-5099 range dominates with 51,670 entries (72% of total)
+- **Steep decline**: Sharp drop-off after the first range, with 5100-5199 having only 12,322 entries
+- **Geographic clustering**: Suggests significant population/address concentration in the 5000-5099 postcode area
+- **Sparse coverage**: Higher postcode ranges (5400+) show much lower frequencies, indicating less dense areas
+
+This pattern typically indicates a major metropolitan area in the 5000-5099 range with surrounding suburban/rural areas in higher postcode ranges.
