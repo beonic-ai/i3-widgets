@@ -1,0 +1,13 @@
+This is a **line chart visualization** showing the average desk processing time per flight in 15-minute intervals.
+
+**Data displayed:**
+- The x-axis is time, in 15-minute buckets across the date range
+- The y-axis is the average processing time, formatted as a duration (minutes and seconds)
+- One line per flight, generated from the flight key, with a paged legend when there are many flights
+
+**Key insights:**
+- Shows how long desks take to process each passenger over the course of the day
+- Flights served by the same desks share the same service zone counters, so their lines can overlap
+- Intervals where a flight has no desk activity drop to zero
+
+The average is calculated by dividing total dwell time by the number of exits from the desk service zone, using a join between counter data and flight time spans so that each flight only includes the periods when it was assigned to its desks.

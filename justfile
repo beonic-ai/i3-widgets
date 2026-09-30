@@ -36,7 +36,7 @@ serve: generate-site
 # Find widgets missing PNG previews
 check-previews:
     @echo "Widgets missing PNG previews:"
-    @for json in UserProfile*/*.json templates/*.json; do \
+    @for json in $(find definitions templates -name '*.json' | sort); do \
         png="$${json%.json}.png"; \
         if [ ! -f "$$png" ]; then \
             echo "  $json"; \
@@ -44,7 +44,7 @@ check-previews:
     done
     @echo
     @echo "Widgets missing TXT descriptions:"
-    @for json in UserProfile*/*.json templates/*.json; do \
+    @for json in $(find definitions templates -name '*.json' | sort); do \
         txt="$${json%.json}.txt"; \
         if [ ! -f "$$txt" ]; then \
             echo "  $json"; \
@@ -55,7 +55,7 @@ check-previews:
 validate-json:
     @echo "Validating JSON files..."
     @errors=0; \
-    for json in UserProfile*/*.json templates/*.json; do \
+    for json in $(find definitions templates -name '*.json' | sort); do \
         if ! node -e "JSON.parse(require('fs').readFileSync('$json', 'utf8'))" 2>/dev/null; then \
             echo "  ❌ $json"; \
             errors=$((errors + 1)); \

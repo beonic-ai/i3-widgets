@@ -1,0 +1,14 @@
+This is a **table visualization** listing the flights whose check-in is open at this moment.
+
+**Data displayed:**
+- Five columns: Flight, Row, Desks and the Check-in Start and End times
+- One row per flight currently checking in
+- The Row column shows the check-in area, and the Desks column is a comma-separated list of every desk assigned to the flight
+- Check-in Start and End are shown as HH:mm times, and rows are sorted by check-in start time
+
+**Key insights:**
+- Shows at a glance which desks are serving which flights right now
+- Flights can share desks, so the same desk may appear against more than one flight
+- The table refreshes every 10 seconds, so it always reflects the flights checking in right now
+
+The visualization combines a flight dimension with concatenated check-in area and desk values, each taken from the flight data for the current minute.

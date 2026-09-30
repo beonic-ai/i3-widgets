@@ -58,10 +58,10 @@ class WidgetGalleryGenerator {
     }
 
     /**
-     * Find all UserProfile* directories and collect widgets
+     * Find all widget directories and collect widgets
      */
     async collectWidgets() {
-        const directories = await this.findUserProfileDirectories();
+        const directories = await this.findWidgetDirectories();
 
         for (const dir of directories) {
             await this.collectWidgetsFromDirectory(dir);
@@ -71,13 +71,13 @@ class WidgetGalleryGenerator {
     }
 
     /**
-     * Find all UserProfile* directories and templates directory
+     * Find all directories under definitions/ (at any depth) that contain widget JSON, and the templates directory
      */
-    async findUserProfileDirectories() {
-        const items = await fs.readdir('.', { withFileTypes: true });
-        const directories = items
-            .filter(item => item.isDirectory() && item.name.startsWith('UserProfile'))
-            .map(item => item.name)
+    async findWidgetDirectories() {
+        const definitionEntries = await fs.readdir('definitions', { recursive: true });
+        const directories = [...new Set(definitionEntries
+            .filter(entry => entry.endsWith('.json'))
+            .map(entry => path.dirname(path.join('definitions', entry))))]
             .sort();
 
         // Add templates directory if it exists
@@ -114,7 +114,10 @@ class WidgetGalleryGenerator {
             const widget = JSON.parse(jsonContent);
 
             const basename = path.basename(jsonFilePath, '.json');
-            const category = path.dirname(jsonFilePath).split(path.sep)[0];
+            const widgetDir = path.dirname(jsonFilePath);
+            const category = widgetDir.startsWith('definitions') ? path.relative('definitions', widgetDir) : widgetDir;
+            // Flattened to one level so widget pages can link back via ../index.html
+            const categorySlug = category.split(path.sep).join('-');
             const pngPath = jsonFilePath.replace('.json', '.png');
             const txtPath = jsonFilePath.replace('.json', '.txt');
 
@@ -141,10 +144,11 @@ class WidgetGalleryGenerator {
             this.visualizationTypes.add(visualizationType);
 
             this.widgets.push({
-                id: `${category}_${basename}`,
+                id: `${categorySlug}_${basename}`,
                 title,
                 basename,
                 category,
+                categorySlug,
                 visualizationType,
                 description,
                 jsonPath: jsonFilePath,
@@ -532,7 +536,7 @@ class WidgetGalleryGenerator {
      */
     generateWidgetCard(widget) {
         const imageSrc = widget.pngPath ?
-            `${widget.category}/${widget.basename}.png` :
+            `${widget.categorySlug}/${widget.basename}.png` :
             '';
 
         // Handle description - extract first line only
@@ -551,7 +555,7 @@ class WidgetGalleryGenerator {
         }
 
         return `
-            <div class="widget-card" data-widget-id="${widget.id}" data-href="${widget.category}/${widget.basename}.html">
+            <div class="widget-card" data-widget-id="${widget.id}" data-href="${widget.categorySlug}/${widget.basename}.html">
                 <div class="widget-image">
                     ${widget.pngPath ?
                         `<img src="${imageSrc}" alt="${widget.title}">` :
@@ -585,7 +589,7 @@ class WidgetGalleryGenerator {
      */
     async generateWidgetPage(widget) {
         // Create category directory if needed
-        const categoryDir = path.join(this.outputDir, widget.category);
+        const categoryDir = path.join(this.outputDir, widget.categorySlug);
         await fs.mkdir(categoryDir, { recursive: true });
 
         const imageSrc = widget.pngPath ?
@@ -934,7 +938,7 @@ class WidgetGalleryGenerator {
     async copyAssets() {
         for (const widget of this.widgets) {
             if (widget.pngPath) {
-                const categoryDir = path.join(this.outputDir, widget.category);
+                const categoryDir = path.join(this.outputDir, widget.categorySlug);
                 const targetPath = path.join(categoryDir, `${widget.basename}.png`);
                 await fs.copyFile(widget.pngPath, targetPath);
             }

@@ -1,0 +1,512 @@
+{
+  "source": [
+    "core-reporting com.skyfii.reporting.model.MetricDefinitions.insightsMetrics",
+    "core-reporting com.skyfii.reporting.metrictable.service.UserProfileMetricService.AllUserProfileMetrics",
+    "core-reporting com.skyfii.reporting.service.CounterMetricService.counterMetric"
+  ],
+  "metrics": {
+    "CameraHeatmap": {
+      "singleKeyFields": [
+        "sensorId",
+        "counterName"
+      ],
+      "multiKeyFields": []
+    },
+    "Campaign": {
+      "singleKeyFields": [
+        "campaign",
+        "segmentId",
+        "venueId"
+      ],
+      "multiKeyFields": []
+    },
+    "Click_Tracking": {
+      "singleKeyFields": [
+        "accountId",
+        "venueId",
+        "campaign",
+        "portal",
+        "url",
+        "pageType",
+        "portalDisplaySetting"
+      ],
+      "multiKeyFields": []
+    },
+    "Counter2": {
+      "singleKeyFields": [
+        "sensorId",
+        "counterName",
+        "venueId",
+        "scn",
+        "bulkImportId"
+      ],
+      "multiKeyFields": []
+    },
+    "Cross_Venue": {
+      "singleKeyFields": [
+        "accountId",
+        "from",
+        "to"
+      ],
+      "multiKeyFields": []
+    },
+    "LocationEmployee": {
+      "singleKeyFields": [
+        "floorId"
+      ],
+      "multiKeyFields": []
+    },
+    "EmployeeVisit": {
+      "singleKeyFields": [
+        "venueId"
+      ],
+      "multiKeyFields": []
+    },
+    "Location": {
+      "singleKeyFields": [
+        "floorId",
+        "assetClass"
+      ],
+      "multiKeyFields": []
+    },
+    "PassBy": {
+      "singleKeyFields": [
+        "venueId"
+      ],
+      "multiKeyFields": []
+    },
+    "Portal_Impression": {
+      "singleKeyFields": [
+        "venueId",
+        "accountId",
+        "ssid",
+        "portal",
+        "portalDisplaySetting",
+        "campaign"
+      ],
+      "multiKeyFields": []
+    },
+    "Precinct": {
+      "singleKeyFields": [
+        "venueId",
+        "zoneId",
+        "step"
+      ],
+      "multiKeyFields": []
+    },
+    "RegistrationData": {
+      "singleKeyFields": [
+        "venueId"
+      ],
+      "multiKeyFields": []
+    },
+    "SegmentPassBy": {
+      "singleKeyFields": [
+        "venueId",
+        "accountId",
+        "segmentId"
+      ],
+      "multiKeyFields": []
+    },
+    "SegmentVisit": {
+      "singleKeyFields": [
+        "venueId",
+        "accountId",
+        "segmentId"
+      ],
+      "multiKeyFields": []
+    },
+    "SegmentWifiSession": {
+      "singleKeyFields": [
+        "venueId",
+        "accountId",
+        "segmentId"
+      ],
+      "multiKeyFields": []
+    },
+    "Signups": {
+      "singleKeyFields": [
+        "venueId",
+        "accountId",
+        "ssid",
+        "portal",
+        "campaign"
+      ],
+      "multiKeyFields": []
+    },
+    "Space": {
+      "singleKeyFields": [
+        "venueId",
+        "zoneId"
+      ],
+      "multiKeyFields": []
+    },
+    "url_domain": {
+      "singleKeyFields": [
+        "venueId",
+        "hostname",
+        "domain",
+        "categoryId",
+        "browsable"
+      ],
+      "multiKeyFields": []
+    },
+    "Visit": {
+      "singleKeyFields": [
+        "venueId"
+      ],
+      "multiKeyFields": []
+    },
+    "Weather": {
+      "singleKeyFields": [
+        "venueId"
+      ],
+      "multiKeyFields": []
+    },
+    "WifiActivityLevel": {
+      "singleKeyFields": [
+        "venueId"
+      ],
+      "multiKeyFields": []
+    },
+    "WifiActivityLevelZone": {
+      "singleKeyFields": [
+        "venueId",
+        "zoneId"
+      ],
+      "multiKeyFields": []
+    },
+    "WifiSession": {
+      "singleKeyFields": [
+        "venueId"
+      ],
+      "multiKeyFields": []
+    },
+    "UserProfilesRegistrationGroup": {
+      "singleKeyFields": [
+        "accountId",
+        "rg"
+      ],
+      "multiKeyFields": []
+    },
+    "UserProfilesSegment": {
+      "singleKeyFields": [
+        "accountId",
+        "segmentId"
+      ],
+      "multiKeyFields": []
+    },
+    "UserProfilesMarketingList": {
+      "singleKeyFields": [
+        "accountId",
+        "ml"
+      ],
+      "multiKeyFields": []
+    },
+    "Survey": {
+      "singleKeyFields": [
+        "surveyId",
+        "chnl",
+        "venueId",
+        "portal",
+        "campaign",
+        "deployment",
+        "locale"
+      ],
+      "multiKeyFields": [
+        "segmentId",
+        "ml",
+        "mlSub"
+      ]
+    },
+    "SurveyQuestion": {
+      "singleKeyFields": [
+        "surveyId",
+        "chnl",
+        "venueId",
+        "portal",
+        "campaign",
+        "deployment",
+        "svyQuesId",
+        "quesType",
+        "locale"
+      ],
+      "multiKeyFields": [
+        "segmentId",
+        "ml",
+        "mlSub"
+      ]
+    },
+    "SurveyQuestionOption": {
+      "singleKeyFields": [
+        "surveyId",
+        "chnl",
+        "venueId",
+        "portal",
+        "campaign",
+        "deployment",
+        "svyQuesId",
+        "quesType",
+        "svyQuesOptId",
+        "locale"
+      ],
+      "multiKeyFields": [
+        "segmentId",
+        "ml",
+        "mlSub"
+      ]
+    },
+    "FlightData": {
+      "singleKeyFields": [
+        "airline",
+        "flight",
+        "flightType",
+        "originDate",
+        "otherAirport",
+        "deskId",
+        "deskUsed",
+        "bagClaimId",
+        "gateId",
+        "descriptor",
+        "remCode",
+        "checkinClassCode"
+      ],
+      "multiKeyFields": []
+    },
+    "SurveyResponse": {
+      "singleKeyFields": [
+        "responseId",
+        "surveyId",
+        "svyQuesId",
+        "chnl",
+        "venueId",
+        "portal",
+        "campaign",
+        "deployment",
+        "locale"
+      ],
+      "multiKeyFields": [
+        "answer",
+        "segmentId",
+        "ml",
+        "mlSub"
+      ]
+    },
+    "UserProfilesNow": {
+      "singleKeyFields": [
+        "rg",
+        "ml",
+        "mlSub",
+        "venueId",
+        "postcode",
+        "postcodeNumeric",
+        "gender",
+        "countryCallingCode",
+        "countryCallingCodeNumeric",
+        "country",
+        "deviceCategory",
+        "osCategory",
+        "district",
+        "hasEmail",
+        "verifiedEmail",
+        "hasPhone",
+        "verifiedPhone",
+        "hasWhatsApp",
+        "verifiedWhatsApp",
+        "hasSocialId",
+        "language",
+        "locale",
+        "status",
+        "suburb",
+        "state",
+        "source",
+        "yearOfBirth",
+        "ageInYears"
+      ],
+      "multiKeyFields": []
+    },
+    "UserProfileSignups": {
+      "singleKeyFields": [
+        "rg",
+        "ml",
+        "mlSub",
+        "venueId",
+        "postcode",
+        "postcodeNumeric",
+        "gender",
+        "countryCallingCode",
+        "countryCallingCodeNumeric",
+        "country",
+        "deviceCategory",
+        "osCategory",
+        "district",
+        "hasEmail",
+        "verifiedEmail",
+        "hasPhone",
+        "verifiedPhone",
+        "hasWhatsApp",
+        "verifiedWhatsApp",
+        "hasSocialId",
+        "language",
+        "locale",
+        "status",
+        "suburb",
+        "state",
+        "source",
+        "yearOfBirth",
+        "ageInYears"
+      ],
+      "multiKeyFields": []
+    },
+    "UserProfileCampaigns": {
+      "singleKeyFields": [
+        "rg",
+        "ml",
+        "mlSub",
+        "venueId",
+        "postcode",
+        "postcodeNumeric",
+        "gender",
+        "countryCallingCode",
+        "countryCallingCodeNumeric",
+        "country",
+        "deviceCategory",
+        "osCategory",
+        "district",
+        "hasEmail",
+        "verifiedEmail",
+        "hasPhone",
+        "verifiedPhone",
+        "hasWhatsApp",
+        "verifiedWhatsApp",
+        "hasSocialId",
+        "language",
+        "locale",
+        "status",
+        "suburb",
+        "state",
+        "source",
+        "yearOfBirth",
+        "ageInYears",
+        "campaign",
+        "campaignEventType",
+        "zoneId"
+      ],
+      "multiKeyFields": []
+    },
+    "UserProfileClicks": {
+      "singleKeyFields": [
+        "rg",
+        "ml",
+        "mlSub",
+        "venueId",
+        "postcode",
+        "postcodeNumeric",
+        "gender",
+        "countryCallingCode",
+        "countryCallingCodeNumeric",
+        "country",
+        "deviceCategory",
+        "osCategory",
+        "district",
+        "hasEmail",
+        "verifiedEmail",
+        "hasPhone",
+        "verifiedPhone",
+        "hasWhatsApp",
+        "verifiedWhatsApp",
+        "hasSocialId",
+        "language",
+        "locale",
+        "status",
+        "suburb",
+        "state",
+        "source",
+        "yearOfBirth",
+        "ageInYears",
+        "campaign",
+        "portal",
+        "pageType",
+        "url"
+      ],
+      "multiKeyFields": []
+    },
+    "UserProfileVisits": {
+      "singleKeyFields": [
+        "rg",
+        "ml",
+        "mlSub",
+        "venueId",
+        "postcode",
+        "postcodeNumeric",
+        "gender",
+        "countryCallingCode",
+        "countryCallingCodeNumeric",
+        "country",
+        "deviceCategory",
+        "osCategory",
+        "district",
+        "hasEmail",
+        "verifiedEmail",
+        "hasPhone",
+        "verifiedPhone",
+        "hasWhatsApp",
+        "verifiedWhatsApp",
+        "hasSocialId",
+        "language",
+        "locale",
+        "status",
+        "suburb",
+        "state",
+        "source",
+        "yearOfBirth",
+        "ageInYears",
+        "zoneId"
+      ],
+      "multiKeyFields": []
+    },
+    "UserProfileWiFiSessions": {
+      "singleKeyFields": [
+        "rg",
+        "ml",
+        "mlSub",
+        "venueId",
+        "postcode",
+        "postcodeNumeric",
+        "gender",
+        "countryCallingCode",
+        "countryCallingCodeNumeric",
+        "country",
+        "deviceCategory",
+        "osCategory",
+        "district",
+        "hasEmail",
+        "verifiedEmail",
+        "hasPhone",
+        "verifiedPhone",
+        "hasWhatsApp",
+        "verifiedWhatsApp",
+        "hasSocialId",
+        "language",
+        "locale",
+        "status",
+        "suburb",
+        "state",
+        "source",
+        "yearOfBirth",
+        "ageInYears"
+      ],
+      "multiKeyFields": []
+    },
+    "counters": {
+      "singleKeyFields": [
+        "counterId",
+        "venueId",
+        "sensorId",
+        "scn",
+        "floorId"
+      ],
+      "multiKeyFields": []
+    }
+  }
+}

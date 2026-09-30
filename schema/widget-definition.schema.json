@@ -1,0 +1,1341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "widget-definition.schema.json",
+  "title": "WidgetDefinition",
+  "description": "Specification for the data loaded into a MetricTable: filters, optional params and key aliases, and a sequence of column definitions. Mirrors the Argonaut codecs in core-reporting com.skyfii.reporting.metrictable.model.MetricTableDefinition. Also accepts a widget definition (spa-ui V3WidgetDefinition), which replaces filter with visualisation and optional filterOverrides. Unknown properties are ignored by the decoder, so they are permitted here.",
+  "type": "object",
+  "required": ["columnNames", "rowSets"],
+  "anyOf": [{ "required": ["filter"] }, { "required": ["visualisation"] }],
+  "properties": {
+    "filter": {
+      "description": "Required for a metric table definition. Widget definitions omit it and use the dashboard's filters.",
+      "$ref": "#/$defs/Filter"
+    },
+    "visualisation": { "$ref": "#/$defs/Visualisation" },
+    "filterOverrides": { "$ref": "#/$defs/FilterOverrides" },
+    "onClickNavigateTo": { "$ref": "#/$defs/NavigateToSettings" },
+    "params": { "$ref": "#/$defs/Params" },
+    "columnNames": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ColumnName" }
+    },
+    "rowSets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/RowSet" }
+    },
+    "keyAliases": {
+      "description": "Additional keys that can be referenced in metric expressions or key-based dimensions, e.g. querying venue data by venue group.",
+      "$ref": "#/$defs/NameToKeyDefinition"
+    },
+    "pagination": { "$ref": "#/$defs/Pagination" }
+  },
+  "$defs": {
+    "Visualisation": {
+      "description": "Widget visualisation settings (spa-ui V3WidgetVisualisationSettings). Per-type *Settings objects are not modelled in detail.",
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "$ref": "#/$defs/VisualisationType" },
+        "title": { "type": "string" },
+        "description": {
+          "anyOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "required": ["html"],
+              "properties": { "html": { "type": "string" } }
+            }
+          ]
+        },
+        "verticalAlign": { "type": "string" },
+        "imageFile": { "type": "string" },
+        "autoReloadSeconds": { "type": "integer", "minimum": 0 },
+        "hideIf": {
+          "anyOf": [
+            {
+              "type": "object",
+              "required": ["noRows"],
+              "properties": { "noRows": { "type": "boolean" } }
+            },
+            {
+              "type": "object",
+              "required": ["columnIsZero"],
+              "properties": { "columnIsZero": { "type": ["string", "integer"] } }
+            },
+            { "$ref": "#/$defs/HideIfNode" }
+          ]
+        },
+        "onClickNavigateTo": { "$ref": "#/$defs/NavigateToSettings" },
+        "tableSettings": { "type": "object" },
+        "numberSettings": { "type": "object" },
+        "multiNumberSettings": { "type": "object" },
+        "lineChartSettings": { "type": "object" },
+        "barChartSettings": { "type": "object" },
+        "pieChartSettings": { "type": "object" },
+        "linePlusBarChartSettings": { "type": "object" },
+        "multiChartSettings": { "type": "object" },
+        "eChartSettings": { "description": "ECharts options, passed through as-is." },
+        "imageSettings": { "type": "object" },
+        "heatMapSettings": { "type": "object" },
+        "gisSettings": { "type": "object" },
+        "gaugeSettings": { "type": "object" },
+        "scatterPlotSettings": { "type": "object" },
+        "mapSettings": { "type": "object" },
+        "textSettings": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "object",
+              "required": ["html"],
+              "properties": {
+                "html": {
+                  "description": "HTML, or a map of language tag to HTML.",
+                  "anyOf": [
+                    { "type": "string" },
+                    { "type": "object", "additionalProperties": { "type": "string" } }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "surveySettings": {
+          "type": "object",
+          "properties": {
+            "surveyId": { "type": "integer" },
+            "url": { "type": "string" },
+            "previewUrl": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "VisualisationType": {
+      "enum": [
+        "Table",
+        "Number",
+        "MultiNumber",
+        "LineChart",
+        "BarChart",
+        "PieChart",
+        "LinePlusBarChart",
+        "MultiChart",
+        "EChart",
+        "Image",
+        "Map",
+        "HeatMap",
+        "Gauge",
+        "ScatterPlot",
+        "Text",
+        "SimpleImage",
+        "Gis",
+        "Survey",
+        "FullscreenReport"
+      ]
+    },
+
+    "HideIfNode": {
+      "description": "Hides the widget based on entity filter state: a single condition, or an explicit every (AND) / some (OR) group.",
+      "anyOf": [
+        {
+          "title": "HideIfFilterCondition",
+          "type": "object",
+          "required": ["filterName", "operator", "value"],
+          "properties": {
+            "filterName": {
+              "description": "Entity type to match, e.g. \"Venue\", \"Counter\", \"Survey\", or a custom entity descriptor name.",
+              "type": "string"
+            },
+            "entityField": {
+              "description": "Property of the selected entity to compare. Compares against the entity id when omitted.",
+              "type": "string"
+            },
+            "operator": { "enum": ["$eq", "$neq", "$contains", "$notContains"] },
+            "value": {
+              "anyOf": [
+                { "type": "string" },
+                { "type": "array", "items": { "type": "string" } }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["every"],
+          "properties": { "every": { "type": "array", "items": { "$ref": "#/$defs/HideIfNode" } } }
+        },
+        {
+          "type": "object",
+          "required": ["some"],
+          "properties": { "some": { "type": "array", "items": { "$ref": "#/$defs/HideIfNode" } } }
+        }
+      ]
+    },
+
+    "NavigateToSettings": {
+      "type": "object",
+      "properties": {
+        "route": { "type": "string" },
+        "dashboard": { "type": "string" },
+        "paramName": { "type": "string" },
+        "routeParams": {
+          "description": "Fills the route's :path params. Only used with route.",
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "params": {
+          "description": "Cell links only: each entry sends the entity id from fromColumn (column name or index) of the clicked row as a query param.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "fromColumn"],
+            "properties": {
+              "name": { "type": "string" },
+              "fromColumn": { "type": ["string", "integer"] }
+            }
+          }
+        },
+        "clickTarget": {
+          "description": "\"cell\" links the entity cell's label (table columns only); \"row\" makes the whole row clickable. Defaults to row.",
+          "enum": ["row", "cell"]
+        },
+        "clearQueryParams": {
+          "description": "Params dropped from the target URL when a cell link merges the current query params.",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "FilterOverrides": {
+      "description": "Replaces the dashboard's filters when retrieving data for this widget.",
+      "type": "object",
+      "properties": {
+        "dateRange": { "$ref": "#/$defs/DateRange" },
+        "keys": {
+          "type": "object",
+          "additionalProperties": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "Pagination": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "description": "Maximum number of records to return. Defaults to Int.MaxValue when only offset is provided.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "offset": {
+          "description": "Number of records to skip (0-based). Defaults to 0.",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+
+    "Filter": {
+      "description": "Filters applied to all metric expressions in the table.",
+      "type": "object",
+      "required": ["dateRange", "keys"],
+      "properties": {
+        "dateRange": { "$ref": "#/$defs/DateRange" },
+        "keys": { "$ref": "#/$defs/NameToKeyDefinition" }
+      }
+    },
+
+    "Params": {
+      "type": "object",
+      "properties": {
+        "dates": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/LocalDateValue" }
+        },
+        "dimensions": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/DimensionDefinition" }
+        }
+      }
+    },
+
+    "NameToKeyDefinition": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/KeyDefinition" }
+    },
+
+    "KeyDefinition": {
+      "description": "Defines a key used to filter and/or group data.",
+      "anyOf": [
+        {
+          "title": "TypedKeyDefinition",
+          "description": "A key of a particular entity type, optionally restricted to the given entity ids.",
+          "type": "object",
+          "required": ["entity"],
+          "properties": {
+            "entity": { "description": "Entity descriptor name.", "type": "string" },
+            "ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+          }
+        },
+        {
+          "title": "EntityExpressionKeyDefinition (short form)",
+          "description": "An entity expression of the form alias[.link]*[.fieldName], e.g. \"venueGroup.venues\".",
+          "type": "string"
+        },
+        {
+          "title": "EntityExpressionKeyDefinition",
+          "type": "object",
+          "required": ["expression"],
+          "properties": {
+            "expression": {
+              "description": "An entity expression of the form alias[.link]*[.fieldName].",
+              "type": "string"
+            },
+            "filters": {
+              "description": "Restricts the fetched entities to those whose field values match.",
+              "type": "array",
+              "items": { "$ref": "#/$defs/StringComparisonExpression" }
+            }
+          }
+        },
+        {
+          "title": "ExistsKeyDefinition",
+          "description": "exists=false returns only documents where the key does not exist; exists=true applies no filter.",
+          "type": "object",
+          "required": ["exists"],
+          "properties": {
+            "exists": { "type": "boolean" }
+          }
+        },
+        {
+          "title": "StringKeyDefinition",
+          "description": "Restricts the key to the given values.",
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        {
+          "title": "UnrestrictedKeyDefinition",
+          "description": "A key with no restrictions, used for grouping non-entity data such as a custom key in a custom metric.",
+          "type": "object",
+          "maxProperties": 0
+        }
+      ]
+    },
+
+    "StringComparisonExpression": {
+      "description": "A single field name mapped to a comparison operator, e.g. {\"name\": {\"$contains\": \"Mall\"}}.",
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/StringComparisonOperator" }
+    },
+
+    "StringComparisonOperator": {
+      "anyOf": [
+        { "type": "object", "required": ["$eq"], "properties": { "$eq": { "type": "string" } } },
+        { "type": "object", "required": ["$neq"], "properties": { "$neq": { "type": "string" } } },
+        { "type": "object", "required": ["$contains"], "properties": { "$contains": { "type": "string" } } },
+        {
+          "description": "True when the field equals at least one of the values (case-insensitive).",
+          "type": "object",
+          "required": ["$in"],
+          "properties": { "$in": { "type": "array", "items": { "type": "string" } } }
+        }
+      ]
+    },
+
+    "DateRange": {
+      "anyOf": [
+        {
+          "title": "LocalDateRange",
+          "type": "object",
+          "required": ["localStartDate", "localEndDate"],
+          "properties": {
+            "localStartDate": { "$ref": "#/$defs/LocalDateValue" },
+            "localEndDate": { "$ref": "#/$defs/LocalDateValue" }
+          }
+        },
+        {
+          "title": "UTCDateRange",
+          "description": "Literal and relative dates are rounded down to the start of the minute.",
+          "type": "object",
+          "required": ["utcStartDate", "utcEndDate"],
+          "properties": {
+            "utcStartDate": { "$ref": "#/$defs/DateTimeValue" },
+            "utcEndDate": { "$ref": "#/$defs/DateTimeValue" }
+          }
+        }
+      ]
+    },
+
+    "LocalDateValue": {
+      "anyOf": [
+        { "title": "StartOfToday", "const": "StartOfToday" },
+        {
+          "title": "DateFilterRef",
+          "description": "The start or end date of the outer filter's date range.",
+          "enum": ["StartDate", "EndDate"]
+        },
+        {
+          "title": "LocalDateLiteral",
+          "description": "An ISO-8601 local date (yyyy-MM-dd) or local date-time (yyyy-MM-ddTHH:mm:ss[.SSS]).",
+          "type": "string"
+        },
+        {
+          "title": "LocalParamRef",
+          "description": "Reference to an entry in params.dates.",
+          "type": "object",
+          "required": ["paramRef"],
+          "properties": { "paramRef": { "type": "string" } }
+        },
+        {
+          "title": "RelativeDate",
+          "type": "object",
+          "required": ["value", "unit", "relativeTo"],
+          "properties": {
+            "value": { "type": "integer" },
+            "unit": { "$ref": "#/$defs/TimeUnit" },
+            "relativeTo": { "$ref": "#/$defs/LocalDateValue" },
+            "roundDown": { "$ref": "#/$defs/RollupFrequency" }
+          }
+        }
+      ]
+    },
+
+    "DateTimeValue": {
+      "anyOf": [
+        { "title": "Now", "const": "Now" },
+        {
+          "title": "DateTimeLiteral",
+          "description": "An ISO-8601 date-time.",
+          "type": "string"
+        },
+        {
+          "title": "RelativeUTCDate",
+          "type": "object",
+          "required": ["value", "unit", "relativeTo"],
+          "properties": {
+            "value": { "type": "integer" },
+            "unit": { "$ref": "#/$defs/TimeUnit" },
+            "relativeTo": { "$ref": "#/$defs/DateTimeValue" },
+            "roundDown": { "$ref": "#/$defs/RollupFrequency" }
+          }
+        }
+      ]
+    },
+
+    "TimeUnit": {
+      "enum": ["Minute", "Hour", "Day", "Week", "Month", "Year"]
+    },
+
+    "RollupFrequency": {
+      "description": "Matched case-insensitively.",
+      "enum": ["1Min", "5Min", "15Min", "Hourly", "Daily", "Weekly", "Monthly", "Yearly"]
+    },
+
+    "ColumnName": {
+      "anyOf": [
+        {
+          "title": "SingleColumnName (short form)",
+          "type": "string"
+        },
+        {
+          "title": "MultiColumnSet",
+          "description": "Generates more than one column for each value of the dimension, e.g. [\"Total\", \"% change\"] per venue.",
+          "type": "object",
+          "required": ["name", "dimension", "subColumnNames"],
+          "properties": {
+            "name": { "type": "string" },
+            "dimension": { "$ref": "#/$defs/DimensionValue" },
+            "subColumnNames": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "$ref": "#/$defs/SingleColumnName" }
+            },
+            "sortSpecification": { "$ref": "#/$defs/SortSpecification" }
+          }
+        },
+        {
+          "title": "DimensionColumnName",
+          "description": "Column name resolved from the locale resource bundles; name is the fallback.",
+          "type": "object",
+          "required": ["name", "dimensionColName"],
+          "properties": {
+            "name": { "type": "string" },
+            "dimensionColName": { "const": true }
+          }
+        },
+        {
+          "title": "SimpleColumnSet",
+          "description": "Generates a single column for each value of the dimension.",
+          "type": "object",
+          "required": ["name", "dimension"],
+          "properties": {
+            "name": { "type": "string" },
+            "dimension": { "$ref": "#/$defs/DimensionValue" },
+            "sortSpecification": { "$ref": "#/$defs/SortSpecification" }
+          }
+        },
+        {
+          "title": "SingleColumnName",
+          "type": "object",
+          "required": ["name", "displayName"],
+          "properties": {
+            "name": { "type": "string" },
+            "displayName": { "$ref": "#/$defs/DisplayName" }
+          }
+        }
+      ]
+    },
+
+    "SingleColumnName": {
+      "anyOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "required": ["name"],
+          "properties": {
+            "name": { "description": "Unique name of the column.", "type": "string" },
+            "displayName": { "$ref": "#/$defs/DisplayName" }
+          }
+        }
+      ]
+    },
+
+    "DisplayName": {
+      "description": "A display name, or a map of language tag to display name. May be a message bundle code.",
+      "anyOf": [
+        { "type": "string" },
+        { "type": "object", "additionalProperties": { "type": "string" } }
+      ]
+    },
+
+    "RowSet": {
+      "type": "object",
+      "required": ["columns"],
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ColumnDefinition" }
+        },
+        "name": { "type": "string" }
+      }
+    },
+
+    "ColumnDefinition": {
+      "anyOf": [
+        { "$ref": "#/$defs/DimensionColumn" },
+        { "$ref": "#/$defs/NumericColumn" },
+        { "$ref": "#/$defs/DateTimeColumn" },
+        { "$ref": "#/$defs/StringColumn" }
+      ]
+    },
+
+    "SortSpecification": {
+      "type": "object",
+      "required": ["priority", "ascending"],
+      "properties": {
+        "priority": { "description": "Smaller means higher priority.", "type": "integer" },
+        "ascending": { "type": "boolean" }
+      }
+    },
+
+    "DimensionColumn": {
+      "type": "object",
+      "required": ["dimension"],
+      "properties": {
+        "dimension": { "$ref": "#/$defs/DimensionValue" },
+        "sortSpecification": { "$ref": "#/$defs/SortSpecification" }
+      }
+    },
+
+    "NumericColumn": {
+      "type": "object",
+      "required": ["numericExpression"],
+      "properties": {
+        "numericExpression": { "$ref": "#/$defs/NumericExpression" },
+        "sortSpecification": { "$ref": "#/$defs/SortSpecification" },
+        "unit": { "$ref": "#/$defs/Unit" },
+        "suffix": { "type": "string" },
+        "decimalPlaces": {
+          "description": "Exact number of decimal places in the result.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxDecimalPlaces": {
+          "description": "Maximum number of decimal places; longer results are rounded.",
+          "type": "integer"
+        }
+      },
+      "allOf": [
+        { "not": { "required": ["unit", "suffix"] } },
+        { "not": { "required": ["decimalPlaces", "maxDecimalPlaces"] } }
+      ]
+    },
+
+    "Unit": {
+      "description": "UnitEnum format name. Input is lower-cased before matching.",
+      "enum": [
+        "celsius",
+        "fahrenheit",
+        "suffix_mm",
+        "suffix_cm",
+        "inches_1e-4",
+        "suffix_m",
+        "suffix_ft",
+        "ms",
+        "duration",
+        "minutes",
+        "hr",
+        "days",
+        "dollars",
+        "euros",
+        "pounds-sterling",
+        "bytes",
+        "percentage"
+      ]
+    },
+
+    "DateTimeColumn": {
+      "type": "object",
+      "required": ["dateTimeExpression"],
+      "properties": {
+        "dateTimeExpression": { "$ref": "#/$defs/DateTimeExpression" },
+        "sortSpecification": { "$ref": "#/$defs/SortSpecification" },
+        "format": { "type": "string" },
+        "timezone": { "$ref": "#/$defs/TimeZone" }
+      }
+    },
+
+    "StringColumn": {
+      "type": "object",
+      "required": ["string"],
+      "properties": {
+        "string": { "$ref": "#/$defs/StringExpression" },
+        "sortSpecification": { "$ref": "#/$defs/SortSpecification" }
+      }
+    },
+
+    "TimeZone": {
+      "description": "A Joda DateTimeZone id, e.g. \"Australia/Sydney\" or \"UTC\".",
+      "type": "string"
+    },
+
+    "DimensionValue": {
+      "anyOf": [
+        {
+          "title": "ParamRef",
+          "description": "Reference to an entry in params.dimensions.",
+          "type": "object",
+          "required": ["paramRef"],
+          "properties": { "paramRef": { "type": "string" } }
+        },
+        { "$ref": "#/$defs/DimensionDefinition" }
+      ]
+    },
+
+    "DimensionDefinition": {
+      "anyOf": [
+        { "$ref": "#/$defs/KeyBasedDimensionDefinition" },
+        { "$ref": "#/$defs/SegmentBasedDimensionDefinition" },
+        { "$ref": "#/$defs/TimeBasedDimensionDefinition" },
+        { "$ref": "#/$defs/HistogramDimensionDefinitionContainer" }
+      ]
+    },
+
+    "KeyBasedDimensionDefinition": {
+      "description": "Enumerates key values such as venues, zones, or custom keys.",
+      "type": "object",
+      "required": ["key"],
+      "properties": {
+        "key": { "type": "string" },
+        "displayAs": { "$ref": "#/$defs/DisplayAs" },
+        "missing": {
+          "description": "Include a row for missing values. Defaults to false.",
+          "type": "boolean"
+        },
+        "from": {
+          "description": "Restricts the key's values to those present in the given metric.",
+          "$ref": "#/$defs/KeyFrom"
+        },
+        "withDataOnly": {
+          "description": "Rows come from the results rather than the key's filter values, so only keys present in the data produce a row.",
+          "type": "boolean"
+        }
+      }
+    },
+
+    "KeyFrom": {
+      "type": "object",
+      "required": ["metric"],
+      "properties": {
+        "metric": { "$ref": "#/$defs/MetricReference" },
+        "keyMapping": { "$ref": "#/$defs/KeyMapping" },
+        "dateRangeOverride": { "$ref": "#/$defs/DateRange" }
+      }
+    },
+
+    "DisplayAs": {
+      "anyOf": [
+        {
+          "type": "object",
+          "required": ["externalVenueId"],
+          "properties": { "externalVenueId": { "$ref": "#/$defs/VendorType" } }
+        },
+        {
+          "type": "object",
+          "required": ["country"],
+          "properties": {
+            "country": {
+              "description": "Matched case-insensitively.",
+              "enum": ["name", "isoAlpha2"]
+            }
+          }
+        },
+        { "const": "short" }
+      ]
+    },
+
+    "VendorType": {
+      "enum": [
+        "AEROHIVE",
+        "AIRTIGHT",
+        "ALTAI",
+        "ARUBA",
+        "BRICKSTREAM",
+        "CISCO",
+        "CAMBIUM",
+        "EXTREMENETWORKS",
+        "FORTINET",
+        "INTELBRAS",
+        "LIGOWAVE",
+        "MERAKI",
+        "OPENMESH",
+        "RUCKUS",
+        "UBIQUITI",
+        "WATCHGUARD",
+        "XIRRUS",
+        "XOVIS",
+        "ZEBRA",
+        "HUAWEI",
+        "JUNIPER",
+        "NEVO_EDGE",
+        "BEONIC",
+        "OLO",
+        "PUNCHH_LOCATION",
+        "PUNCHH_STORE",
+        "MIKROTIK",
+        "UNKNOWN"
+      ]
+    },
+
+    "SegmentBasedDimensionDefinition": {
+      "description": "Enumerates pre-defined segments like Gender or Age.",
+      "type": "object",
+      "required": ["segment"],
+      "properties": {
+        "segment": { "$ref": "#/$defs/DimensionSpec" }
+      }
+    },
+
+    "DimensionSpec": {
+      "anyOf": [
+        {
+          "title": "CustomDimension",
+          "description": "Map of segment name to segment display name.",
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        { "title": "BuiltinDimension", "$ref": "#/$defs/Dimension" }
+      ]
+    },
+
+    "Dimension": {
+      "enum": [
+        "VISITOR_TYPE",
+        "GENDER",
+        "FACE_MASK",
+        "DOMAIN",
+        "HOSTNAME",
+        "USER_TYPE",
+        "CATEGORY",
+        "DEVICE",
+        "DEVICE_TYPE",
+        "MANUFACTURER",
+        "REGO_TYPE",
+        "REGO_SOURCE",
+        "REGO_STATE",
+        "VENUE_TYPE",
+        "PASS_BY",
+        "CHANNEL",
+        "AGE",
+        "AGE2",
+        "AGE2_GENDER",
+        "WIFI_CONVERSION",
+        "DEVICE_STATE",
+        "COUNT_SENSOR",
+        "SENSOR_COUNTER_NAME",
+        "EMPTY_DIMENSION",
+        "URL",
+        "MULTI_PORTAL",
+        "COUNTER_OBJECT_CLASS",
+        "FLOOR",
+        "STAFF",
+        "SUBSCRIBER_STATUS",
+        "VENUE_OPEN_CLOSED",
+        "ADULT_CHILD"
+      ]
+    },
+
+    "TimeBasedDimensionDefinition": {
+      "description": "Enumerates something to do with time: a time series at some resolution, or a cyclic bucket like day of week.",
+      "type": "object",
+      "required": ["timeBasedDimension"],
+      "properties": {
+        "timeBasedDimension": { "$ref": "#/$defs/TimeBasedDimension" },
+        "format": {
+          "description": "\"Long\" or \"Short\" (e.g. Monday vs Mon), or a Joda DateTimeFormat pattern.",
+          "anyOf": [
+            { "enum": ["Long", "Short"] },
+            { "type": "string" }
+          ]
+        }
+      }
+    },
+
+    "TimeBasedDimension": {
+      "enum": [
+        "Minutely",
+        "FiveMinutely",
+        "FifteenMinutely",
+        "Hourly",
+        "Daily",
+        "Weekly",
+        "Monthly",
+        "Yearly",
+        "MinuteOfDay",
+        "FiveMinuteOfDay",
+        "FifteenMinuteOfDay",
+        "HourOfDay",
+        "DayOfWeek",
+        "DayOfWeekType",
+        "MonthOfYear"
+      ]
+    },
+
+    "NonTimeSeriesTimeBasedDimension": {
+      "enum": [
+        "MinuteOfDay",
+        "FiveMinuteOfDay",
+        "FifteenMinuteOfDay",
+        "HourOfDay",
+        "DayOfWeek",
+        "DayOfWeekType",
+        "MonthOfYear"
+      ]
+    },
+
+    "HistogramDimensionDefinitionContainer": {
+      "type": "object",
+      "required": ["histogram"],
+      "properties": {
+        "histogram": { "$ref": "#/$defs/HistogramDimensionDefinition" }
+      }
+    },
+
+    "HistogramDimensionDefinition": {
+      "type": "object",
+      "properties": {
+        "metric": { "type": "string" },
+        "histogram": { "type": "string" },
+        "buckets": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/HistogramDimensionBucket" }
+        }
+      }
+    },
+
+    "HistogramDimensionBucket": {
+      "type": "object",
+      "properties": {
+        "from": { "description": "Defaults to 0.", "type": "integer" },
+        "to": { "description": "Defaults to infinity.", "type": "integer" },
+        "displayName": { "type": "string" }
+      }
+    },
+
+    "NumericExpression": {
+      "description": "An expression evaluated in each cell to produce a number.",
+      "anyOf": [
+        { "$ref": "#/$defs/NamedExpressionRef" },
+        { "$ref": "#/$defs/ConstantExpression" },
+        { "$ref": "#/$defs/OccurrenceCountExpression" },
+        { "$ref": "#/$defs/MetricValueNumericExpression" },
+        { "$ref": "#/$defs/LiveMetricExpression" },
+        { "$ref": "#/$defs/EntityNumericFieldExpression" },
+        { "$ref": "#/$defs/NumericConditionalExpression" },
+        { "$ref": "#/$defs/ArithmeticOperator" },
+        { "$ref": "#/$defs/NumericDateTimeExpression" }
+      ]
+    },
+
+    "NumericExpressionList": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/NumericExpression" }
+    },
+
+    "NamedExpressionRef": {
+      "description": "References a named expression defined on the metric.",
+      "type": "object",
+      "required": ["metric", "namedExpression"],
+      "properties": {
+        "metric": { "$ref": "#/$defs/MetricReference" },
+        "namedExpression": { "type": "string" },
+        "keyMapping": { "$ref": "#/$defs/KeyMapping" }
+      }
+    },
+
+    "ConstantExpression": {
+      "type": "number"
+    },
+
+    "OccurrenceCountExpression": {
+      "description": "Number of instances of a dimension within the cell's date range, e.g. how many Mondays. Only Daily is supported so far.",
+      "type": "object",
+      "required": ["occurrenceCount"],
+      "properties": {
+        "occurrenceCount": {
+          "type": "object",
+          "required": ["dimension"],
+          "properties": {
+            "dimension": { "$ref": "#/$defs/DimensionDefinition" }
+          }
+        }
+      }
+    },
+
+    "MetricExpressionScope": {
+      "description": "Fields shared by all expressions that read a value from a metric.",
+      "type": "object",
+      "required": ["metric"],
+      "properties": {
+        "metric": { "$ref": "#/$defs/MetricReference" },
+        "dateRangeOverride": {
+          "description": "Overrides the date range from the outer filter.",
+          "$ref": "#/$defs/DateRange"
+        },
+        "aggregateAcross": {
+          "description": "Removes these dimensions and gets a total.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/DimensionValue" }
+        },
+        "segment": { "$ref": "#/$defs/DimensionAndSegment" },
+        "timeBasedDimension": { "$ref": "#/$defs/TimeBasedDimensionAndValue" },
+        "withKeys": { "$ref": "#/$defs/WithKeys" },
+        "keyMapping": { "$ref": "#/$defs/KeyMapping" }
+      }
+    },
+
+    "MetricValueNumericExpression": {
+      "description": "A number read from a metric, like a count, histogram value or unique count.",
+      "allOf": [
+        { "$ref": "#/$defs/MetricExpressionScope" },
+        {
+          "required": ["value"],
+          "properties": {
+            "value": { "$ref": "#/$defs/NumericMetricValueReference" }
+          }
+        }
+      ]
+    },
+
+    "LiveMetricExpression": {
+      "description": "A live metric value such as occupancy or visits now.",
+      "type": "object",
+      "required": ["metric", "liveField"],
+      "properties": {
+        "metric": { "$ref": "#/$defs/MetricReference" },
+        "liveField": { "type": "string" },
+        "withKeys": {
+          "description": "Deprecated: use keyMapping.",
+          "$ref": "#/$defs/WithKeys"
+        },
+        "operator": {
+          "description": "How multiple values are combined. Defaults to Sum.",
+          "$ref": "#/$defs/AggregationOperator"
+        },
+        "keyMapping": { "$ref": "#/$defs/KeyMapping" }
+      }
+    },
+
+    "EntityNumericFieldExpression": {
+      "type": "object",
+      "required": ["entity", "numericField"],
+      "properties": {
+        "entity": { "description": "Entity alias.", "type": "string" },
+        "numericField": { "type": "string" },
+        "operator": { "$ref": "#/$defs/AggregationOperator" }
+      }
+    },
+
+    "NumericConditionalExpression": {
+      "type": "object",
+      "required": ["if", "then", "else"],
+      "properties": {
+        "if": { "$ref": "#/$defs/BooleanExpression" },
+        "then": { "$ref": "#/$defs/NumericExpression" },
+        "else": { "$ref": "#/$defs/NumericExpression" }
+      }
+    },
+
+    "ArithmeticOperator": {
+      "anyOf": [
+        { "type": "object", "required": ["$add"], "properties": { "$add": { "$ref": "#/$defs/NumericExpressionList" } } },
+        {
+          "type": "object",
+          "required": ["$subtract"],
+          "properties": { "$subtract": { "$ref": "#/$defs/NumericExpressionList" } }
+        },
+        {
+          "type": "object",
+          "required": ["$multiply"],
+          "properties": { "$multiply": { "$ref": "#/$defs/NumericExpressionList" } }
+        },
+        {
+          "description": "First operand is the numerator, last is the denominator.",
+          "type": "object",
+          "required": ["$divide"],
+          "properties": { "$divide": { "$ref": "#/$defs/NumericExpressionList" } }
+        },
+        { "type": "object", "required": ["$min"], "properties": { "$min": { "$ref": "#/$defs/NumericExpressionList" } } },
+        { "type": "object", "required": ["$max"], "properties": { "$max": { "$ref": "#/$defs/NumericExpressionList" } } }
+      ]
+    },
+
+    "NumericDateTimeExpression": {
+      "type": "object",
+      "required": ["dateTimeExpression", "operator"],
+      "properties": {
+        "dateTimeExpression": { "$ref": "#/$defs/DateTimeExpression" },
+        "operator": { "const": "toEpochSeconds" },
+        "timezone": { "$ref": "#/$defs/TimeZone" }
+      }
+    },
+
+    "MetricReference": {
+      "anyOf": [
+        { "title": "CustomMetric", "description": "Custom metric id.", "type": "integer" },
+        { "title": "BuiltInMetric", "description": "Built-in metric name, e.g. \"UserProfileVisits\".", "type": "string" },
+        {
+          "title": "CustomMetricByName",
+          "type": "object",
+          "required": ["customMetricName"],
+          "properties": { "customMetricName": { "type": "string" } }
+        },
+        {
+          "title": "JoinMetric",
+          "description": "aggregateMetric must not itself be a join metric.",
+          "type": "object",
+          "required": ["aggregateMetric", "timeSpanMetric"],
+          "properties": {
+            "aggregateMetric": { "$ref": "#/$defs/MetricReference" },
+            "timeSpanMetric": { "type": "string" }
+          }
+        }
+      ]
+    },
+
+    "NumericMetricValueReference": {
+      "anyOf": [
+        { "const": "DistinctCount" },
+        { "const": "UniqueCountEstimate" },
+        {
+          "type": "object",
+          "required": ["counter"],
+          "properties": {
+            "counter": { "description": "Counter name, e.g. \"total\" or \"dwell\".", "type": "string" },
+            "operator": {
+              "description": "Operator used when merging multiple results. Defaults to Sum.",
+              "$ref": "#/$defs/AggregationOperator"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["maximum"],
+          "properties": { "maximum": { "type": "string" } }
+        },
+        {
+          "type": "object",
+          "required": ["minimum"],
+          "properties": { "minimum": { "type": "string" } }
+        },
+        {
+          "type": "object",
+          "required": ["histogram"],
+          "properties": {
+            "histogram": { "type": "string" },
+            "bucket": {
+              "type": "object",
+              "properties": {
+                "from": { "type": "integer" },
+                "to": { "type": "integer" }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "AggregationOperator": {
+      "enum": ["Sum", "Average", "Min", "Max"]
+    },
+
+    "DimensionAndSegment": {
+      "type": "object",
+      "required": ["segment"],
+      "properties": {
+        "dimension": { "$ref": "#/$defs/Dimension" },
+        "segment": { "type": "string" }
+      }
+    },
+
+    "TimeBasedDimensionAndValue": {
+      "description": "Restricts a metric value to one bucket of a non-time-series dimension.",
+      "type": "object",
+      "required": ["dimension", "value"],
+      "properties": {
+        "dimension": { "$ref": "#/$defs/NonTimeSeriesTimeBasedDimension" },
+        "value": { "type": "string" }
+      }
+    },
+
+    "WithKeys": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" },
+        "uniqueItems": true
+      }
+    },
+
+    "KeyMapping": {
+      "description": "Map of metric key name to metric table key alias. Without it, aliases with the same name as a metric key are mapped.",
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+
+    "DateTimeExpression": {
+      "anyOf": [
+        {
+          "title": "TimeSpanDateTimeExpression",
+          "allOf": [
+            { "$ref": "#/$defs/MetricExpressionScope" },
+            {
+              "required": ["value"],
+              "properties": {
+                "value": { "$ref": "#/$defs/MetricDateTimeReference" }
+              }
+            }
+          ]
+        },
+        {
+          "title": "NowDateTimeExpression",
+          "type": "object",
+          "required": ["value"],
+          "properties": {
+            "value": { "enum": ["StartDate", "EndDate", "Now"] }
+          }
+        }
+      ]
+    },
+
+    "MetricDateTimeReference": {
+      "anyOf": [
+        {
+          "type": "object",
+          "required": ["localDateTime"],
+          "properties": { "localDateTime": { "enum": ["StartDate", "EndDate"] } }
+        },
+        {
+          "type": "object",
+          "required": ["utcDateTime"],
+          "properties": { "utcDateTime": { "enum": ["StartDate", "EndDate", "Now"] } }
+        }
+      ]
+    },
+
+    "StringExpression": {
+      "anyOf": [
+        {
+          "title": "ConcatenateExpression",
+          "type": "object",
+          "required": ["concat"],
+          "properties": {
+            "concat": { "$ref": "#/$defs/StringListExpression" },
+            "separator": { "description": "Defaults to \", \".", "type": "string" }
+          }
+        },
+        {
+          "title": "StringValue",
+          "type": "object",
+          "required": ["value"],
+          "properties": { "value": { "type": "string" } }
+        },
+        {
+          "title": "StringConditionalExpression",
+          "type": "object",
+          "required": ["if", "then", "else"],
+          "properties": {
+            "if": { "$ref": "#/$defs/BooleanExpression" },
+            "then": { "$ref": "#/$defs/StringExpression" },
+            "else": { "$ref": "#/$defs/StringExpression" }
+          }
+        },
+        {
+          "title": "MultiLanguageStringValue",
+          "description": "Map of language tag to string.",
+          "type": "object",
+          "required": ["value"],
+          "properties": {
+            "value": { "type": "object", "additionalProperties": { "type": "string" } }
+          }
+        },
+        {
+          "title": "StringFieldValue",
+          "description": "A field value of an entity.",
+          "type": "object",
+          "required": ["entity", "fieldAsString"],
+          "properties": {
+            "entity": { "description": "Entity alias.", "type": "string" },
+            "fieldAsString": { "type": "string" },
+            "separator": { "description": "Defaults to \", \".", "type": "string" }
+          }
+        },
+        { "$ref": "#/$defs/StringExpressions" }
+      ]
+    },
+
+    "StringExpressions": {
+      "title": "StringExpressions",
+      "description": "A list of string expressions.",
+      "type": "object",
+      "required": ["values"],
+      "properties": {
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/StringExpression" }
+        }
+      }
+    },
+
+    "StringListExpression": {
+      "anyOf": [
+        {
+          "title": "MetricKeyValuesExpression",
+          "allOf": [
+            { "$ref": "#/$defs/MetricExpressionScope" },
+            {
+              "required": ["value"],
+              "properties": {
+                "value": {
+                  "type": "object",
+                  "required": ["alias"],
+                  "properties": { "alias": { "type": "string" } }
+                }
+              }
+            }
+          ]
+        },
+        { "$ref": "#/$defs/StringExpressions" }
+      ]
+    },
+
+    "BooleanExpression": {
+      "anyOf": [
+        { "type": "boolean" },
+        { "$ref": "#/$defs/NumericComparison" },
+        { "$ref": "#/$defs/StringComparison" },
+        {
+          "type": "object",
+          "required": ["$and"],
+          "properties": {
+            "$and": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/BooleanExpression" } }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["$or"],
+          "properties": {
+            "$or": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/BooleanExpression" } }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["$not"],
+          "properties": {
+            "$not": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": { "$ref": "#/$defs/BooleanExpression" }
+            }
+          }
+        }
+      ]
+    },
+
+    "NumericOperandPair": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "$ref": "#/$defs/NumericExpression" }
+    },
+
+    "NumericComparison": {
+      "anyOf": [
+        { "type": "object", "required": ["$lt"], "properties": { "$lt": { "$ref": "#/$defs/NumericOperandPair" } } },
+        { "type": "object", "required": ["$lte"], "properties": { "$lte": { "$ref": "#/$defs/NumericOperandPair" } } },
+        { "type": "object", "required": ["$gt"], "properties": { "$gt": { "$ref": "#/$defs/NumericOperandPair" } } },
+        { "type": "object", "required": ["$gte"], "properties": { "$gte": { "$ref": "#/$defs/NumericOperandPair" } } },
+        { "type": "object", "required": ["$eq"], "properties": { "$eq": { "$ref": "#/$defs/NumericOperandPair" } } },
+        { "type": "object", "required": ["$neq"], "properties": { "$neq": { "$ref": "#/$defs/NumericOperandPair" } } }
+      ]
+    },
+
+    "StringOperandPair": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "$ref": "#/$defs/StringExpression" }
+    },
+
+    "StringComparison": {
+      "description": "String comparisons are case-insensitive.",
+      "anyOf": [
+        { "type": "object", "required": ["$eq"], "properties": { "$eq": { "$ref": "#/$defs/StringOperandPair" } } },
+        { "type": "object", "required": ["$neq"], "properties": { "$neq": { "$ref": "#/$defs/StringOperandPair" } } },
+        {
+          "type": "object",
+          "required": ["$contains"],
+          "properties": { "$contains": { "$ref": "#/$defs/StringOperandPair" } }
+        },
+        {
+          "description": "True when the first expression equals any value in the second.",
+          "type": "object",
+          "required": ["$in"],
+          "properties": {
+            "$in": {
+              "type": "array",
+              "minItems": 2,
+              "prefixItems": [{ "$ref": "#/$defs/StringExpression" }, { "$ref": "#/$defs/StringExpressions" }]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

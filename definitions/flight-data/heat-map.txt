@@ -1,0 +1,12 @@
+This is a **heat map visualization** showing the estimated queue wait time for each flight in 15-minute intervals.
+
+**Data displayed:**
+- Each row is a flight
+- Each column is a 15-minute time bucket, running left to right across the date range
+- Cell colour shows the wait time band, using the legend at the top: No Wait Time, < 5 mins, 5-15 mins, 15-30 mins and 30+ mins
+
+**Key insights:**
+- Periods of longer waits stand out as darker bands against intervals with no wait
+- Flights that share the same check-in desks share the same queue, so they show the same colour in each interval
+
+The palette maps wait time in seconds to coloured bands (0, 1-300, 301-900, 901-1800 and 1801+), which makes periods of long queues easy to spot at a glance.

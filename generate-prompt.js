@@ -55,8 +55,8 @@ class WidgetPromptGenerator {
         this.output.push('# Beonic Insights 3.0 (i3) Widget Examples\n');
         this.output.push('This document contains example widget definitions using the Beonic Insights 3.0 widget definition language. Each widget defines a query against the Beonic data platform and visualization settings to present the retrieved tabular data.\n');
 
-        // Find all UserProfile directories
-        const directories = await this.findUserProfileDirectories();
+        // Find all widget directories
+        const directories = await this.findWidgetDirectories();
 
         for (const dir of directories) {
             await this.processDirectory(dir);
@@ -68,14 +68,11 @@ class WidgetPromptGenerator {
     }
 
     /**
-     * Find all UserProfile* directories and templates directory
+     * Find all directories under definitions/ (at any depth) that contain widget JSON, and the templates directory
      */
-    async findUserProfileDirectories() {
-        const items = await fs.readdir('.', {withFileTypes: true});
-        const directories = items
-            .filter(item => item.isDirectory() && item.name.startsWith('UserProfile'))
-            .map(item => item.name)
-            .sort();
+    async findWidgetDirectories() {
+        const definitionFiles = await this.findJsonFiles('definitions', true);
+        const directories = [...new Set(definitionFiles.map(file => path.dirname(file)))].sort();
 
         // Add templates directory if it exists
         if (await this.directoryExists('templates')) {
@@ -86,12 +83,13 @@ class WidgetPromptGenerator {
     }
 
     /**
-     * Process a single directory (e.g., UserProfilesNow)
+     * Process a single directory (e.g., definitions/user-profiles/now)
      */
     async processDirectory(dirName) {
         console.log(`📁 Processing ${dirName}...`);
 
-        this.output.push(`## ${dirName}\n`);
+        const category = dirName.startsWith('definitions') ? path.relative('definitions', dirName) : dirName;
+        this.output.push(`## ${category}\n`);
 
         // Process all JSON files in the directory
         const jsonFiles = await this.findJsonFiles(dirName, false);
