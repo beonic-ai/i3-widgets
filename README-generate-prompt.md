@@ -5,8 +5,8 @@ This Node.js script processes the Beonic Insights 3.0 (i3) widget examples repos
 
 ## Features
 
-- **Automatic Widget Discovery**: Scans all `UserProfile*` directories and processes JSON widget definitions
-- **Structured Organization**: Groups widgets by metric collection and subcategories (histograms vs main widgets)
+- **Automatic Widget Discovery**: Scans all directories under `definitions/` (at any depth), then `templates/`, and processes JSON widget definitions
+- **Structured Organization**: Groups widgets into one section per category, named by the folder path relative to `definitions/` (e.g. `user-profiles/visits`)
 - **Title & Description Extraction**: Uses `visualisation.title` and `visualisation.description.html` from JSON files
 - **Image Analysis**: Two modes for analyzing visualization screenshots:
     - **Claude Vision API**: AI-powered analysis using Anthropic's vision model
@@ -55,9 +55,7 @@ The script generates a `prompt.md` file with the following structure:
 ```markdown
 # Beonic Insights 3.0 (i3) Widget Examples
 
-## UserProfileVisits
-
-### Histograms
+## user-profiles/visits
 
 #### Visit Duration (minutes) Histogram Bar Chart
 
@@ -69,9 +67,9 @@ Creates a histogram of user visit durations...
 
 **Visualization Preview:** AI-generated description of the chart...
 
-![Visit Duration (minutes) Histogram Bar Chart](UserProfileVisits/visits-histogram-duration-barChart.png)
+![Visit Duration (minutes) Histogram Bar Chart](definitions/user-profiles/visits/visits-histogram-duration-barChart.png)
 
-### Main Widgets
+## flight-data
 
 ...
 
@@ -82,7 +80,7 @@ Creates a histogram of user visit durations...
 The script automatically detects if the `ANTHROPIC_API_KEY` environment variable is set:
 
 - **With API Key**: Uses Claude Vision API for accurate image analysis
-- **Without API Key**: Uses intelligent filename-based analysis
+- **Without API Key**: Uses the cached `.txt` for each PNG. For a PNG with no `.txt`, it generates a generic filename-based description and caches it, so write the `.txt` by hand for new PNGs first. Run `node generate-prompt.js` directly, as `just generate-prompt` exits when the key is not set
 
 ## Caching System
 
@@ -98,7 +96,7 @@ The script implements intelligent caching to optimize performance and reduce API
 - **Automatic**: Cache files are created automatically during analysis
 - **Persistent**: Cache files survive script runs and can be committed to version control
 - **Invalidation**: Delete `.txt` files to force re-analysis of specific images
-- **Git Ignore**: Cache files are excluded from git by default (see `.gitignore`)
+- **Version Control**: Cache files are committed alongside their JSON and PNG files; the gallery also uses them as widget descriptions
 - **Command Line Control**: Use `--no-cache` or `--fresh` flags to skip cached results
 
 ## Error Handling
@@ -113,7 +111,7 @@ The script implements intelligent caching to optimize performance and reduce API
 - **File Size**: ~74KB markdown document
 - **Coverage**: All widget categories and subcategories
 - **Images**: Automatic detection and linking of PNG screenshots
-- **Widgets**: 70+ widget examples across all UserProfile metrics
+- **Widgets**: 100+ widget examples across `definitions/` and `templates/`
 
 ## Dependencies
 

@@ -37,16 +37,16 @@ serve: generate-site
 check-previews:
     @echo "Widgets missing PNG previews:"
     @for json in $(find definitions templates -name '*.json' | sort); do \
-        png="$${json%.json}.png"; \
-        if [ ! -f "$$png" ]; then \
+        png="${json%.json}.png"; \
+        if [ ! -f "$png" ]; then \
             echo "  $json"; \
         fi \
     done
     @echo
     @echo "Widgets missing TXT descriptions:"
     @for json in $(find definitions templates -name '*.json' | sort); do \
-        txt="$${json%.json}.txt"; \
-        if [ ! -f "$$txt" ]; then \
+        txt="${json%.json}.txt"; \
+        if [ ! -f "$txt" ]; then \
             echo "  $json"; \
         fi \
     done

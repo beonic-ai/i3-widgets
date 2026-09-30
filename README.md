@@ -5,7 +5,9 @@ This repository contains example widget definitions for the Beonic Insights 3.0 
 ## Repository Structure
 
 - **Widget Examples**: JSON files defining widget configurations with corresponding PNG visualizations
-- **Metric Collections**: Organized in `UserProfile*` directories (UserProfileClicks, UserProfileSessions, UserProfileVisits, etc.)
+- **Metric Collections**: Organized in folders under `definitions/` (e.g. `definitions/user-profiles/visits`, `definitions/flight-data`). Folders can be nested to any depth; each folder containing JSON files becomes a category named by its path relative to `definitions/`
+- **Templates**: `templates/` holds examples organized by visualization technique rather than by metric
+- **Schema**: `schema/widget-definition.schema.json` is a JSON Schema for widget definitions, and `schema/insights-metrics.json` lists the metrics available in Insights with their key fields
 - **Visualization Types**: Histograms, charts, tables, and other data presentations
 
 ## Documentation
@@ -38,6 +40,8 @@ node generate-prompt.js
 ANTHROPIC_API_KEY=your_key node generate-prompt.js --fresh
 ```
 
+Without `ANTHROPIC_API_KEY`, the script reuses each PNG's cached `.txt` description. Write the `.txt` for any new PNG by hand before running it, otherwise a generic placeholder description is generated and cached.
+
 See **[README-generate-prompt.md](README-generate-prompt.md)** for detailed script documentation.
 
 ## Usage
@@ -55,15 +59,19 @@ Each widget example includes:
 
 ### Example Widget Categories
 
-- **UserProfileClicks**: Campaign performance, click analysis
-- **UserProfileSessions**: WiFi sessions, venue connectivity  
-- **UserProfileVisits**: Visit patterns, duration analysis
-- **Demographics**: Age, gender, geographic distributions
-- **Device Analytics**: OS categories, device types
+- **user-profiles/campaigns**: Campaign events and performance
+- **user-profiles/clicks**: Click analysis by campaign, URL and portal
+- **user-profiles/now**: Current user profile demographics, geography and devices
+- **user-profiles/registration-group**: User profiles by registration group
+- **user-profiles/signups**: Signup analysis
+- **user-profiles/visits**: Visit patterns, duration analysis
+- **user-profiles/wifi-sessions**: WiFi sessions, venue connectivity
+- **flight-data**: Flight check-in, queue wait times and desk processing times, including time-span joins with counter data
+- **templates**: Reusable patterns for each visualization type and calculation
 
 ## Getting Started
 
-1. Browse widget examples in the `UserProfile*` directories
+1. Browse widget examples in the `definitions/` directory
 2. Reference `CLAUDE.md` for architecture details
 3. Use `prompt.md` for LLM training or widget development guidance
 4. Run the generator script to create fresh training data when examples are updated
@@ -80,7 +88,7 @@ The LLM will use the training examples to generate appropriate JSON configuratio
 
 ## Dependencies
 
-- Node.js (for prompt generation script)
+- Node.js 18.17 or later (for the prompt and site generation scripts)
 - `@anthropic-ai/sdk` (for AI-powered image analysis)
 
 The widget examples themselves are pure JSON and can be used with any compatible system.
