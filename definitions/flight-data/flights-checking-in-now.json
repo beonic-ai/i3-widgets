@@ -1,0 +1,112 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "flight"
+          }
+        },
+        {
+          "string": {
+            "concat": {
+              "value": {
+                "alias": "checkInArea"
+              },
+              "metric": "FlightData",
+              "dateRangeOverride": {
+                "utcEndDate": {
+                  "unit": "Minute",
+                  "value": 1,
+                  "relativeTo": "Now"
+                },
+                "utcStartDate": "Now"
+              }
+            }
+          }
+        },
+        {
+          "string": {
+            "concat": {
+              "value": {
+                "alias": "deskName"
+              },
+              "metric": "FlightData",
+              "dateRangeOverride": {
+                "utcEndDate": {
+                  "unit": "Minute",
+                  "value": 1,
+                  "relativeTo": "Now"
+                },
+                "utcStartDate": "Now"
+              }
+            }
+          }
+        },
+        {
+          "format": "HH:mm",
+          "sortSpecification": {
+            "priority": 1,
+            "ascending": true
+          },
+          "dateTimeExpression": {
+            "value": {
+              "localDateTime": "StartDate"
+            },
+            "metric": "FlightData",
+            "dateRangeOverride": {
+              "utcEndDate": {
+                "unit": "Minute",
+                "value": 1,
+                "relativeTo": "Now"
+              },
+              "utcStartDate": "Now"
+            }
+          }
+        },
+        {
+          "format": "HH:mm",
+          "dateTimeExpression": {
+            "value": {
+              "localDateTime": "EndDate"
+            },
+            "metric": "FlightData",
+            "dateRangeOverride": {
+              "utcEndDate": {
+                "unit": "Minute",
+                "value": 1,
+                "relativeTo": "Now"
+              },
+              "utcStartDate": "Now"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "deskId": "AirportTerminal.departureHalls.checkInAreas.checkInDesks",
+    "deskName": "deskId.id",
+    "checkInArea": "deskId.checkInArea"
+  },
+  "columnNames": [
+    "Flight",
+    "Row",
+    "Desks",
+    "Check-in Start",
+    "End"
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Shows flights checking in right now, together with the desks assigned"
+    },
+    "tableSettings": {
+      "borders": false,
+      "paginate": false,
+      "scrollOverflow": true
+    },
+    "autoReloadSeconds": 10,
+    "title": "Flights Checking In Now",
+    "type": "Table"
+  }
+}

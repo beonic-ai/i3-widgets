@@ -1,0 +1,13 @@
+This is a **table visualization** that uses flights as column names, showing the estimated queue wait time for each flight per day.
+
+**Data displayed:**
+- The first column is DATE, with one row per day
+- Every other column is generated from the flight key, one column per flight number
+- Each cell is the estimated dwell (wait) time for that flight's queue, formatted as a duration (minutes and seconds)
+- The table scrolls horizontally when there are more flights than fit in the widget
+
+**Key insights:**
+- Makes it easy to compare wait times between flights on the same day
+- Because the flight columns come from the data, the number of columns changes with the flights in the selected date range
+
+The visualization joins queue counter data with flight time spans, so each flight's wait time is taken only from the period when that flight was assigned to its check-in desks.

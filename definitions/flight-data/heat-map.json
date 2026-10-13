@@ -1,0 +1,90 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "FifteenMinutely"
+          },
+          "sortSpecification": {
+            "priority": 1,
+            "ascending": true
+          }
+        },
+        {
+          "unit": "duration",
+          "numericExpression": {
+            "value": {
+              "counter": "est_dwell"
+            },
+            "metric": {
+              "timeSpanMetric": "FlightData",
+              "aggregateMetric": "counters"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "deskId": "CheckInArea.checkInDesks",
+    "counterId": "deskId.queue"
+  },
+  "columnNames": [
+    "DATE",
+    {
+      "name": "flight",
+      "dimension": {
+        "key": "flight"
+      }
+    }
+  ],
+  "visualisation": {
+    "type": "HeatMap",
+    "title": "Average Wait Time Per Flight - Historical",
+    "description": {
+      "html": "A heat map that shows the average wait time of the queue for each flight  \n Updated every 15 minutes \n Averaging over the last : 15 minutes"
+    },
+    "heatMapSettings": {
+      "legend": {
+        "show": true,
+        "showLabels": true
+      },
+      "palette": [
+        {
+          "to": "0",
+          "from": "0",
+          "label": "No Wait Time",
+          "colour": "#f0f0f0"
+        },
+        {
+          "to": "300",
+          "from": "1",
+          "label": "< 5 mins",
+          "colour": "#6EFF6E"
+        },
+        {
+          "to": "900",
+          "from": "301",
+          "label": "5-15 mins",
+          "colour": "#3CE600"
+        },
+        {
+          "to": "1800",
+          "from": "901",
+          "label": "15-30 mins",
+          "colour": "#2DAD00"
+        },
+        {
+          "to": "10000000",
+          "from": "1801",
+          "label": "30+ mins",
+          "colour": "#ee2f35"
+        }
+      ],
+      "itemStyle": {
+        "height": 2.1
+      }
+    }
+  }
+}

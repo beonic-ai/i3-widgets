@@ -1,0 +1,63 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "FifteenMinutely"
+          }
+        },
+        {
+          "unit": "duration",
+          "decimalPlaces": 0,
+          "numericExpression": {
+            "$divide": [
+              {
+                "value": {
+                  "counter": "dwell"
+                },
+                "metric": {
+                  "timeSpanMetric": "FlightData",
+                  "aggregateMetric": "counters"
+                }
+              },
+              {
+                "value": {
+                  "counter": "exits"
+                },
+                "metric": {
+                  "timeSpanMetric": "FlightData",
+                  "aggregateMetric": "counters"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "deskId": "CheckInArea.checkInDesks",
+    "counterId": "deskId.serviceZone"
+  },
+  "columnNames": [
+    "time",
+    {
+      "name": "flight",
+      "dimension": {
+        "key": "flight"
+      }
+    }
+  ],
+  "visualisation": {
+    "type": "LineChart",
+    "title": "Average Desk Processing Time Per Flight - Historical",
+    "description": {
+      "html": "Shows the average desk processing time per 15 minute at each desk for each flight. \n Updated every 15 minutes \n Averaging over the last : 15 minutes"
+    },
+    "lineChartSettings": {
+      "stackType": "no-stack",
+      "showLegend": "show"
+    }
+  }
+}

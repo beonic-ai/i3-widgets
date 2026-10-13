@@ -1,6 +1,412 @@
 # Beonic Insights 3.0 (i3) Widget Examples
 This document contains example widget definitions using the Beonic Insights 3.0 widget definition language. Each widget defines a query against the Beonic data platform and visualization settings to present the retrieved tabular data.
-## UserProfileCampaigns
+## flight-data
+#### Average Wait Time Per Flight - Historical
+Widget showing flight dim column. Displayed as a Table.
+```json
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          },
+          "sortSpecification": {
+            "priority": 1,
+            "ascending": true
+          }
+        },
+        {
+          "unit": "duration",
+          "numericExpression": {
+            "value": {
+              "counter": "est_dwell"
+            },
+            "metric": {
+              "timeSpanMetric": "FlightData",
+              "aggregateMetric": "counters"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "deskId": "DeparturesHall.checkInAreas.checkInDesks",
+    "counterId": "deskId.queue"
+  },
+  "columnNames": [
+    "DATE",
+    {
+      "name": "flight",
+      "dimension": {
+        "key": "flight"
+      }
+    }
+  ],
+  "visualisation": {
+    "type": "Table",
+    "title": "Average Wait Time Per Flight - Historical",
+    "tableSettings": {
+      "paginate": false,
+      "columnSettings": {},
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **table visualization** that uses flights as column names, showing the estimated queue wait time for each flight per day.
+
+**Data displayed:**
+- The first column is DATE, with one row per day
+- Every other column is generated from the flight key, one column per flight number
+- Each cell is the estimated dwell (wait) time for that flight's queue, formatted as a duration (minutes and seconds)
+- The table scrolls horizontally when there are more flights than fit in the widget
+
+**Key insights:**
+- Makes it easy to compare wait times between flights on the same day
+- Because the flight columns come from the data, the number of columns changes with the flights in the selected date range
+
+The visualization joins queue counter data with flight time spans, so each flight's wait time is taken only from the period when that flight was assigned to its check-in desks.
+![Average Wait Time Per Flight - Historical](definitions/flight-data/flight-dim-column.png)
+
+#### Flights Checking In Now
+Shows flights checking in right now, together with the desks assigned
+```json
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "flight"
+          }
+        },
+        {
+          "string": {
+            "concat": {
+              "value": {
+                "alias": "checkInArea"
+              },
+              "metric": "FlightData",
+              "dateRangeOverride": {
+                "utcEndDate": {
+                  "unit": "Minute",
+                  "value": 1,
+                  "relativeTo": "Now"
+                },
+                "utcStartDate": "Now"
+              }
+            }
+          }
+        },
+        {
+          "string": {
+            "concat": {
+              "value": {
+                "alias": "deskName"
+              },
+              "metric": "FlightData",
+              "dateRangeOverride": {
+                "utcEndDate": {
+                  "unit": "Minute",
+                  "value": 1,
+                  "relativeTo": "Now"
+                },
+                "utcStartDate": "Now"
+              }
+            }
+          }
+        },
+        {
+          "format": "HH:mm",
+          "sortSpecification": {
+            "priority": 1,
+            "ascending": true
+          },
+          "dateTimeExpression": {
+            "value": {
+              "localDateTime": "StartDate"
+            },
+            "metric": "FlightData",
+            "dateRangeOverride": {
+              "utcEndDate": {
+                "unit": "Minute",
+                "value": 1,
+                "relativeTo": "Now"
+              },
+              "utcStartDate": "Now"
+            }
+          }
+        },
+        {
+          "format": "HH:mm",
+          "dateTimeExpression": {
+            "value": {
+              "localDateTime": "EndDate"
+            },
+            "metric": "FlightData",
+            "dateRangeOverride": {
+              "utcEndDate": {
+                "unit": "Minute",
+                "value": 1,
+                "relativeTo": "Now"
+              },
+              "utcStartDate": "Now"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "deskId": "AirportTerminal.departureHalls.checkInAreas.checkInDesks",
+    "deskName": "deskId.id",
+    "checkInArea": "deskId.checkInArea"
+  },
+  "columnNames": [
+    "Flight",
+    "Row",
+    "Desks",
+    "Check-in Start",
+    "End"
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Shows flights checking in right now, together with the desks assigned"
+    },
+    "tableSettings": {
+      "borders": false,
+      "paginate": false,
+      "scrollOverflow": true
+    },
+    "autoReloadSeconds": 10,
+    "title": "Flights Checking In Now",
+    "type": "Table"
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **table visualization** listing the flights whose check-in is open at this moment.
+
+**Data displayed:**
+- Five columns: Flight, Row, Desks and the Check-in Start and End times
+- One row per flight currently checking in
+- The Row column shows the check-in area, and the Desks column is a comma-separated list of every desk assigned to the flight
+- Check-in Start and End are shown as HH:mm times, and rows are sorted by check-in start time
+
+**Key insights:**
+- Shows at a glance which desks are serving which flights right now
+- Flights can share desks, so the same desk may appear against more than one flight
+- The table refreshes every 10 seconds, so it always reflects the flights checking in right now
+
+The visualization combines a flight dimension with concatenated check-in area and desk values, each taken from the flight data for the current minute.
+![Flights Checking In Now](definitions/flight-data/flights-checking-in-now.png)
+
+#### Average Wait Time Per Flight - Historical
+A heat map that shows the average wait time of the queue for each flight  
+ Updated every 15 minutes 
+ Averaging over the last : 15 minutes
+```json
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "FifteenMinutely"
+          },
+          "sortSpecification": {
+            "priority": 1,
+            "ascending": true
+          }
+        },
+        {
+          "unit": "duration",
+          "numericExpression": {
+            "value": {
+              "counter": "est_dwell"
+            },
+            "metric": {
+              "timeSpanMetric": "FlightData",
+              "aggregateMetric": "counters"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "deskId": "CheckInArea.checkInDesks",
+    "counterId": "deskId.queue"
+  },
+  "columnNames": [
+    "DATE",
+    {
+      "name": "flight",
+      "dimension": {
+        "key": "flight"
+      }
+    }
+  ],
+  "visualisation": {
+    "type": "HeatMap",
+    "title": "Average Wait Time Per Flight - Historical",
+    "description": {
+      "html": "A heat map that shows the average wait time of the queue for each flight  \n Updated every 15 minutes \n Averaging over the last : 15 minutes"
+    },
+    "heatMapSettings": {
+      "legend": {
+        "show": true,
+        "showLabels": true
+      },
+      "palette": [
+        {
+          "to": "0",
+          "from": "0",
+          "label": "No Wait Time",
+          "colour": "#f0f0f0"
+        },
+        {
+          "to": "300",
+          "from": "1",
+          "label": "< 5 mins",
+          "colour": "#6EFF6E"
+        },
+        {
+          "to": "900",
+          "from": "301",
+          "label": "5-15 mins",
+          "colour": "#3CE600"
+        },
+        {
+          "to": "1800",
+          "from": "901",
+          "label": "15-30 mins",
+          "colour": "#2DAD00"
+        },
+        {
+          "to": "10000000",
+          "from": "1801",
+          "label": "30+ mins",
+          "colour": "#ee2f35"
+        }
+      ],
+      "itemStyle": {
+        "height": 2.1
+      }
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **heat map visualization** showing the estimated queue wait time for each flight in 15-minute intervals.
+
+**Data displayed:**
+- Each row is a flight
+- Each column is a 15-minute time bucket, running left to right across the date range
+- Cell colour shows the wait time band, using the legend at the top: No Wait Time, < 5 mins, 5-15 mins, 15-30 mins and 30+ mins
+
+**Key insights:**
+- Periods of longer waits stand out as darker bands against intervals with no wait
+- Flights that share the same check-in desks share the same queue, so they show the same colour in each interval
+
+The palette maps wait time in seconds to coloured bands (0, 1-300, 301-900, 901-1800 and 1801+), which makes periods of long queues easy to spot at a glance.
+![Average Wait Time Per Flight - Historical](definitions/flight-data/heat-map.png)
+
+#### Average Desk Processing Time Per Flight - Historical
+Shows the average desk processing time per 15 minute at each desk for each flight. 
+ Updated every 15 minutes 
+ Averaging over the last : 15 minutes
+```json
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "FifteenMinutely"
+          }
+        },
+        {
+          "unit": "duration",
+          "decimalPlaces": 0,
+          "numericExpression": {
+            "$divide": [
+              {
+                "value": {
+                  "counter": "dwell"
+                },
+                "metric": {
+                  "timeSpanMetric": "FlightData",
+                  "aggregateMetric": "counters"
+                }
+              },
+              {
+                "value": {
+                  "counter": "exits"
+                },
+                "metric": {
+                  "timeSpanMetric": "FlightData",
+                  "aggregateMetric": "counters"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "deskId": "CheckInArea.checkInDesks",
+    "counterId": "deskId.serviceZone"
+  },
+  "columnNames": [
+    "time",
+    {
+      "name": "flight",
+      "dimension": {
+        "key": "flight"
+      }
+    }
+  ],
+  "visualisation": {
+    "type": "LineChart",
+    "title": "Average Desk Processing Time Per Flight - Historical",
+    "description": {
+      "html": "Shows the average desk processing time per 15 minute at each desk for each flight. \n Updated every 15 minutes \n Averaging over the last : 15 minutes"
+    },
+    "lineChartSettings": {
+      "stackType": "no-stack",
+      "showLegend": "show"
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **line chart visualization** showing the average desk processing time per flight in 15-minute intervals.
+
+**Data displayed:**
+- The x-axis is time, in 15-minute buckets across the date range
+- The y-axis is the average processing time, formatted as a duration (minutes and seconds)
+- One line per flight, generated from the flight key, with a paged legend when there are many flights
+
+**Key insights:**
+- Shows how long desks take to process each passenger over the course of the day
+- Flights served by the same desks share the same service zone counters, so their lines can overlap
+- Intervals where a flight has no desk activity drop to zero
+
+The average is calculated by dividing total dwell time by the number of exits from the desk service zone, using a join between counter data and flight time spans so that each flight only includes the periods when it was assigned to its desks.
+![Average Desk Processing Time Per Flight - Historical](definitions/flight-data/timespan-join.png)
+
+
+## user-profiles/campaigns
 #### Postcode Clicks
 Count the number of regos that clicked a campaign
 ```json
@@ -100,7 +506,7 @@ Count the number of regos that clicked a campaign
 - This information is valuable for targeted marketing and resource allocation decisions based on geographic response rates
 
 The visualization effectively ranks postcodes by engagement, helping identify high-performing geographic segments for campaign optimization.
-![Postcode Clicks](UserProfileCampaigns/campaign-clicks-by-postcode.png)
+![Postcode Clicks](definitions/user-profiles/campaigns/campaign-clicks-by-postcode.png)
 
 #### campaigns
 Widget showing campaign event types. Displayed as a Table.
@@ -386,7 +792,7 @@ Creates a table of Campaigns by week and campaign event type.
 - The data suggests declining engagement from 08/09 to 15/09, with very low click-through rates (2 clicks from 590 opens = 0.34% CTR)
 
 This tabular format provides a clear breakdown of email campaign metrics over time, allowing for easy comparison of performance across different dates and event types.
-![Weekly Campaign events](UserProfileCampaigns/campaignEvents-weekly-campaignEventType.png)
+![Weekly Campaign events](definitions/user-profiles/campaigns/campaignEvents-weekly-campaignEventType.png)
 
 #### Auto Triggered by Venue and Zone
 Count the regos that triggered a campaign in a zone
@@ -561,7 +967,7 @@ Percentages of Males and Females
 ```
 
 
-## UserProfileClicks
+## user-profiles/clicks
 #### Campaign Clickers by Gender (postcodes 5000,5082,5085,5066,5067)
 Shows clicks  broken down by campaign gender. Displayed as a Table.
 ```json
@@ -912,2320 +1318,10 @@ Creates a table of Clicks by day of week.
 - The extreme disparity indicates unusual user behavior that warrants investigation
 
 The visualization effectively highlights the stark contrast between Wednesday's performance and all other days of the week.
-![Day Of Week Clicks](UserProfileClicks/clicks-dayOfWeek.png)
+![Day Of Week Clicks](definitions/user-profiles/clicks/clicks-dayOfWeek.png)
 
 
-## UserProfileSignups
-#### Females
-Count female signups
-```json
-{
-  "keyAliases": {
-    "gender": [
-      "FEMALE"
-    ]
-  },
-  "columnNames": [
-    "Females"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Count female signups"
-    },
-    "type": "Number",
-    "title": "Females"
-  }
-}
-```
-
-
-**Visualization Preview:** This is a simple metric card or KPI widget displaying a single data point. The visualization shows:
-
-**Type**: Basic numerical display/metric card
-**Data**: Count of females = 3
-**Representation**: Large number format with category label
-
-**Insights**: This appears to be part of a demographic breakdown, showing there are 3 females in the measured population or dataset. As a standalone metric, it provides a quick reference for gender distribution, likely complementing other demographic widgets to give a complete picture of the population being analyzed.
-![Females](UserProfileSignups/female-signups.png)
-
-#### Friendly labels
-User profiles friendly labels for enum/boolean values
-```json
-{
-  "columnNames": [
-    "gender",
-    "country",
-    "verifiedEmail",
-    "language",
-    "locale",
-    "locale code",
-    "source",
-    "count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "key": "gender",
-            "displayAs": "short"
-          }
-        },
-        {
-          "dimension": {
-            "key": "country"
-          }
-        },
-        {
-          "dimension": {
-            "key": "verifiedEmail"
-          }
-        },
-        {
-          "dimension": {
-            "key": "language"
-          }
-        },
-        {
-          "dimension": {
-            "key": "locale"
-          }
-        },
-        {
-          "dimension": {
-            "key": "locale",
-            "displayAs": "short"
-          }
-        },
-        {
-          "dimension": {
-            "key": "source"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "imageFile": "",
-    "description": {
-      "html": "User profiles friendly labels for enum/boolean values"
-    },
-    "tableSettings": {
-      "columnSettings": {},
-      "paginate": true,
-      "scrollOverflow": true
-    },
-    "title": "Friendly labels",
-    "type": "Table"
-  }
-}
-```
-
-#### 15-Minutely Signups
-Creates a table of registration signups by Day Date Hour:15-Minute
-```json
-{
-  "columnNames": [
-    "15 Minute",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "FifteenMinutely"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of registration signups by Day Date Hour:15-Minute"
-    },
-    "type": "Table",
-    "title": "15-Minutely Signups",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **time-series table visualization** showing 15-minute interval signup data for Saturday, September 13, 2025.
-
-**Data Display:**
-- Left column: 15-minute time slots from 10:30 AM to 4:45 PM
-- Right column: Number of signups per time slot (ranging from 0-9)
-
-**Key Insights:**
-- **Peak activity**: 12:30 PM with 9 signups
-- **Multiple busy periods**: 11:15-11:45 AM (5-6 signups) and 1:00 PM (8 signups)
-- **Low activity periods**: 10:45 AM, 3:45 PM, and 4:15 PM with 0 signups
-- **Overall pattern**: Higher signup concentration during late morning through early afternoon hours
-- **Total visible signups**: Approximately 80+ signups across the displayed timeframe
-
-This visualization helps identify optimal timing patterns and capacity planning for signup-related activities or events.
-![15-Minutely Signups](UserProfileSignups/signups-by-15minute.png)
-
-#### 5-Minutely Signups
-Creates a table of registration signups by Day Date Hour:5-Minute
-```json
-{
-  "columnNames": [
-    "5 Minute",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "FiveMinutely"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of registration signups by Day Date Hour:5-Minute"
-    },
-    "type": "Table",
-    "title": "5-Minutely Signups",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **time-series data table** showing 5-minute interval signup data for Saturday, September 13, 2025.
-
-**Data Display:**
-- Lists consecutive 5-minute time slots from 12:00 PM to 2:05 PM
-- Shows signup counts for each interval (all showing 0 signups except one)
-- Single data point: 1 signup at 1:35 PM
-
-**Key Insights:**
-- Extremely low signup activity during this 2+ hour period
-- Only one conversion occurred at 1:35 PM
-- Suggests either low traffic, poor conversion rates, or this may be outside peak user activity hours
-- The granular 5-minute tracking allows for precise identification of when engagement occurs
-
-This visualization is useful for identifying specific time periods when user activity spikes and optimizing marketing efforts or user experience accordingly.
-![5-Minutely Signups](UserProfileSignups/signups-by-5minute.png)
-
-#### Signups by Part of Week
-Count registrations by the part of the week (weekday/weekend) they signed-up (local time).
-```json
-{
-  "columnNames": [
-    "Week Part",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "DayOfWeekType"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Count registrations by the part of the week (weekday/weekend) they signed-up (local time)."
-    },
-    "type": "Table",
-    "title": "Signups by Part of Week",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a simple data table visualization showing "Signups by Part of Week." 
-
-**Data displayed:**
-- Weekday signups: 14,076
-- Weekend signups: 6,941
-
-**Key insights:**
-- Weekdays generate significantly more signups than weekends (approximately 2:1 ratio)
-- Total signups across the week: 21,017
-- Weekdays account for about 67% of all signups, while weekends represent 33%
-
-This suggests user engagement or marketing activities are more effective during weekdays, which could inform timing strategies for campaigns or product launches.
-![Signups by Part of Week](UserProfileSignups/signups-by-day-of-week-type.png)
-
-#### Signups by Day of Week
-Count registrations by the day of the week they signed-up (local time).
-```json
-{
-  "columnNames": [
-    "Day",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "DayOfWeek"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Count registrations by the day of the week they signed-up (local time)."
-    },
-    "type": "Table",
-    "title": "Signups by Day of Week",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a table visualization showing "Signups by Day of Week" data. It displays signup counts for each day of the week in a simple two-column format with days listed vertically and corresponding signup numbers on the right.
-
-**Key insights:**
-- Thursday has the highest signup activity (4,348)
-- Tuesday shows the lowest signup activity (2,213)
-- There's a clear pattern with mid-to-late week performing better (Wednesday-Friday range from 2,517 to 4,348)
-- Weekend activity (Saturday: 3,437, Sunday: 2,857) falls in the middle range
-- The data suggests user engagement peaks on Thursday, possibly indicating optimal timing for marketing campaigns or product launches
-
-The visualization effectively presents weekly signup patterns in a clean, sortable table format that makes it easy to identify performance trends across different days.
-![Signups by Day of Week](UserProfileSignups/signups-by-day-of-week.png)
-
-#### Daily Signups
-Creates a table of registration signups by day.
-```json
-{
-  "columnNames": [
-    "Date",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Daily"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of registration signups by day."
-    },
-    "type": "Table",
-    "title": "Daily Signups",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **table visualization** showing daily signup data over a one-week period in September 2025.
-
-**Data displayed:**
-- Date range: Monday, September 8th through Sunday, September 14th, 2025
-- Daily signup counts ranging from 102 to 141
-
-**Key insights:**
-- **Friday (12/09) had the highest signups** with 141 users
-- **Sunday (14/09) had the lowest signups** with 102 users
-- **Weekday pattern**: Generally higher signup activity during weekdays (115-141) compared to weekend (102-108)
-- **Weekly total**: Approximately 838 signups across the 7-day period
-- **Average**: About 120 signups per day
-
-The visualization effectively shows signup trends throughout the week, highlighting that business days tend to drive higher user registration activity compared to weekends.
-![Daily Signups](UserProfileSignups/signups-by-day.png)
-
-#### Signups by Hour of the Day
-Count registrations by the hour of the day they signed-up (local time).
-```json
-{
-  "columnNames": [
-    "Hour",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "HourOfDay"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Count registrations by the hour of the day they signed-up (local time)."
-    },
-    "type": "Table",
-    "title": "Signups by Hour of the Day",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a two-column data table showing "Signups by Hour of the Day." 
-
-**Data displayed:**
-- Left column: Hours (12 am through 4 pm shown)
-- Right column: Number of signups for each hour
-
-**Key insights:**
-- **Peak activity**: Highest signups occur during business hours, with 1 pm showing the maximum (597 signups)
-- **Low activity**: Overnight hours (2-5 am) show minimal signups (8-16 signups)
-- **Growth pattern**: Signups steadily increase from early morning (30 at 6 am) through midday, peaking in early afternoon
-- **Business hours dominance**: The pattern clearly reflects typical waking/working hours, with dramatic increases starting around 7-8 am
-
-This visualization effectively shows user signup behavior follows predictable daily patterns, which could inform marketing timing and resource allocation decisions.
-![Signups by Hour of the Day](UserProfileSignups/signups-by-hour-of-day.png)
-
-#### Hourly Signups
-Creates a table of registration signups by Day Date Hour
-```json
-{
-  "columnNames": [
-    "Hour",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Hourly"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of registration signups by Day Date Hour"
-    },
-    "type": "Table",
-    "title": "Hourly Signups",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **tabular data visualization** showing "Hourly Signups" for Saturday, September 13, 2025.
-
-**Data Type:** Time series data displaying signup counts aggregated by hour over a 24-hour period.
-
-**Key Insights:**
-- **Peak activity period:** 11 AM - 1 PM, with the highest signup volume at 12 PM (20 signups)
-- **Secondary peak:** 11 AM (18 signups) and 1 PM (15 signups)
-- **Low activity periods:** Early morning (12 AM - 9 AM) and late evening (7 PM - 11 PM) with mostly 0-1 signups
-- **Total pattern:** Clear daytime preference for signups, following typical business/daylight hours
-- **Gradual decline:** Afternoon signups steadily decrease from 2 PM (12) through 6 PM (4)
-
-This visualization effectively shows user engagement patterns throughout the day, indicating when users are most likely to sign up for the service.
-![Hourly Signups](UserProfileSignups/signups-by-hour.png)
-
-#### Minutely Signups
-Creates a table of registration signups by Day Date Hour:Minute
-```json
-{
-  "columnNames": [
-    "Minute",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Minutely"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of registration signups by Day Date Hour:Minute"
-    },
-    "type": "Table",
-    "title": "Minutely Signups",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **time series table** showing "Minutely Signups" data from Beonic Insights. 
-
-**Data Display:**
-- Time period: Saturday 13/09/2025, from 12:54 PM to approximately 1:20 PM
-- Granularity: Minute-by-minute breakdown
-- Metric: Number of user signups per minute
-
-**Key Insights:**
-- Most minutes show **0 signups**, indicating sporadic user registration activity
-- Peak activity occurs at **1:08 PM with 2 signups** and **1:13 PM with 2 signups**
-- Several minutes show **1 signup**: 12:57 PM, 1:00 PM, 1:02 PM, 1:07 PM, and 1:10 PM
-- **Total observable signups**: 10 signups over the ~26-minute period
-- The data suggests **low but consistent signup activity** with occasional minor spikes
-
-This visualization is useful for monitoring real-time user acquisition patterns and identifying peak signup periods at a granular level.
-![Minutely Signups](UserProfileSignups/signups-by-minute.png)
-
-#### Signups by Month of the Year
-Count registrations by the month of the year they signed-up (local time).
-```json
-{
-  "columnNames": [
-    "Month",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "MonthOfYear"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Count registrations by the month of the year they signed-up (local time)."
-    },
-    "type": "Table",
-    "title": "Signups by Month of the Year",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a data table visualization showing "Signups by Month of the Year" with two columns: Month and Signups.
-
-**Data displayed:**
-- Monthly signup counts from January through September
-- Values range from 472 (February, lowest) to 1,125 (May, highest)
-
-**Key insights:**
-- **Peak signup periods:** March (1,123) and May (1,125) show the highest user acquisition
-- **Lowest activity:** February (472) and July (492) have significantly fewer signups
-- **Seasonal pattern:** There appears to be stronger signup activity in spring months (March-May) compared to winter/summer periods
-- **Summer decline:** July shows a notable drop after June's moderate performance (853)
-
-The table format allows for easy comparison of exact values across months, making it simple to identify trends and outliers in user acquisition patterns.
-![Signups by Month of the Year](UserProfileSignups/signups-by-month-of-year.png)
-
-#### Monthly Signups
-Creates a table of registration signups by Month Year.
-```json
-{
-  "columnNames": [
-    "Month",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Monthly"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of registration signups by Month Year."
-    },
-    "type": "Table",
-    "title": "Monthly Signups",
-    "tableSettings": {
-      "paginate": true,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a tabular data visualization showing "Monthly Signups" data in a simple two-column format.
-
-**Data displayed:**
-- Time period: January 2024 through July 2024 (7 months)
-- Monthly signup numbers ranging from approximately 3,970 to 6,092
-
-**Key insights:**
-- March 2024 had the highest signups (6,092), representing a notable peak
-- April 2024 shows the lowest signups (3,970), indicating a significant drop after March
-- Overall trend shows fluctuation rather than consistent growth, with signup numbers varying by about 2,100 between the highest and lowest months
-- Recent months (May-July 2024) show relatively stable performance around 4,100 signups
-
-The visualization uses a clean, minimalist table design that makes it easy to compare monthly performance and identify patterns in user acquisition over this 7-month period.
-![Monthly Signups](UserProfileSignups/signups-by-month.png)
-
-#### Weekly Signups
-Creates a table of registration signups by Week Date
-```json
-{
-  "columnNames": [
-    "Week",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Weekly"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of registration signups by Week Date"
-    },
-    "type": "Table",
-    "title": "Weekly Signups",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **table visualization** showing weekly signup data over time from January to March 2025.
-
-**Data displayed:**
-- Weekly time periods (starting dates)
-- Corresponding signup numbers for each week
-- Total of 14 weeks of data
-
-**Key insights:**
-- Signups fluctuate significantly week-to-week, ranging from a low of 207 (31/03/2025) to a high of 1,337 (20/01/2025)
-- Most weeks show healthy signup numbers between 800-1,200
-- Notable drop-off in the final week (207 signups), which could indicate incomplete data for that period
-- Generally strong performance in January-February with some volatility in March
-
-The visualization provides a clear chronological view of signup trends, making it easy to identify patterns and anomalies in user acquisition over the 3-month period.
-![Weekly Signups](UserProfileSignups/signups-by-week.png)
-
-#### Yearly Signups
-Creates a table of registration signups by Year.
-```json
-{
-  "columnNames": [
-    "Year",
-    "Signups"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Yearly"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileSignups",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of registration signups by Year."
-    },
-    "type": "Table",
-    "title": "Yearly Signups",
-    "tableSettings": {
-      "paginate": true,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a simple data table visualization showing "Yearly Signups" over a three-year period. The table displays:
-
-**Data Structure:**
-- Two columns: Year and Signups
-- Three years of data (2023-2025)
-
-**Key Data Points:**
-- 2023: 15,254 signups
-- 2024: 22,232 signups (peak year)
-- 2025: 6,280 signups
-
-**Insights:**
-- Signups increased by 46% from 2023 to 2024
-- Dramatic 72% decline in 2025 signups compared to 2024
-- 2024 represents the highest signup volume in the dataset
-
-This tabular format provides a clear numerical comparison of signup trends, though the significant drop in 2025 may warrant further investigation (could be incomplete year data or actual performance decline).
-![Yearly Signups](UserProfileSignups/signups-by-year.png)
-
-
-## UserProfileVisits
-#### Gender Visitors
-Count visits to a venue by visitor's gender
-```json
-{
-  "columnNames": [
-    "Venue",
-    {
-      "name": "gender",
-      "dimension": {
-        "key": "gender",
-        "missing": true
-      }
-    }
-  ],
-  "keyAliases": {
-    "rg": "venueId.registrationGroup"
-  },
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "key": "venueId"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Count visits to a venue by visitor's gender"
-    },
-    "type": "Table",
-    "title": "Gender Visitors",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a data table visualization showing gender demographics of visitors across two venues. The table displays visitor counts broken down by three gender categories (Female, Male, Other) for Chevron Renaissance and MacArthur Central.
-
-**Key insights:**
-- **Chevron Renaissance** has higher overall traffic (135,797 total visitors) with a slight male majority (70,143 vs 65,511 females)
-- **MacArthur Central** has lower traffic (125,434 total visitors) but also shows male majority (63,645 vs 57,107 females)
-- **"Other" category representation** varies significantly between venues - minimal at Chevron Renaissance (143) but substantial at MacArthur Central (4,682)
-- Both venues show relatively balanced gender distribution, with males having a slight edge of approximately 51-52% at each location
-
-The visualization effectively presents demographic segmentation data in a clean, comparative table format that allows for easy cross-venue analysis.
-![Gender Visitors](UserProfileVisits/visits-by-gender-columns.png)
-
-#### Postcode Numeric Histogram Table (inline buckets)
-Creates a histogram of user postcodes. The histogram's postcode buckets and counts are visualised as a table. The buckets are defined using inline buckets, covering various regions in South Australia and Victoria.
-```json
-{
-  "columnNames": [
-    "postcodeNumeric",
-    "count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
-          },
-          "dimension": {
-            "histogram": {
-              "buckets": [
-                {
-                  "key": "SA - Adelaide Metro (5000-5099)",
-                  "from": 5000,
-                  "to": 5099
-                },
-                {
-                  "key": "SA - Adelaide Hills/Eastern (5100-5199)",
-                  "from": 5100,
-                  "to": 5199
-                },
-                {
-                  "key": "SA - Southern Adelaide (5200-5299)",
-                  "from": 5200,
-                  "to": 5299
-                },
-                {
-                  "key": "SA - Barossa/Northern (5300-5399)",
-                  "from": 5300,
-                  "to": 5399
-                },
-                {
-                  "key": "SA - Riverland/Murray (5400-5499)",
-                  "from": 5400,
-                  "to": 5499
-                },
-                {
-                  "key": "SA - Mid North/Yorke Peninsula (5500-5599)",
-                  "from": 5500,
-                  "to": 5599
-                },
-                {
-                  "key": "SA - Eyre Peninsula/West Coast (5600-5699)",
-                  "from": 5600,
-                  "to": 5699
-                },
-                {
-                  "key": "SA - Far North/Outback (5700-5799)",
-                  "from": 5700,
-                  "to": 5799
-                }
-              ]
-            }
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfilesNow",
-            "value": {
-              "histogram": "postcodeNumeric"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a histogram of user postcodes. The histogram's postcode buckets and counts are visualised as a table. The buckets are defined using inline buckets, covering various regions in South Australia and Victoria."
-    },
-    "type": "Table",
-    "title": "Postcode Numeric Histogram Table (inline buckets)",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **histogram table** showing the distribution of postcode numeric values organized into inline buckets (100-unit ranges from 5000-5799).
-
-**Data Display:**
-- Each row represents a postcode range (e.g., 5000-5099, 5100-5199)
-- The count column shows frequency of postcodes within each range
-- Total of 8 postcode ranges covering 800 possible postcode values
-
-**Key Insights:**
-- **Highly skewed distribution**: The 5000-5099 range dominates with 51,670 entries (72% of total)
-- **Steep decline**: Sharp drop-off after the first range, with 5100-5199 having only 12,322 entries
-- **Geographic clustering**: Suggests significant population/address concentration in the 5000-5099 postcode area
-- **Sparse coverage**: Higher postcode ranges (5400+) show much lower frequencies, indicating less dense areas
-
-This pattern typically indicates a major metropolitan area in the 5000-5099 range with surrounding suburban/rural areas in higher postcode ranges.
-![Postcode Numeric Histogram Table (inline buckets)](UserProfileVisits/visits-by-venue-postcode-zone.png)
-
-#### visits
-Count visits to a venue by visitor's postcode (only top 5 South Australia postcodes)
-```json
-{
-  "columnNames": [
-    "Venue",
-    "postcode",
-    "Count"
-  ],
-  "keyAliases": {
-    "postcode": [
-      "5000",
-      "5006",
-      "5009",
-      "5011",
-      "5013",
-      "5031",
-      "5033",
-      "5034",
-      "5045",
-      "5082",
-      "5085",
-      "5065",
-      "5066",
-      "5067",
-      "5069",
-      "5074",
-      "5081",
-      "5082",
-      "5089"
-    ]
-  },
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "key": "venueId"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
-          }
-        },
-        {
-          "dimension": {
-            "key": "postcode"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 2
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Count visits to a venue by visitor's postcode (only top 5 South Australia postcodes)"
-    },
-    "type": "Table",
-    "title": "visits",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a tabular data visualization showing visitor counts by venue and postcode. The table displays:
-
-**Data Structure:**
-- **Venue**: Two locations (Adelaide Central Plaza and Port Adelaide Plaza)
-- **Postcode**: Various postal codes (5000, 5066, 5067, 5082, 5085)
-- **Count**: Number of visits per venue-postcode combination
-
-**Key Insights:**
-- Adelaide Central Plaza dominates visitor traffic with 38,390 total visits across all postcodes
-- Postcode 5000 generates the highest traffic overall (29,967 visits), with Adelaide Central Plaza capturing the majority (28,858 vs 1,109 for Port Adelaide Plaza)
-- Port Adelaide Plaza has significantly lower visitor counts, with only 1,142 total visits
-- Adelaide Central Plaza shows more geographically diverse visitor origins across multiple postcodes
-- The data suggests strong location-based preferences, with visitors predominantly choosing the venue closest to postcode 5000
-
-This visualization effectively compares venue performance across different geographic catchment areas, helping identify market penetration and location effectiveness.
-![visits](UserProfileVisits/visits-by-venue-postcode.png)
-
-#### visits
-Shows visits  broken down by venue. Displayed as a Table.
-```json
-{
-  "columnNames": [
-    "Venue",
-    "Count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "key": "venueId"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": ""
-    },
-    "type": "Table",
-    "title": "visits",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a tabular data visualization showing venue visit counts. The widget displays:
-
-**Data Type**: Visit frequency data for two Adelaide shopping venues
-- Adelaide Central Plaza: 180,566 visits
-- Port Adelaide Plaza: 61,005 visits
-
-**Key Insights**: 
-- Adelaide Central Plaza receives nearly 3x more visits than Port Adelaide Plaza
-- Central Plaza is clearly the more popular/busier venue with significantly higher foot traffic
-- The data suggests a substantial difference in venue size, location attractiveness, or accessibility between these two shopping destinations
-
-The visualization uses a simple two-column table format (Venue | Count) making it easy to compare the relative performance of these retail locations.
-![visits](UserProfileVisits/visits-by-venue.png)
-
-#### Primary Zone Visits
-Zone visit counts
-```json
-{
-  "columnNames": [
-    "Primary Zone",
-    "Count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "key": "zoneId",
-            "missing": true
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Zone visit counts"
-    },
-    "type": "Table",
-    "title": "Primary Zone Visits",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-#### Primary Zone Visits
-Zone visit counts
-```json
-{
-  "columnNames": [
-    "Primary Zone",
-    "Count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "key": "zoneId"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Zone visit counts"
-    },
-    "type": "Table",
-    "title": "Primary Zone Visits",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-#### Vists by Age Range (inline buckets)
-Creates a histogram of user visit by age range. The histogram's buckets and counts are visualised as a bar chart. The buckets are default (yearly) age ranges.
-```json
-{
-  "columnNames": [
-    "age range",
-    "venue",
-    "count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "histogram": {
-              "buckets": [
-                {
-                  "to": 20
-                },
-                {
-                  "from": 20,
-                  "to": 40
-                },
-                {
-                  "from": 40
-                }
-              ]
-            }
-          }
-        },
-        {
-          "dimension": {
-            "key": "venueId"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "histogram": "ageInYears"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a histogram of user visit by age range. The histogram's buckets and counts are visualised as a bar chart. The buckets are default (yearly) age ranges."
-    },
-    "type": "Table",
-    "title": "Vists by Age Range (inline buckets)",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-#### Visit Duration (minutes) Histogram Bar Chart
-Creates a histogram of user visit durations. The histogram's duration buckets and counts are visualised as a bar chart. The buckets are default dwell times for visits and sessions.
-```json
-{
-  "columnNames": [
-    "visit duration",
-    "count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "histogram": {
-              "metric": "UserProfileVisits",
-              "histogram": "duration"
-            }
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "histogram": "duration"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a histogram of user visit durations. The histogram's duration buckets and counts are visualised as a bar chart. The buckets are default dwell times for visits and sessions."
-    },
-    "type": "BarChart",
-    "title": "Visit Duration (minutes) Histogram Bar Chart",
-    "barChartSettings": {
-      "showBarValues": false,
-      "columnSettings": {
-        "Total Visits": {
-          "axis": "left",
-          "type": null,
-          "showOnChart": true,
-          "showOnTooltip": true
-        }
-      },
-      "tooltip": {
-        "show": true
-      },
-      "layout": "vertical",
-      "xAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "gridLines": "auto",
-      "timeseriesResolutions": false,
-      "enableChartSwitching": false,
-      "yAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "showLegend": true,
-      "hideAxis": false,
-      "stackType": "no-stack"
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a histogram bar chart showing the distribution of website visit durations measured in minutes. The chart displays visitor counts (y-axis, ranging from 0 to 40k) across different time duration bins (x-axis).
-
-**Key insights:**
-- The highest engagement occurs in the 61-120 minute range (~37k visits), indicating strong user retention
-- The 31-60 minute range also shows high engagement (~35k visits)
-- Medium engagement levels are seen in 6-15 minutes (~32k) and 16-30 minutes (~28k) ranges
-- There's a significant drop-off for longer sessions, with only ~14k visits lasting 121-180 minutes
-- Very few visitors stay for extremely short (0-5 minutes) or very long sessions (181+ minutes)
-
-The distribution suggests the website successfully retains users for substantial periods, with peak engagement occurring in the 1-2 hour range, indicating quality content or engaging user experience.
-![Visit Duration (minutes) Histogram Bar Chart](UserProfileVisits/visits-histogram-duration-barChart.png)
-
-#### Visit Time of Day Histogram Line Chart
-Creates a histogram of user visits by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day.
-```json
-{
-  "columnNames": [
-    "hour",
-    "visits"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "histogram": {
-              "metric": "UserProfileVisits",
-              "histogram": "hourAndMinuteOfDay"
-            }
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "histogram": "hourAndMinuteOfDay"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a histogram of user visits by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day."
-    },
-    "type": "LineChart",
-    "title": "Visit Time of Day Histogram Line Chart",
-    "lineChartSettings": {
-      "showLegend": true,
-      "hideAxis": false,
-      "gridLines": "auto",
-      "stackType": "no-stack",
-      "xAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "yAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "enableChartSwitching": false,
-      "timeseriesResolutions": false,
-      "columnSettings": {},
-      "tooltip": {
-        "show": true
-      }
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a line chart showing website visits over time periods. The visualization displays:
-
-**Chart Type**: Single-line graph with time intervals on the x-axis and visit counts on the y-axis (scaled in thousands)
-
-**Data Pattern**: 
-- Visits start near zero (0-500 time period)
-- Gradual increase begins around 400-500
-- Steep growth from 800-1200, reaching peak performance
-- Peak visits of ~6.5k during 1500-1600 period  
-- Sharp decline after 1700, dropping to ~2.5k by 2000-2100
-- Nearly returns to baseline by the end
-
-**Key Insights**:
-- Clear bell-curve distribution with sustained high activity from 1200-1600
-- Peak traffic period represents a 6.5x increase from baseline
-- The pattern suggests time-based user behavior (possibly daily/hourly traffic cycles)
-- Significant traffic concentration during the middle periods, indicating predictable usage patterns
-
-This visualization effectively shows traffic flow patterns that could inform resource allocation and user engagement strategies.
-![Visit Time of Day Histogram Line Chart](UserProfileVisits/visits-histogram-hourAndMinuteOfDay-lineChart.png)
-
-#### Primary Zone Visit Duration (minutes) Histogram Bar Chart
-Creates a histogram of user visits to the primary zone, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions.
-```json
-{
-  "columnNames": [
-    "primary zone visit duration",
-    "count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "histogram": {
-              "metric": "UserProfileVisits",
-              "histogram": "primaryZoneDuration"
-            }
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "histogram": "primaryZoneDuration"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a histogram of user visits to the primary zone, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions."
-    },
-    "type": "BarChart",
-    "title": "Primary Zone Visit Duration (minutes) Histogram Bar Chart",
-    "barChartSettings": {
-      "showBarValues": false,
-      "columnSettings": {
-        "Total Visits": {
-          "axis": "left",
-          "type": null,
-          "showOnChart": true,
-          "showOnTooltip": true
-        }
-      },
-      "tooltip": {
-        "show": true
-      },
-      "layout": "vertical",
-      "xAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "gridLines": "auto",
-      "timeseriesResolutions": false,
-      "enableChartSwitching": false,
-      "yAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "showLegend": true,
-      "hideAxis": false,
-      "stackType": "no-stack"
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a histogram bar chart showing the distribution of Primary Zone visit durations in minutes. The chart displays visitor counts across different time intervals:
-
-**Chart Type**: Histogram with 8 duration bins ranging from 0-5 minutes to 301+ minutes
-
-**Key Data Points**:
-- Peak activity: 6-15 minutes (~12k visits)
-- Second highest: 16-30 minutes (~10k visits) 
-- Third highest: 31-60 minutes (~9k visits)
-- Shorter visits (0-5 min): ~4.5k visits
-- Longer visits show declining frequency: 61-120 min (~6.5k), 121-180 min (~1.5k)
-- Very few extended visits in 181-300 min and 301+ categories
-
-**Key Insights**:
-- Most visitors spend 6-60 minutes in the primary zone, indicating moderate engagement
-- The distribution shows a right-skewed pattern typical of dwell time data
-- Very short visits (0-5 min) are less common than moderate durations, suggesting the space successfully retains initial visitors
-- Extended stays beyond 2 hours are rare, indicating natural visit completion patterns
-![Primary Zone Visit Duration (minutes) Histogram Bar Chart](UserProfileVisits/visits-histogram-primaryZoneDuration-barChart.png)
-
-#### Monthly Visits
-Creates a table of Visits by month.
-```json
-{
-  "columnNames": [
-    "Date",
-    "Count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Monthly"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileVisits",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of Visits by month."
-    },
-    "type": "Table",
-    "title": "Monthly Visits",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **tabular data visualization** showing monthly website visits from January to September 2025.
-
-**Data Display:**
-- Two columns: Date (month/year) and Count (number of visits)
-- 9 months of chronological data
-- Visit counts ranging from 195 to 341
-
-**Key Insights:**
-- **Growth trend**: Steady increase from Jan (195) to May (341), representing a 75% growth over 5 months
-- **Peak performance**: May 2025 had the highest visits (341)
-- **Summer decline**: Notable drop in June-July (302→229), followed by partial recovery in August (305)
-- **Recent dip**: September shows another decline to 249 visits
-
-The data suggests seasonal patterns with strong spring growth, summer volatility, and potential seasonal slowdowns in July and September.
-![Monthly Visits](UserProfileVisits/visits-monthly.png)
-
-
-## UserProfileWiFiSessions
-#### OS Category (Android & Apple)
-OS categories
-```json
-{
-  "columnNames": [
-    "Venue",
-    {
-      "name": "osCategory",
-      "dimension": {
-        "key": "osCategory"
-      }
-    }
-  ],
-  "keyAliases": {
-    "osCategory": [
-      "Android",
-      "IOS_OSX"
-    ]
-  },
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "key": "venueId"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileWiFiSessions",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "OS categories"
-    },
-    "type": "Table",
-    "title": "OS Category (Android & Apple)",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **cross-tabulation table** (pivot table) showing mobile device usage data across two shopping venues.
-
-**Data displayed:**
-- **Venues:** Harbour Shopping and Retail Plaza
-- **OS Categories:** Android vs iOS/OSX device counts
-- **Values:** Raw counts of devices detected at each location
-
-**Key insights:**
-- **Harbour Shopping** shows higher Android usage (797) compared to iOS/OSX (629)
-- **Retail Plaza** demonstrates nearly equal usage between platforms (608 Android vs 603 iOS/OSX)
-- **Android dominance** at Harbour Shopping suggests different demographic or customer preferences between venues
-- **Total traffic** appears higher at Harbour Shopping (1,426 total) versus Retail Plaza (1,211 total)
-
-This type of venue analytics helps retailers understand their customer base's technology preferences and relative foot traffic patterns across locations.
-![OS Category (Android & Apple)](UserProfileWiFiSessions/sessions-by-venue-os-categories.png)
-
-#### Sessions
-Shows sessions  broken down by venue. Displayed as a Table.
-```json
-{
-  "columnNames": [
-    "Venue",
-    "Count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "key": "venueId"
-          },
-          "sortSpecification": {
-            "ascending": true,
-            "priority": 1
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileWiFiSessions",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": ""
-    },
-    "type": "Table",
-    "title": "Sessions",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **table visualization** showing session data by venue. 
-
-**Data displayed:**
-- Two venues: "Harbour Shopping" and "Retail Plaza"
-- Session counts: 1,505 and 1,503 respectively
-
-**Key insights:**
-- The venues have nearly identical session volumes, with only a 2-session difference
-- Harbour Shopping has a slight edge with 1,505 sessions
-- This suggests balanced foot traffic distribution between these two retail locations
-- The minimal difference indicates comparable customer engagement at both venues
-
-The visualization uses a simple tabular format that makes it easy to compare performance metrics between the two locations.
-![Sessions](UserProfileWiFiSessions/sessions-by-venue.png)
-
-#### Day of Week WiFi Sessions
-Creates a table of WiFiSesions by day of week.
-```json
-{
-  "columnNames": [
-    "Date",
-    "Count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "DayOfWeek"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileWiFiSessions",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of WiFiSesions by day of week."
-    },
-    "type": "Table",
-    "title": "Day of Week WiFi Sessions",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a **data table visualization** showing WiFi session counts by day of the week.
-
-**Data displayed:**
-- 7 rows representing each day of the week
-- Session counts ranging from 112 (Saturday, lowest) to 221 (Wednesday, highest)
-- Total of 1,211 WiFi sessions across the week
-
-**Key insights:**
-- **Wednesday has peak usage** (221 sessions)
-- **Weekend shows lowest activity** - Saturday (112) and Friday (121) have the fewest sessions
-- **Mid-week dominance** - Tuesday through Thursday show consistently higher usage (175-221 sessions)
-- **Sunday rebounds** with 203 sessions, suggesting different usage patterns than typical weekend days
-
-The visualization effectively shows weekly WiFi usage patterns, indicating this is likely a business or educational environment with higher weekday activity.
-![Day of Week WiFi Sessions](UserProfileWiFiSessions/wifiSessions-dayOfWeek.png)
-
-#### WiFi Session Data Usage (MB) Histogram Bar Chart
-Creates a histogram of user WiFi session dataUsage, visualised as a bar chart. The histogram's data usage buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions.
-```json
-{
-  "columnNames": [
-    "session data usage",
-    "sessions"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "histogram": {
-              "metric": "UserProfileWiFiSessions",
-              "histogram": "dataUsage"
-            }
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileWiFiSessions",
-            "value": {
-              "histogram": "dataUsage"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a histogram of user WiFi session dataUsage, visualised as a bar chart. The histogram's data usage buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions."
-    },
-    "type": "BarChart",
-    "title": "WiFi Session Data Usage (MB) Histogram Bar Chart",
-    "barChartSettings": {
-      "showBarValues": false,
-      "columnSettings": {
-        "Total Visits": {
-          "axis": "left",
-          "type": null,
-          "showOnChart": true,
-          "showOnTooltip": true
-        }
-      },
-      "tooltip": {
-        "show": true
-      },
-      "layout": "vertical",
-      "xAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "gridLines": "auto",
-      "timeseriesResolutions": false,
-      "enableChartSwitching": false,
-      "yAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "showLegend": true,
-      "hideAxis": false,
-      "stackType": "no-stack"
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a histogram bar chart showing the distribution of WiFi session data usage measured in megabytes (MB). 
-
-**Data Representation:**
-- X-axis: Data usage ranges in MB (0-4, 5-9, 10-19, 20-39, 40-79, 80-159, 160-319, 320-639, 640-1279, 1280+ MB)
-- Y-axis: Number of sessions (ranging from 0 to 21k)
-- Blue bars represent the frequency of sessions within each data usage range
-
-**Key Insights:**
-- **Bimodal distribution**: The highest frequency (~19k sessions) occurs in the lowest usage range (0-4 MB), indicating many brief or low-data sessions
-- **Secondary peak**: Sessions using 40-79 MB and 80-159 MB also show high frequencies (~17k sessions each)
-- **Long tail**: Usage drops significantly for higher data consumption ranges, with very few sessions exceeding 640 MB
-- This pattern suggests a mix of light browsing/basic usage sessions and moderate data consumption, with heavy data users being relatively rare
-
-The visualization effectively shows that most WiFi sessions consume minimal data, with a smaller subset of users accounting for moderate data usage.
-![WiFi Session Data Usage (MB) Histogram Bar Chart](UserProfileWiFiSessions/wifiSessions-histogram-dataUsage-barChart.png)
-
-#### WiFi Session Duration (minutes) Histogram Bar Chart
-Creates a histogram of user WiFi session durations, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions.
-```json
-{
-  "columnNames": [
-    "session duration",
-    "sessions"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "histogram": {
-              "metric": "UserProfileWiFiSessions",
-              "histogram": "duration"
-            }
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileWiFiSessions",
-            "value": {
-              "histogram": "duration"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a histogram of user WiFi session durations, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions."
-    },
-    "type": "BarChart",
-    "title": "WiFi Session Duration (minutes) Histogram Bar Chart",
-    "barChartSettings": {
-      "showBarValues": false,
-      "columnSettings": {
-        "Total Visits": {
-          "axis": "left",
-          "type": null,
-          "showOnChart": true,
-          "showOnTooltip": true
-        }
-      },
-      "tooltip": {
-        "show": true
-      },
-      "layout": "vertical",
-      "xAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "gridLines": "auto",
-      "timeseriesResolutions": false,
-      "enableChartSwitching": false,
-      "yAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "showLegend": true,
-      "hideAxis": false,
-      "stackType": "no-stack"
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a histogram bar chart showing the distribution of WiFi session durations measured in minutes. The chart displays 8 duration ranges from "0-5" minutes to "301+" minutes on the x-axis, with the number of sessions (in thousands) on the y-axis.
-
-**Key insights:**
-- **Peak usage**: The highest frequency occurs in the 16-30 minute range (~27k sessions), followed by 6-15 minutes (~24k sessions)
-- **Usage pattern**: Most WiFi sessions are relatively short, with about 80% falling within the first four categories (0-60 minutes)
-- **Long tail distribution**: Very few users have extended sessions, with dramatic drops after 60 minutes
-- **Short sessions**: A significant portion (~11k) are very brief (0-5 minutes), suggesting quick connectivity checks or failed connections
-
-The data reveals typical WiFi usage behavior where most users connect for moderate durations (6-30 minutes), likely for specific tasks, with relatively few engaging in extended browsing sessions.
-![WiFi Session Duration (minutes) Histogram Bar Chart](UserProfileWiFiSessions/wifiSessions-histogram-duration-barChart.png)
-
-#### WiFi Session Time of Day Histogram Line Chart
-Creates a histogram of user WiFi Sessions by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day.
-```json
-{
-  "columnNames": [
-    "hour",
-    "sessions"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "histogram": {
-              "metric": "UserProfileWiFiSessions",
-              "histogram": "hourAndMinuteOfDay"
-            }
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileWiFiSessions",
-            "value": {
-              "histogram": "hourAndMinuteOfDay"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a histogram of user WiFi Sessions by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day."
-    },
-    "type": "LineChart",
-    "title": "WiFi Session Time of Day Histogram Line Chart",
-    "lineChartSettings": {
-      "showLegend": true,
-      "hideAxis": false,
-      "gridLines": "auto",
-      "stackType": "no-stack",
-      "xAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "yAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "enableChartSwitching": false,
-      "timeseriesResolutions": false,
-      "columnSettings": {},
-      "tooltip": {
-        "show": true
-      }
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a line chart displaying WiFi session frequency throughout the day, showing time periods on the x-axis (from 0-100 to 2100-2200) and number of sessions on the y-axis (ranging from 0 to 15k).
-
-**Key Insights:**
-- **Peak usage period**: Sessions peak between 1200-1600 (noon to 4 PM) at approximately 14,000 sessions
-- **Usage pattern**: Shows a typical daily activity curve with very low overnight usage (0-600), gradual morning increase starting around 700, sustained high usage during midday/afternoon, then sharp decline after 1600
-- **Off-peak hours**: Minimal activity during early morning (0-600) and late evening (2100-2200)
-- **Business hours correlation**: The pattern suggests this could be workplace or public space WiFi usage, aligning with typical business/activity hours
-
-The visualization effectively shows clear daily usage patterns with a pronounced midday peak and minimal overnight activity.
-![WiFi Session Time of Day Histogram Line Chart](UserProfileWiFiSessions/wifiSessions-histogram-hourAndMinuteOfDay-lineChart.png)
-
-#### Monthly WiFi Session Data Usage (MB) Histogram Horizontal Stacked Bar Chart
-Creates a monthly histogram of user WiFi session dataUsage, visualised as a horizontal, stacked bar chart. The histogram's data usage buckets and counts are displayed in the chart for each month. The buckets are the default data-usage (MB) ranges for sessions. The data is filtered by the venue's registration group to optimise query performance.
-```json
-{
-  "visualisation": {
-    "description": {
-      "html": "Creates a monthly histogram of user WiFi session dataUsage, visualised as a horizontal, stacked bar chart. The histogram's data usage buckets and counts are displayed in the chart for each month. The buckets are the default data-usage (MB) ranges for sessions. The data is filtered by the venue's registration group to optimise query performance."
-    },
-    "barChartSettings": {
-      "showBarValues": false,
-      "tooltip": {
-        "show": true
-      },
-      "layout": "horizontal",
-      "xAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "gridLines": "auto",
-      "timeseriesResolutions": false,
-      "enableChartSwitching": false,
-      "yAxis": {
-        "axisLine": {
-          "show": false
-        },
-        "inverse": false,
-        "showName": false,
-        "splitNumber": 5
-      },
-      "showLegend": true,
-      "hideAxis": false,
-      "stackType": "stack"
-    },
-    "title": "Monthly WiFi Session Data Usage (MB) Histogram Horizontal Stacked Bar Chart",
-    "type": "BarChart"
-  },
-  "columnNames": [
-    "time",
-    {
-      "name": "sessions",
-      "dimension": {
-        "histogram": {
-          "histogram": "dataUsage",
-          "metric": "UserProfileWiFiSessions"
-        }
-      }
-    }
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Monthly"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileWiFiSessions",
-            "value": {
-              "histogram": "dataUsage"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "keyAliases": {
-    "rg": "venueId.registrationGroup"
-  }
-}
-```
-
-
-**Visualization Preview:** This is a horizontal stacked bar chart showing monthly WiFi session data usage distribution across different usage ranges (measured in MB) from 2024 through December.
-
-**Data Representation:**
-- Each bar represents a month's total WiFi sessions
-- Bars are segmented by 9 usage categories ranging from 0-4 MB (lightest blue) to 1280+ MB (darkest blue)
-- The width of each colored segment indicates the relative proportion of sessions in that usage range
-
-**Key Insights:**
-- **Low usage dominance**: The majority of sessions across all months fall into the lower usage categories (0-79 MB), particularly the 0-4 MB and 5-9 MB ranges
-- **Consistent patterns**: Usage distribution remains relatively stable month-to-month, suggesting consistent user behavior patterns
-- **Heavy users are minimal**: Very few sessions exceed 640 MB, with the 1280+ MB category representing a tiny fraction
-- **Gradual decline**: There's a clear pattern where higher usage categories represent progressively smaller portions of total sessions
-- **Seasonal stability**: No dramatic seasonal variations in usage patterns are evident across the months shown
-
-This visualization effectively shows that most WiFi sessions involve light data usage, which is typical for basic browsing, email, and social media activities.
-![Monthly WiFi Session Data Usage (MB) Histogram Horizontal Stacked Bar Chart](UserProfileWiFiSessions/wifiSessions-histogram-monthly-dataUsage-barChart.png)
-
-#### Monthly WiFi Sessions Horizontal Bar Chart
-Counts monthly WiFi sessions, visualised as a horizontal bar chart. The data is filtered by the venue's registration group to optimise query performance.
-```json
-{
-  "visualisation": {
-    "description": {
-      "html": "Counts monthly WiFi sessions, visualised as a horizontal bar chart. The data is filtered by the venue's registration group to optimise query performance."
-    },
-    "barChartSettings": {
-      "showBarValues": false,
-      "tooltip": {
-        "show": true
-      },
-      "layout": "horizontal",
-      "xAxis": {
-        "splitNumber": 5
-      },
-      "gridLines": "auto",
-      "yAxis": {
-        "splitNumber": 5
-      },
-      "showLegend": true
-    },
-    "title": "Monthly WiFi Sessions Horizontal Bar Chart",
-    "type": "BarChart"
-  },
-  "columnNames": [
-    "time",
-    "sessions"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Monthly"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileWiFiSessions",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "keyAliases": {
-    "rg": "venueId.registrationGroup"
-  }
-}
-```
-
-
-**Visualization Preview:** This is a horizontal bar chart displaying monthly WiFi sessions data. The chart shows WiFi usage patterns across different months, with each blue bar representing the number of sessions for that period.
-
-**Key insights:**
-- **Peak usage**: December shows the highest WiFi sessions (~2,500), followed closely by April and May (~2,100 each)
-- **Seasonal patterns**: Higher usage appears in winter months (Dec, Nov ~2,000) and spring months (Apr, May)
-- **Lower usage periods**: January 2024 shows significantly lower sessions (~1,400), suggesting either a seasonal drop or data collection period
-- **Consistent mid-range usage**: Summer and fall months (Jun-Oct) show relatively stable usage around 1,700-1,900 sessions
-
-The visualization effectively shows WiFi usage trends over time, indicating potential seasonal variations in user behavior or facility usage patterns. The data suggests peak networking activity during certain months, which could inform capacity planning and network management decisions.
-![Monthly WiFi Sessions Horizontal Bar Chart](UserProfileWiFiSessions/wifiSessions-monthly-barChart.png)
-
-#### Yearly WiFi Sessions
-Creates a table of WiFiSessions by year.
-```json
-{
-  "columnNames": [
-    "Date",
-    "Count"
-  ],
-  "rowSets": [
-    {
-      "columns": [
-        {
-          "dimension": {
-            "timeBasedDimension": "Yearly"
-          }
-        },
-        {
-          "numericExpression": {
-            "metric": "UserProfileWiFiSessions",
-            "value": {
-              "counter": "total"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "visualisation": {
-    "description": {
-      "html": "Creates a table of WiFiSessions by year."
-    },
-    "type": "Table",
-    "title": "Yearly WiFi Sessions",
-    "tableSettings": {
-      "paginate": false,
-      "scrollOverflow": true
-    }
-  }
-}
-```
-
-
-**Visualization Preview:** This is a simple data table visualization showing "Yearly WiFi Sessions" data. 
-
-**Visualization Type**: Tabular display with two columns (Date and Count)
-
-**Data Displayed**: 
-- 2024: 8,037 WiFi sessions
-- 2025: 13,389 WiFi sessions
-
-**Key Insights**:
-- Shows a significant 66% increase in WiFi sessions from 2024 to 2025
-- Growth of 5,352 additional sessions year-over-year
-- Indicates growing WiFi usage/adoption over the two-year period
-
-The visualization uses a clean, minimal table format to present this comparative annual data clearly and concisely.
-![Yearly WiFi Sessions](UserProfileWiFiSessions/wifiSessions-yearly.png)
-
-
-## UserProfilesNow
+## user-profiles/now
 #### Age in Years
 Age in Years
 ```json
@@ -3286,7 +1382,7 @@ Age in Years
 - **Age range**: The population spans from approximately 10 to 92 years old
 
 This visualization suggests a relatively young population with the majority concentrated in the 20-40 age range, which could represent a workforce, student body, or similar demographic group.
-![Age in Years](UserProfilesNow/ageInYears.png)
+![Age in Years](definitions/user-profiles/now/ageInYears.png)
 
 #### Country And State
 Count registrations by country and state
@@ -3476,7 +1572,7 @@ Create a pie chart of WiFi client device categories. Includes a count of profile
 4. **Limited tablet adoption:** Tablets have the smallest share among identified devices
 
 The high percentage of "MISSING" data suggests potential issues with device detection or user privacy settings that prevent proper categorization.
-![Device Category (with missing)](UserProfilesNow/device-categories-pieChart.png)
+![Device Category (with missing)](definitions/user-profiles/now/device-categories-pieChart.png)
 
 #### Email
 Subscribed registrations with Email
@@ -3682,7 +1778,7 @@ Demo grouping gender into columns.  Missing values are included.
 - The "Other" category (5,690) is slightly larger than the missing values, suggesting inclusive gender options in data collection
 
 The visualization effectively highlights both the gender composition and data completeness, with the missing values prominently displayed as a separate category rather than being hidden.
-![Gender Distribution (columns, missing values)](UserProfilesNow/gender-columns-missing.png)
+![Gender Distribution (columns, missing values)](definitions/user-profiles/now/gender-columns-missing.png)
 
 #### Gender Composition
 Percentages of Males and Females
@@ -3916,7 +2012,7 @@ Creates a histogram of user ages.  The histogram's age buckets and counts are vi
 - **Working-age concentration**: Most of the population falls between ages 15-54
 
 The distribution suggests this dataset represents a working-age population with very few children and elderly individuals, possibly indicating a professional or employment-related dataset.
-![Age In Years Histogram Columns (default buckets)](UserProfilesNow/histogram-ageInYears-columns-defaultBuckets.png)
+![Age In Years Histogram Columns (default buckets)](definitions/user-profiles/now/histogram-ageInYears-columns-defaultBuckets.png)
 
 #### Age In Years Histogram Table (default buckets)
 Creates a histogram of user ages.  The histogram's age buckets and counts are visualised as a table. The buckets are defaults derived from the histogram's metric and the histogram name.
@@ -3979,7 +2075,7 @@ Creates a histogram of user ages.  The histogram's age buckets and counts are vi
 - **Minimal representation:** No individuals under 15, very few over 75 (203 people)
 
 This distribution suggests a young adult-focused dataset, possibly representing a workforce, student population, or user base of a service that primarily attracts people in their 20s and 30s.
-![Age In Years Histogram Table (default buckets)](UserProfilesNow/histogram-ageInYears-defaultBuckets-table.png)
+![Age In Years Histogram Table (default buckets)](definitions/user-profiles/now/histogram-ageInYears-defaultBuckets-table.png)
 
 #### Age In Years Histogram Table (inline buckets)
 Creates a histogram of user ages. The histogram's age buckets and counts are visualised as a table. The buckets are defined using inline buckets. The first bucket is for ages up to 20, the second bucket is for ages from 20 to 40, and the third bucket is for ages over 40.
@@ -4048,7 +2144,7 @@ Creates a histogram of user ages. The histogram's age buckets and counts are vis
 - The distribution shows a concentration in the working-age population with relatively few younger individuals
 
 The data suggests this might represent a workforce, customer base, or similar population where middle-aged adults are predominant.
-![Age In Years Histogram Table (inline buckets)](UserProfilesNow/histogram-ageInYears-inlineBuckets-table.png)
+![Age In Years Histogram Table (inline buckets)](definitions/user-profiles/now/histogram-ageInYears-inlineBuckets-table.png)
 
 #### 20 to 40 Years Old Count
 Count of users aged between 20 and 40 years old.  This uses an inline bucket for the age range. The count is visualised as a number.
@@ -4101,7 +2197,7 @@ Simple numerical display with large, prominent typography for easy readability
 - The clean, minimalist design emphasizes the metric's importance as a key data point
 
 This type of widget is commonly used in executive dashboards where stakeholders need immediate access to critical demographic counts without additional visual complexity.
-![20 to 40 Years Old Count](UserProfilesNow/histogram-ageInYears-singleBucket-number.png)
+![20 to 40 Years Old Count](definitions/user-profiles/now/histogram-ageInYears-singleBucket-number.png)
 
 #### Country Calling Code Histogram Table (default buckets)
 Creates a histogram of user country calling codes. The histogram's country calling code buckets and counts are visualised as a table.
@@ -4164,7 +2260,7 @@ Creates a histogram of user country calling codes. The histogram's country calli
 - This distribution suggests most countries use calling codes in the 60-99 numeric range
 
 The table reveals a heavily skewed distribution where calling codes are concentrated in specific numeric ranges rather than being evenly distributed across all possible values.
-![Country Calling Code Histogram Table (default buckets)](UserProfilesNow/histogram-countryCallingCode-table.png)
+![Country Calling Code Histogram Table (default buckets)](definitions/user-profiles/now/histogram-countryCallingCode-table.png)
 
 #### Postcode Numeric Histogram Table (inline buckets)
 Creates a histogram of user postcodes. The histogram's postcode buckets and counts are visualised as a table. The buckets are defined using inline buckets, covering various regions in South Australia and Victoria.
@@ -4320,7 +2416,7 @@ Creates a histogram of user postcodes. The histogram's postcode buckets and coun
 - **Total dataset**: Approximately 39,754 postcode entries
 
 This suggests a geographic concentration in the 5000-5099 postcode area, likely indicating a major urban center or high-density region in what appears to be an Australian postal system (5000 series postcodes).
-![Postcode Numeric Histogram Table (inline buckets)](UserProfilesNow/histogram-postcodeNumeric-inlineBuckets-table.png)
+![Postcode Numeric Histogram Table (inline buckets)](definitions/user-profiles/now/histogram-postcodeNumeric-inlineBuckets-table.png)
 
 #### Age In Years Histogram x Signup Month Table
 Creates a histogram of user ages for each signup month of the year. The data is presented as a table.  The x-axis are the (default) buckets of age in years, and the y-axis is the month of the year.
@@ -4382,7 +2478,7 @@ Creates a histogram of user ages for each signup month of the year. The data is 
 4. **Growth pattern**: There's a general upward trend from January to December, suggesting either business growth or seasonal effects
 
 The table format allows for easy comparison across both dimensions and identification of peak periods and target demographics.
-![Age In Years Histogram x Signup Month Table](UserProfilesNow/histogram-signups-by-month-ageInYears.png)
+![Age In Years Histogram x Signup Month Table](definitions/user-profiles/now/histogram-signups-by-month-ageInYears.png)
 
 #### Year of Birth Histogram Table (inline buckets)
 Creates a histogram of user year of birth. The histogram's buckets and counts are visualised as a table. The buckets are defined using inline buckets. The three buckets are for years up to 1975, from 1975 to 2000, and from 2000 onwards.
@@ -4452,7 +2548,7 @@ Creates a histogram of user year of birth. The histogram's buckets and counts ar
 - Total sample size: 7,455 individuals across all time periods
 
 This visualization effectively shows generational distribution patterns in the dataset, with Generation X and Millennials (1975-2000) being the dominant demographic.
-![Year of Birth Histogram Table (inline buckets)](UserProfilesNow/histogram-yearOfBirth-inlineBuckets.png)
+![Year of Birth Histogram Table (inline buckets)](definitions/user-profiles/now/histogram-yearOfBirth-inlineBuckets.png)
 
 #### Non-English Languages
 Top 5 non-english languages
@@ -4520,7 +2616,7 @@ Top 5 non-english languages
 - This appears to be analyzing language diversity in a multilingual context, possibly for website analytics or user demographics
 
 The visualization effectively shows language distribution patterns, with one dominant non-English language and Dutch being a notable secondary language.
-![Non-English Languages](UserProfilesNow/language-pieChart.png)
+![Non-English Languages](definitions/user-profiles/now/language-pieChart.png)
 
 #### List Size
 Subscribed and Unsubscribed users by Marketing List (and registration status is subscribed)
@@ -4640,7 +2736,7 @@ Top 5 non-english locale
 - The smallest locale has only 1 unit, showing extreme variance in locale representation
 
 This visualization effectively shows market concentration in non-English locales, with clear dominance by two primary markets and several smaller, potentially emerging or niche markets.
-![Non-English Languages](UserProfilesNow/locale-pieChart.png)
+![Non-English Languages](definitions/user-profiles/now/locale-pieChart.png)
 
 #### OS Category (with missing)
 Create a pie chart of WiFi client operating-system (OS) categories. Includes a count of profiles missing an osCategory.
@@ -4704,7 +2800,7 @@ Create a pie chart of WiFi client operating-system (OS) categories. Includes a c
 - Among the known OS categories, iOS_OSX appears to have the largest representation
 - Windows, Android, and Blackberry have relatively small shares
 - The high proportion of missing data suggests this dataset may need data cleaning or collection improvements before drawing meaningful conclusions about OS distribution
-![OS Category (with missing)](UserProfilesNow/os-categories-pieChart.png)
+![OS Category (with missing)](definitions/user-profiles/now/os-categories-pieChart.png)
 
 #### OS Category (Android & Apple)
 OS categories
@@ -4768,7 +2864,7 @@ OS categories
 - The distribution shows a fairly balanced but Apple-leaning user base
 
 This table format provides a clear, straightforward comparison of mobile/desktop OS market share within this specific dataset.
-![OS Category (Android & Apple)](UserProfilesNow/os-categories.png)
+![OS Category (Android & Apple)](definitions/user-profiles/now/os-categories.png)
 
 #### Postcodes
 Postcode 
@@ -5186,10 +3282,10 @@ Year of Birth
 - The distribution shows a clear generational bias rather than a representative age distribution across the full population
 
 The visualization effectively shows age demographics concentrated in a specific generational cohort.
-![Year of Birth](UserProfilesNow/year-of-birth.png)
+![Year of Birth](definitions/user-profiles/now/year-of-birth.png)
 
 
-## UserProfilesRegistrationGroup
+## user-profiles/registration-group
 #### Table
 A table
 ```json
@@ -5231,6 +3327,2316 @@ A table
   ]
 }
 ```
+
+
+## user-profiles/signups
+#### Females
+Count female signups
+```json
+{
+  "keyAliases": {
+    "gender": [
+      "FEMALE"
+    ]
+  },
+  "columnNames": [
+    "Females"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count female signups"
+    },
+    "type": "Number",
+    "title": "Females"
+  }
+}
+```
+
+
+**Visualization Preview:** This is a simple metric card or KPI widget displaying a single data point. The visualization shows:
+
+**Type**: Basic numerical display/metric card
+**Data**: Count of females = 3
+**Representation**: Large number format with category label
+
+**Insights**: This appears to be part of a demographic breakdown, showing there are 3 females in the measured population or dataset. As a standalone metric, it provides a quick reference for gender distribution, likely complementing other demographic widgets to give a complete picture of the population being analyzed.
+![Females](definitions/user-profiles/signups/female-signups.png)
+
+#### Friendly labels
+User profiles friendly labels for enum/boolean values
+```json
+{
+  "columnNames": [
+    "gender",
+    "country",
+    "verifiedEmail",
+    "language",
+    "locale",
+    "locale code",
+    "source",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "gender",
+            "displayAs": "short"
+          }
+        },
+        {
+          "dimension": {
+            "key": "country"
+          }
+        },
+        {
+          "dimension": {
+            "key": "verifiedEmail"
+          }
+        },
+        {
+          "dimension": {
+            "key": "language"
+          }
+        },
+        {
+          "dimension": {
+            "key": "locale"
+          }
+        },
+        {
+          "dimension": {
+            "key": "locale",
+            "displayAs": "short"
+          }
+        },
+        {
+          "dimension": {
+            "key": "source"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "imageFile": "",
+    "description": {
+      "html": "User profiles friendly labels for enum/boolean values"
+    },
+    "tableSettings": {
+      "columnSettings": {},
+      "paginate": true,
+      "scrollOverflow": true
+    },
+    "title": "Friendly labels",
+    "type": "Table"
+  }
+}
+```
+
+#### 15-Minutely Signups
+Creates a table of registration signups by Day Date Hour:15-Minute
+```json
+{
+  "columnNames": [
+    "15 Minute",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "FifteenMinutely"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Day Date Hour:15-Minute"
+    },
+    "type": "Table",
+    "title": "15-Minutely Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **time-series table visualization** showing 15-minute interval signup data for Saturday, September 13, 2025.
+
+**Data Display:**
+- Left column: 15-minute time slots from 10:30 AM to 4:45 PM
+- Right column: Number of signups per time slot (ranging from 0-9)
+
+**Key Insights:**
+- **Peak activity**: 12:30 PM with 9 signups
+- **Multiple busy periods**: 11:15-11:45 AM (5-6 signups) and 1:00 PM (8 signups)
+- **Low activity periods**: 10:45 AM, 3:45 PM, and 4:15 PM with 0 signups
+- **Overall pattern**: Higher signup concentration during late morning through early afternoon hours
+- **Total visible signups**: Approximately 80+ signups across the displayed timeframe
+
+This visualization helps identify optimal timing patterns and capacity planning for signup-related activities or events.
+![15-Minutely Signups](definitions/user-profiles/signups/signups-by-15minute.png)
+
+#### 5-Minutely Signups
+Creates a table of registration signups by Day Date Hour:5-Minute
+```json
+{
+  "columnNames": [
+    "5 Minute",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "FiveMinutely"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Day Date Hour:5-Minute"
+    },
+    "type": "Table",
+    "title": "5-Minutely Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **time-series data table** showing 5-minute interval signup data for Saturday, September 13, 2025.
+
+**Data Display:**
+- Lists consecutive 5-minute time slots from 12:00 PM to 2:05 PM
+- Shows signup counts for each interval (all showing 0 signups except one)
+- Single data point: 1 signup at 1:35 PM
+
+**Key Insights:**
+- Extremely low signup activity during this 2+ hour period
+- Only one conversion occurred at 1:35 PM
+- Suggests either low traffic, poor conversion rates, or this may be outside peak user activity hours
+- The granular 5-minute tracking allows for precise identification of when engagement occurs
+
+This visualization is useful for identifying specific time periods when user activity spikes and optimizing marketing efforts or user experience accordingly.
+![5-Minutely Signups](definitions/user-profiles/signups/signups-by-5minute.png)
+
+#### Signups by Part of Week
+Count registrations by the part of the week (weekday/weekend) they signed-up (local time).
+```json
+{
+  "columnNames": [
+    "Week Part",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeekType"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by the part of the week (weekday/weekend) they signed-up (local time)."
+    },
+    "type": "Table",
+    "title": "Signups by Part of Week",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a simple data table visualization showing "Signups by Part of Week." 
+
+**Data displayed:**
+- Weekday signups: 14,076
+- Weekend signups: 6,941
+
+**Key insights:**
+- Weekdays generate significantly more signups than weekends (approximately 2:1 ratio)
+- Total signups across the week: 21,017
+- Weekdays account for about 67% of all signups, while weekends represent 33%
+
+This suggests user engagement or marketing activities are more effective during weekdays, which could inform timing strategies for campaigns or product launches.
+![Signups by Part of Week](definitions/user-profiles/signups/signups-by-day-of-week-type.png)
+
+#### Signups by Day of Week
+Count registrations by the day of the week they signed-up (local time).
+```json
+{
+  "columnNames": [
+    "Day",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeek"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by the day of the week they signed-up (local time)."
+    },
+    "type": "Table",
+    "title": "Signups by Day of Week",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a table visualization showing "Signups by Day of Week" data. It displays signup counts for each day of the week in a simple two-column format with days listed vertically and corresponding signup numbers on the right.
+
+**Key insights:**
+- Thursday has the highest signup activity (4,348)
+- Tuesday shows the lowest signup activity (2,213)
+- There's a clear pattern with mid-to-late week performing better (Wednesday-Friday range from 2,517 to 4,348)
+- Weekend activity (Saturday: 3,437, Sunday: 2,857) falls in the middle range
+- The data suggests user engagement peaks on Thursday, possibly indicating optimal timing for marketing campaigns or product launches
+
+The visualization effectively presents weekly signup patterns in a clean, sortable table format that makes it easy to identify performance trends across different days.
+![Signups by Day of Week](definitions/user-profiles/signups/signups-by-day-of-week.png)
+
+#### Daily Signups
+Creates a table of registration signups by day.
+```json
+{
+  "columnNames": [
+    "Date",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by day."
+    },
+    "type": "Table",
+    "title": "Daily Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **table visualization** showing daily signup data over a one-week period in September 2025.
+
+**Data displayed:**
+- Date range: Monday, September 8th through Sunday, September 14th, 2025
+- Daily signup counts ranging from 102 to 141
+
+**Key insights:**
+- **Friday (12/09) had the highest signups** with 141 users
+- **Sunday (14/09) had the lowest signups** with 102 users
+- **Weekday pattern**: Generally higher signup activity during weekdays (115-141) compared to weekend (102-108)
+- **Weekly total**: Approximately 838 signups across the 7-day period
+- **Average**: About 120 signups per day
+
+The visualization effectively shows signup trends throughout the week, highlighting that business days tend to drive higher user registration activity compared to weekends.
+![Daily Signups](definitions/user-profiles/signups/signups-by-day.png)
+
+#### Signups by Hour of the Day
+Count registrations by the hour of the day they signed-up (local time).
+```json
+{
+  "columnNames": [
+    "Hour",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "HourOfDay"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by the hour of the day they signed-up (local time)."
+    },
+    "type": "Table",
+    "title": "Signups by Hour of the Day",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a two-column data table showing "Signups by Hour of the Day." 
+
+**Data displayed:**
+- Left column: Hours (12 am through 4 pm shown)
+- Right column: Number of signups for each hour
+
+**Key insights:**
+- **Peak activity**: Highest signups occur during business hours, with 1 pm showing the maximum (597 signups)
+- **Low activity**: Overnight hours (2-5 am) show minimal signups (8-16 signups)
+- **Growth pattern**: Signups steadily increase from early morning (30 at 6 am) through midday, peaking in early afternoon
+- **Business hours dominance**: The pattern clearly reflects typical waking/working hours, with dramatic increases starting around 7-8 am
+
+This visualization effectively shows user signup behavior follows predictable daily patterns, which could inform marketing timing and resource allocation decisions.
+![Signups by Hour of the Day](definitions/user-profiles/signups/signups-by-hour-of-day.png)
+
+#### Hourly Signups
+Creates a table of registration signups by Day Date Hour
+```json
+{
+  "columnNames": [
+    "Hour",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Hourly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Day Date Hour"
+    },
+    "type": "Table",
+    "title": "Hourly Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **tabular data visualization** showing "Hourly Signups" for Saturday, September 13, 2025.
+
+**Data Type:** Time series data displaying signup counts aggregated by hour over a 24-hour period.
+
+**Key Insights:**
+- **Peak activity period:** 11 AM - 1 PM, with the highest signup volume at 12 PM (20 signups)
+- **Secondary peak:** 11 AM (18 signups) and 1 PM (15 signups)
+- **Low activity periods:** Early morning (12 AM - 9 AM) and late evening (7 PM - 11 PM) with mostly 0-1 signups
+- **Total pattern:** Clear daytime preference for signups, following typical business/daylight hours
+- **Gradual decline:** Afternoon signups steadily decrease from 2 PM (12) through 6 PM (4)
+
+This visualization effectively shows user engagement patterns throughout the day, indicating when users are most likely to sign up for the service.
+![Hourly Signups](definitions/user-profiles/signups/signups-by-hour.png)
+
+#### Minutely Signups
+Creates a table of registration signups by Day Date Hour:Minute
+```json
+{
+  "columnNames": [
+    "Minute",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Minutely"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Day Date Hour:Minute"
+    },
+    "type": "Table",
+    "title": "Minutely Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **time series table** showing "Minutely Signups" data from Beonic Insights. 
+
+**Data Display:**
+- Time period: Saturday 13/09/2025, from 12:54 PM to approximately 1:20 PM
+- Granularity: Minute-by-minute breakdown
+- Metric: Number of user signups per minute
+
+**Key Insights:**
+- Most minutes show **0 signups**, indicating sporadic user registration activity
+- Peak activity occurs at **1:08 PM with 2 signups** and **1:13 PM with 2 signups**
+- Several minutes show **1 signup**: 12:57 PM, 1:00 PM, 1:02 PM, 1:07 PM, and 1:10 PM
+- **Total observable signups**: 10 signups over the ~26-minute period
+- The data suggests **low but consistent signup activity** with occasional minor spikes
+
+This visualization is useful for monitoring real-time user acquisition patterns and identifying peak signup periods at a granular level.
+![Minutely Signups](definitions/user-profiles/signups/signups-by-minute.png)
+
+#### Signups by Month of the Year
+Count registrations by the month of the year they signed-up (local time).
+```json
+{
+  "columnNames": [
+    "Month",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "MonthOfYear"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count registrations by the month of the year they signed-up (local time)."
+    },
+    "type": "Table",
+    "title": "Signups by Month of the Year",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a data table visualization showing "Signups by Month of the Year" with two columns: Month and Signups.
+
+**Data displayed:**
+- Monthly signup counts from January through September
+- Values range from 472 (February, lowest) to 1,125 (May, highest)
+
+**Key insights:**
+- **Peak signup periods:** March (1,123) and May (1,125) show the highest user acquisition
+- **Lowest activity:** February (472) and July (492) have significantly fewer signups
+- **Seasonal pattern:** There appears to be stronger signup activity in spring months (March-May) compared to winter/summer periods
+- **Summer decline:** July shows a notable drop after June's moderate performance (853)
+
+The table format allows for easy comparison of exact values across months, making it simple to identify trends and outliers in user acquisition patterns.
+![Signups by Month of the Year](definitions/user-profiles/signups/signups-by-month-of-year.png)
+
+#### Monthly Signups
+Creates a table of registration signups by Month Year.
+```json
+{
+  "columnNames": [
+    "Month",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Monthly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Month Year."
+    },
+    "type": "Table",
+    "title": "Monthly Signups",
+    "tableSettings": {
+      "paginate": true,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a tabular data visualization showing "Monthly Signups" data in a simple two-column format.
+
+**Data displayed:**
+- Time period: January 2024 through July 2024 (7 months)
+- Monthly signup numbers ranging from approximately 3,970 to 6,092
+
+**Key insights:**
+- March 2024 had the highest signups (6,092), representing a notable peak
+- April 2024 shows the lowest signups (3,970), indicating a significant drop after March
+- Overall trend shows fluctuation rather than consistent growth, with signup numbers varying by about 2,100 between the highest and lowest months
+- Recent months (May-July 2024) show relatively stable performance around 4,100 signups
+
+The visualization uses a clean, minimalist table design that makes it easy to compare monthly performance and identify patterns in user acquisition over this 7-month period.
+![Monthly Signups](definitions/user-profiles/signups/signups-by-month.png)
+
+#### Weekly Signups
+Creates a table of registration signups by Week Date
+```json
+{
+  "columnNames": [
+    "Week",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Weekly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Week Date"
+    },
+    "type": "Table",
+    "title": "Weekly Signups",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **table visualization** showing weekly signup data over time from January to March 2025.
+
+**Data displayed:**
+- Weekly time periods (starting dates)
+- Corresponding signup numbers for each week
+- Total of 14 weeks of data
+
+**Key insights:**
+- Signups fluctuate significantly week-to-week, ranging from a low of 207 (31/03/2025) to a high of 1,337 (20/01/2025)
+- Most weeks show healthy signup numbers between 800-1,200
+- Notable drop-off in the final week (207 signups), which could indicate incomplete data for that period
+- Generally strong performance in January-February with some volatility in March
+
+The visualization provides a clear chronological view of signup trends, making it easy to identify patterns and anomalies in user acquisition over the 3-month period.
+![Weekly Signups](definitions/user-profiles/signups/signups-by-week.png)
+
+#### Yearly Signups
+Creates a table of registration signups by Year.
+```json
+{
+  "columnNames": [
+    "Year",
+    "Signups"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Yearly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileSignups",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of registration signups by Year."
+    },
+    "type": "Table",
+    "title": "Yearly Signups",
+    "tableSettings": {
+      "paginate": true,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a simple data table visualization showing "Yearly Signups" over a three-year period. The table displays:
+
+**Data Structure:**
+- Two columns: Year and Signups
+- Three years of data (2023-2025)
+
+**Key Data Points:**
+- 2023: 15,254 signups
+- 2024: 22,232 signups (peak year)
+- 2025: 6,280 signups
+
+**Insights:**
+- Signups increased by 46% from 2023 to 2024
+- Dramatic 72% decline in 2025 signups compared to 2024
+- 2024 represents the highest signup volume in the dataset
+
+This tabular format provides a clear numerical comparison of signup trends, though the significant drop in 2025 may warrant further investigation (could be incomplete year data or actual performance decline).
+![Yearly Signups](definitions/user-profiles/signups/signups-by-year.png)
+
+
+## user-profiles/visits
+#### Gender Visitors
+Count visits to a venue by visitor's gender
+```json
+{
+  "columnNames": [
+    "Venue",
+    {
+      "name": "gender",
+      "dimension": {
+        "key": "gender",
+        "missing": true
+      }
+    }
+  ],
+  "keyAliases": {
+    "rg": "venueId.registrationGroup"
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count visits to a venue by visitor's gender"
+    },
+    "type": "Table",
+    "title": "Gender Visitors",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a data table visualization showing gender demographics of visitors across two venues. The table displays visitor counts broken down by three gender categories (Female, Male, Other) for Chevron Renaissance and MacArthur Central.
+
+**Key insights:**
+- **Chevron Renaissance** has higher overall traffic (135,797 total visitors) with a slight male majority (70,143 vs 65,511 females)
+- **MacArthur Central** has lower traffic (125,434 total visitors) but also shows male majority (63,645 vs 57,107 females)
+- **"Other" category representation** varies significantly between venues - minimal at Chevron Renaissance (143) but substantial at MacArthur Central (4,682)
+- Both venues show relatively balanced gender distribution, with males having a slight edge of approximately 51-52% at each location
+
+The visualization effectively presents demographic segmentation data in a clean, comparative table format that allows for easy cross-venue analysis.
+![Gender Visitors](definitions/user-profiles/visits/visits-by-gender-columns.png)
+
+#### Postcode Numeric Histogram Table (inline buckets)
+Creates a histogram of user postcodes. The histogram's postcode buckets and counts are visualised as a table. The buckets are defined using inline buckets, covering various regions in South Australia and Victoria.
+```json
+{
+  "columnNames": [
+    "postcodeNumeric",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          },
+          "dimension": {
+            "histogram": {
+              "buckets": [
+                {
+                  "key": "SA - Adelaide Metro (5000-5099)",
+                  "from": 5000,
+                  "to": 5099
+                },
+                {
+                  "key": "SA - Adelaide Hills/Eastern (5100-5199)",
+                  "from": 5100,
+                  "to": 5199
+                },
+                {
+                  "key": "SA - Southern Adelaide (5200-5299)",
+                  "from": 5200,
+                  "to": 5299
+                },
+                {
+                  "key": "SA - Barossa/Northern (5300-5399)",
+                  "from": 5300,
+                  "to": 5399
+                },
+                {
+                  "key": "SA - Riverland/Murray (5400-5499)",
+                  "from": 5400,
+                  "to": 5499
+                },
+                {
+                  "key": "SA - Mid North/Yorke Peninsula (5500-5599)",
+                  "from": 5500,
+                  "to": 5599
+                },
+                {
+                  "key": "SA - Eyre Peninsula/West Coast (5600-5699)",
+                  "from": 5600,
+                  "to": 5699
+                },
+                {
+                  "key": "SA - Far North/Outback (5700-5799)",
+                  "from": 5700,
+                  "to": 5799
+                }
+              ]
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfilesNow",
+            "value": {
+              "histogram": "postcodeNumeric"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user postcodes. The histogram's postcode buckets and counts are visualised as a table. The buckets are defined using inline buckets, covering various regions in South Australia and Victoria."
+    },
+    "type": "Table",
+    "title": "Postcode Numeric Histogram Table (inline buckets)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **histogram table** showing the distribution of postcode numeric values organized into inline buckets (100-unit ranges from 5000-5799).
+
+**Data Display:**
+- Each row represents a postcode range (e.g., 5000-5099, 5100-5199)
+- The count column shows frequency of postcodes within each range
+- Total of 8 postcode ranges covering 800 possible postcode values
+
+**Key Insights:**
+- **Highly skewed distribution**: The 5000-5099 range dominates with 51,670 entries (72% of total)
+- **Steep decline**: Sharp drop-off after the first range, with 5100-5199 having only 12,322 entries
+- **Geographic clustering**: Suggests significant population/address concentration in the 5000-5099 postcode area
+- **Sparse coverage**: Higher postcode ranges (5400+) show much lower frequencies, indicating less dense areas
+
+This pattern typically indicates a major metropolitan area in the 5000-5099 range with surrounding suburban/rural areas in higher postcode ranges.
+![Postcode Numeric Histogram Table (inline buckets)](definitions/user-profiles/visits/visits-by-venue-postcode-zone.png)
+
+#### visits
+Count visits to a venue by visitor's postcode (only top 5 South Australia postcodes)
+```json
+{
+  "columnNames": [
+    "Venue",
+    "postcode",
+    "Count"
+  ],
+  "keyAliases": {
+    "postcode": [
+      "5000",
+      "5006",
+      "5009",
+      "5011",
+      "5013",
+      "5031",
+      "5033",
+      "5034",
+      "5045",
+      "5082",
+      "5085",
+      "5065",
+      "5066",
+      "5067",
+      "5069",
+      "5074",
+      "5081",
+      "5082",
+      "5089"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "dimension": {
+            "key": "postcode"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 2
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Count visits to a venue by visitor's postcode (only top 5 South Australia postcodes)"
+    },
+    "type": "Table",
+    "title": "visits",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a tabular data visualization showing visitor counts by venue and postcode. The table displays:
+
+**Data Structure:**
+- **Venue**: Two locations (Adelaide Central Plaza and Port Adelaide Plaza)
+- **Postcode**: Various postal codes (5000, 5066, 5067, 5082, 5085)
+- **Count**: Number of visits per venue-postcode combination
+
+**Key Insights:**
+- Adelaide Central Plaza dominates visitor traffic with 38,390 total visits across all postcodes
+- Postcode 5000 generates the highest traffic overall (29,967 visits), with Adelaide Central Plaza capturing the majority (28,858 vs 1,109 for Port Adelaide Plaza)
+- Port Adelaide Plaza has significantly lower visitor counts, with only 1,142 total visits
+- Adelaide Central Plaza shows more geographically diverse visitor origins across multiple postcodes
+- The data suggests strong location-based preferences, with visitors predominantly choosing the venue closest to postcode 5000
+
+This visualization effectively compares venue performance across different geographic catchment areas, helping identify market penetration and location effectiveness.
+![visits](definitions/user-profiles/visits/visits-by-venue-postcode.png)
+
+#### visits
+Shows visits  broken down by venue. Displayed as a Table.
+```json
+{
+  "columnNames": [
+    "Venue",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": ""
+    },
+    "type": "Table",
+    "title": "visits",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a tabular data visualization showing venue visit counts. The widget displays:
+
+**Data Type**: Visit frequency data for two Adelaide shopping venues
+- Adelaide Central Plaza: 180,566 visits
+- Port Adelaide Plaza: 61,005 visits
+
+**Key Insights**: 
+- Adelaide Central Plaza receives nearly 3x more visits than Port Adelaide Plaza
+- Central Plaza is clearly the more popular/busier venue with significantly higher foot traffic
+- The data suggests a substantial difference in venue size, location attractiveness, or accessibility between these two shopping destinations
+
+The visualization uses a simple two-column table format (Venue | Count) making it easy to compare the relative performance of these retail locations.
+![visits](definitions/user-profiles/visits/visits-by-venue.png)
+
+#### Primary Zone Visits
+Zone visit counts
+```json
+{
+  "columnNames": [
+    "Primary Zone",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "zoneId",
+            "missing": true
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Zone visit counts"
+    },
+    "type": "Table",
+    "title": "Primary Zone Visits",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+#### Primary Zone Visits
+Zone visit counts
+```json
+{
+  "columnNames": [
+    "Primary Zone",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "zoneId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Zone visit counts"
+    },
+    "type": "Table",
+    "title": "Primary Zone Visits",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+#### Vists by Age Range (inline buckets)
+Creates a histogram of user visit by age range. The histogram's buckets and counts are visualised as a bar chart. The buckets are default (yearly) age ranges.
+```json
+{
+  "columnNames": [
+    "age range",
+    "venue",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "buckets": [
+                {
+                  "to": 20
+                },
+                {
+                  "from": 20,
+                  "to": 40
+                },
+                {
+                  "from": 40
+                }
+              ]
+            }
+          }
+        },
+        {
+          "dimension": {
+            "key": "venueId"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "histogram": "ageInYears"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user visit by age range. The histogram's buckets and counts are visualised as a bar chart. The buckets are default (yearly) age ranges."
+    },
+    "type": "Table",
+    "title": "Vists by Age Range (inline buckets)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+#### Visit Duration (minutes) Histogram Bar Chart
+Creates a histogram of user visit durations. The histogram's duration buckets and counts are visualised as a bar chart. The buckets are default dwell times for visits and sessions.
+```json
+{
+  "columnNames": [
+    "visit duration",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileVisits",
+              "histogram": "duration"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "histogram": "duration"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user visit durations. The histogram's duration buckets and counts are visualised as a bar chart. The buckets are default dwell times for visits and sessions."
+    },
+    "type": "BarChart",
+    "title": "Visit Duration (minutes) Histogram Bar Chart",
+    "barChartSettings": {
+      "showBarValues": false,
+      "columnSettings": {
+        "Total Visits": {
+          "axis": "left",
+          "type": null,
+          "showOnChart": true,
+          "showOnTooltip": true
+        }
+      },
+      "tooltip": {
+        "show": true
+      },
+      "layout": "vertical",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "no-stack"
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a histogram bar chart showing the distribution of website visit durations measured in minutes. The chart displays visitor counts (y-axis, ranging from 0 to 40k) across different time duration bins (x-axis).
+
+**Key insights:**
+- The highest engagement occurs in the 61-120 minute range (~37k visits), indicating strong user retention
+- The 31-60 minute range also shows high engagement (~35k visits)
+- Medium engagement levels are seen in 6-15 minutes (~32k) and 16-30 minutes (~28k) ranges
+- There's a significant drop-off for longer sessions, with only ~14k visits lasting 121-180 minutes
+- Very few visitors stay for extremely short (0-5 minutes) or very long sessions (181+ minutes)
+
+The distribution suggests the website successfully retains users for substantial periods, with peak engagement occurring in the 1-2 hour range, indicating quality content or engaging user experience.
+![Visit Duration (minutes) Histogram Bar Chart](definitions/user-profiles/visits/visits-histogram-duration-barChart.png)
+
+#### Visit Time of Day Histogram Line Chart
+Creates a histogram of user visits by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day.
+```json
+{
+  "columnNames": [
+    "hour",
+    "visits"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileVisits",
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user visits by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day."
+    },
+    "type": "LineChart",
+    "title": "Visit Time of Day Histogram Line Chart",
+    "lineChartSettings": {
+      "showLegend": true,
+      "hideAxis": false,
+      "gridLines": "auto",
+      "stackType": "no-stack",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "enableChartSwitching": false,
+      "timeseriesResolutions": false,
+      "columnSettings": {},
+      "tooltip": {
+        "show": true
+      }
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a line chart showing website visits over time periods. The visualization displays:
+
+**Chart Type**: Single-line graph with time intervals on the x-axis and visit counts on the y-axis (scaled in thousands)
+
+**Data Pattern**: 
+- Visits start near zero (0-500 time period)
+- Gradual increase begins around 400-500
+- Steep growth from 800-1200, reaching peak performance
+- Peak visits of ~6.5k during 1500-1600 period  
+- Sharp decline after 1700, dropping to ~2.5k by 2000-2100
+- Nearly returns to baseline by the end
+
+**Key Insights**:
+- Clear bell-curve distribution with sustained high activity from 1200-1600
+- Peak traffic period represents a 6.5x increase from baseline
+- The pattern suggests time-based user behavior (possibly daily/hourly traffic cycles)
+- Significant traffic concentration during the middle periods, indicating predictable usage patterns
+
+This visualization effectively shows traffic flow patterns that could inform resource allocation and user engagement strategies.
+![Visit Time of Day Histogram Line Chart](definitions/user-profiles/visits/visits-histogram-hourAndMinuteOfDay-lineChart.png)
+
+#### Primary Zone Visit Duration (minutes) Histogram Bar Chart
+Creates a histogram of user visits to the primary zone, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions.
+```json
+{
+  "columnNames": [
+    "primary zone visit duration",
+    "count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileVisits",
+              "histogram": "primaryZoneDuration"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "histogram": "primaryZoneDuration"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user visits to the primary zone, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions."
+    },
+    "type": "BarChart",
+    "title": "Primary Zone Visit Duration (minutes) Histogram Bar Chart",
+    "barChartSettings": {
+      "showBarValues": false,
+      "columnSettings": {
+        "Total Visits": {
+          "axis": "left",
+          "type": null,
+          "showOnChart": true,
+          "showOnTooltip": true
+        }
+      },
+      "tooltip": {
+        "show": true
+      },
+      "layout": "vertical",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "no-stack"
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a histogram bar chart showing the distribution of Primary Zone visit durations in minutes. The chart displays visitor counts across different time intervals:
+
+**Chart Type**: Histogram with 8 duration bins ranging from 0-5 minutes to 301+ minutes
+
+**Key Data Points**:
+- Peak activity: 6-15 minutes (~12k visits)
+- Second highest: 16-30 minutes (~10k visits) 
+- Third highest: 31-60 minutes (~9k visits)
+- Shorter visits (0-5 min): ~4.5k visits
+- Longer visits show declining frequency: 61-120 min (~6.5k), 121-180 min (~1.5k)
+- Very few extended visits in 181-300 min and 301+ categories
+
+**Key Insights**:
+- Most visitors spend 6-60 minutes in the primary zone, indicating moderate engagement
+- The distribution shows a right-skewed pattern typical of dwell time data
+- Very short visits (0-5 min) are less common than moderate durations, suggesting the space successfully retains initial visitors
+- Extended stays beyond 2 hours are rare, indicating natural visit completion patterns
+![Primary Zone Visit Duration (minutes) Histogram Bar Chart](definitions/user-profiles/visits/visits-histogram-primaryZoneDuration-barChart.png)
+
+#### Monthly Visits
+Creates a table of Visits by month.
+```json
+{
+  "columnNames": [
+    "Date",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Monthly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileVisits",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of Visits by month."
+    },
+    "type": "Table",
+    "title": "Monthly Visits",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **tabular data visualization** showing monthly website visits from January to September 2025.
+
+**Data Display:**
+- Two columns: Date (month/year) and Count (number of visits)
+- 9 months of chronological data
+- Visit counts ranging from 195 to 341
+
+**Key Insights:**
+- **Growth trend**: Steady increase from Jan (195) to May (341), representing a 75% growth over 5 months
+- **Peak performance**: May 2025 had the highest visits (341)
+- **Summer decline**: Notable drop in June-July (302→229), followed by partial recovery in August (305)
+- **Recent dip**: September shows another decline to 249 visits
+
+The data suggests seasonal patterns with strong spring growth, summer volatility, and potential seasonal slowdowns in July and September.
+![Monthly Visits](definitions/user-profiles/visits/visits-monthly.png)
+
+
+## user-profiles/wifi-sessions
+#### OS Category (Android & Apple)
+OS categories
+```json
+{
+  "columnNames": [
+    "Venue",
+    {
+      "name": "osCategory",
+      "dimension": {
+        "key": "osCategory"
+      }
+    }
+  ],
+  "keyAliases": {
+    "osCategory": [
+      "Android",
+      "IOS_OSX"
+    ]
+  },
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "OS categories"
+    },
+    "type": "Table",
+    "title": "OS Category (Android & Apple)",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **cross-tabulation table** (pivot table) showing mobile device usage data across two shopping venues.
+
+**Data displayed:**
+- **Venues:** Harbour Shopping and Retail Plaza
+- **OS Categories:** Android vs iOS/OSX device counts
+- **Values:** Raw counts of devices detected at each location
+
+**Key insights:**
+- **Harbour Shopping** shows higher Android usage (797) compared to iOS/OSX (629)
+- **Retail Plaza** demonstrates nearly equal usage between platforms (608 Android vs 603 iOS/OSX)
+- **Android dominance** at Harbour Shopping suggests different demographic or customer preferences between venues
+- **Total traffic** appears higher at Harbour Shopping (1,426 total) versus Retail Plaza (1,211 total)
+
+This type of venue analytics helps retailers understand their customer base's technology preferences and relative foot traffic patterns across locations.
+![OS Category (Android & Apple)](definitions/user-profiles/wifi-sessions/sessions-by-venue-os-categories.png)
+
+#### Sessions
+Shows sessions  broken down by venue. Displayed as a Table.
+```json
+{
+  "columnNames": [
+    "Venue",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "key": "venueId"
+          },
+          "sortSpecification": {
+            "ascending": true,
+            "priority": 1
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": ""
+    },
+    "type": "Table",
+    "title": "Sessions",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **table visualization** showing session data by venue. 
+
+**Data displayed:**
+- Two venues: "Harbour Shopping" and "Retail Plaza"
+- Session counts: 1,505 and 1,503 respectively
+
+**Key insights:**
+- The venues have nearly identical session volumes, with only a 2-session difference
+- Harbour Shopping has a slight edge with 1,505 sessions
+- This suggests balanced foot traffic distribution between these two retail locations
+- The minimal difference indicates comparable customer engagement at both venues
+
+The visualization uses a simple tabular format that makes it easy to compare performance metrics between the two locations.
+![Sessions](definitions/user-profiles/wifi-sessions/sessions-by-venue.png)
+
+#### Day of Week WiFi Sessions
+Creates a table of WiFiSesions by day of week.
+```json
+{
+  "columnNames": [
+    "Date",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "DayOfWeek"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of WiFiSesions by day of week."
+    },
+    "type": "Table",
+    "title": "Day of Week WiFi Sessions",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a **data table visualization** showing WiFi session counts by day of the week.
+
+**Data displayed:**
+- 7 rows representing each day of the week
+- Session counts ranging from 112 (Saturday, lowest) to 221 (Wednesday, highest)
+- Total of 1,211 WiFi sessions across the week
+
+**Key insights:**
+- **Wednesday has peak usage** (221 sessions)
+- **Weekend shows lowest activity** - Saturday (112) and Friday (121) have the fewest sessions
+- **Mid-week dominance** - Tuesday through Thursday show consistently higher usage (175-221 sessions)
+- **Sunday rebounds** with 203 sessions, suggesting different usage patterns than typical weekend days
+
+The visualization effectively shows weekly WiFi usage patterns, indicating this is likely a business or educational environment with higher weekday activity.
+![Day of Week WiFi Sessions](definitions/user-profiles/wifi-sessions/wifiSessions-dayOfWeek.png)
+
+#### WiFi Session Data Usage (MB) Histogram Bar Chart
+Creates a histogram of user WiFi session dataUsage, visualised as a bar chart. The histogram's data usage buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions.
+```json
+{
+  "columnNames": [
+    "session data usage",
+    "sessions"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileWiFiSessions",
+              "histogram": "dataUsage"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "histogram": "dataUsage"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user WiFi session dataUsage, visualised as a bar chart. The histogram's data usage buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions."
+    },
+    "type": "BarChart",
+    "title": "WiFi Session Data Usage (MB) Histogram Bar Chart",
+    "barChartSettings": {
+      "showBarValues": false,
+      "columnSettings": {
+        "Total Visits": {
+          "axis": "left",
+          "type": null,
+          "showOnChart": true,
+          "showOnTooltip": true
+        }
+      },
+      "tooltip": {
+        "show": true
+      },
+      "layout": "vertical",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "no-stack"
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a histogram bar chart showing the distribution of WiFi session data usage measured in megabytes (MB). 
+
+**Data Representation:**
+- X-axis: Data usage ranges in MB (0-4, 5-9, 10-19, 20-39, 40-79, 80-159, 160-319, 320-639, 640-1279, 1280+ MB)
+- Y-axis: Number of sessions (ranging from 0 to 21k)
+- Blue bars represent the frequency of sessions within each data usage range
+
+**Key Insights:**
+- **Bimodal distribution**: The highest frequency (~19k sessions) occurs in the lowest usage range (0-4 MB), indicating many brief or low-data sessions
+- **Secondary peak**: Sessions using 40-79 MB and 80-159 MB also show high frequencies (~17k sessions each)
+- **Long tail**: Usage drops significantly for higher data consumption ranges, with very few sessions exceeding 640 MB
+- This pattern suggests a mix of light browsing/basic usage sessions and moderate data consumption, with heavy data users being relatively rare
+
+The visualization effectively shows that most WiFi sessions consume minimal data, with a smaller subset of users accounting for moderate data usage.
+![WiFi Session Data Usage (MB) Histogram Bar Chart](definitions/user-profiles/wifi-sessions/wifiSessions-histogram-dataUsage-barChart.png)
+
+#### WiFi Session Duration (minutes) Histogram Bar Chart
+Creates a histogram of user WiFi session durations, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions.
+```json
+{
+  "columnNames": [
+    "session duration",
+    "sessions"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileWiFiSessions",
+              "histogram": "duration"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "histogram": "duration"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user WiFi session durations, visualised as a bar chart. The histogram's duration buckets and counts are displayed in the chart. The buckets are the default dwell times for visits and sessions."
+    },
+    "type": "BarChart",
+    "title": "WiFi Session Duration (minutes) Histogram Bar Chart",
+    "barChartSettings": {
+      "showBarValues": false,
+      "columnSettings": {
+        "Total Visits": {
+          "axis": "left",
+          "type": null,
+          "showOnChart": true,
+          "showOnTooltip": true
+        }
+      },
+      "tooltip": {
+        "show": true
+      },
+      "layout": "vertical",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "no-stack"
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a histogram bar chart showing the distribution of WiFi session durations measured in minutes. The chart displays 8 duration ranges from "0-5" minutes to "301+" minutes on the x-axis, with the number of sessions (in thousands) on the y-axis.
+
+**Key insights:**
+- **Peak usage**: The highest frequency occurs in the 16-30 minute range (~27k sessions), followed by 6-15 minutes (~24k sessions)
+- **Usage pattern**: Most WiFi sessions are relatively short, with about 80% falling within the first four categories (0-60 minutes)
+- **Long tail distribution**: Very few users have extended sessions, with dramatic drops after 60 minutes
+- **Short sessions**: A significant portion (~11k) are very brief (0-5 minutes), suggesting quick connectivity checks or failed connections
+
+The data reveals typical WiFi usage behavior where most users connect for moderate durations (6-30 minutes), likely for specific tasks, with relatively few engaging in extended browsing sessions.
+![WiFi Session Duration (minutes) Histogram Bar Chart](definitions/user-profiles/wifi-sessions/wifiSessions-histogram-duration-barChart.png)
+
+#### WiFi Session Time of Day Histogram Line Chart
+Creates a histogram of user WiFi Sessions by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day.
+```json
+{
+  "columnNames": [
+    "hour",
+    "sessions"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "histogram": {
+              "metric": "UserProfileWiFiSessions",
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "histogram": "hourAndMinuteOfDay"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a histogram of user WiFi Sessions by time of day. The histogram's hour of day buckets and counts are visualised as a line chart. The default buckets are the hours of the day."
+    },
+    "type": "LineChart",
+    "title": "WiFi Session Time of Day Histogram Line Chart",
+    "lineChartSettings": {
+      "showLegend": true,
+      "hideAxis": false,
+      "gridLines": "auto",
+      "stackType": "no-stack",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "enableChartSwitching": false,
+      "timeseriesResolutions": false,
+      "columnSettings": {},
+      "tooltip": {
+        "show": true
+      }
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a line chart displaying WiFi session frequency throughout the day, showing time periods on the x-axis (from 0-100 to 2100-2200) and number of sessions on the y-axis (ranging from 0 to 15k).
+
+**Key Insights:**
+- **Peak usage period**: Sessions peak between 1200-1600 (noon to 4 PM) at approximately 14,000 sessions
+- **Usage pattern**: Shows a typical daily activity curve with very low overnight usage (0-600), gradual morning increase starting around 700, sustained high usage during midday/afternoon, then sharp decline after 1600
+- **Off-peak hours**: Minimal activity during early morning (0-600) and late evening (2100-2200)
+- **Business hours correlation**: The pattern suggests this could be workplace or public space WiFi usage, aligning with typical business/activity hours
+
+The visualization effectively shows clear daily usage patterns with a pronounced midday peak and minimal overnight activity.
+![WiFi Session Time of Day Histogram Line Chart](definitions/user-profiles/wifi-sessions/wifiSessions-histogram-hourAndMinuteOfDay-lineChart.png)
+
+#### Monthly WiFi Session Data Usage (MB) Histogram Horizontal Stacked Bar Chart
+Creates a monthly histogram of user WiFi session dataUsage, visualised as a horizontal, stacked bar chart. The histogram's data usage buckets and counts are displayed in the chart for each month. The buckets are the default data-usage (MB) ranges for sessions. The data is filtered by the venue's registration group to optimise query performance.
+```json
+{
+  "visualisation": {
+    "description": {
+      "html": "Creates a monthly histogram of user WiFi session dataUsage, visualised as a horizontal, stacked bar chart. The histogram's data usage buckets and counts are displayed in the chart for each month. The buckets are the default data-usage (MB) ranges for sessions. The data is filtered by the venue's registration group to optimise query performance."
+    },
+    "barChartSettings": {
+      "showBarValues": false,
+      "tooltip": {
+        "show": true
+      },
+      "layout": "horizontal",
+      "xAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "timeseriesResolutions": false,
+      "enableChartSwitching": false,
+      "yAxis": {
+        "axisLine": {
+          "show": false
+        },
+        "inverse": false,
+        "showName": false,
+        "splitNumber": 5
+      },
+      "showLegend": true,
+      "hideAxis": false,
+      "stackType": "stack"
+    },
+    "title": "Monthly WiFi Session Data Usage (MB) Histogram Horizontal Stacked Bar Chart",
+    "type": "BarChart"
+  },
+  "columnNames": [
+    "time",
+    {
+      "name": "sessions",
+      "dimension": {
+        "histogram": {
+          "histogram": "dataUsage",
+          "metric": "UserProfileWiFiSessions"
+        }
+      }
+    }
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Monthly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "histogram": "dataUsage"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "rg": "venueId.registrationGroup"
+  }
+}
+```
+
+
+**Visualization Preview:** This is a horizontal stacked bar chart showing monthly WiFi session data usage distribution across different usage ranges (measured in MB) from 2024 through December.
+
+**Data Representation:**
+- Each bar represents a month's total WiFi sessions
+- Bars are segmented by 9 usage categories ranging from 0-4 MB (lightest blue) to 1280+ MB (darkest blue)
+- The width of each colored segment indicates the relative proportion of sessions in that usage range
+
+**Key Insights:**
+- **Low usage dominance**: The majority of sessions across all months fall into the lower usage categories (0-79 MB), particularly the 0-4 MB and 5-9 MB ranges
+- **Consistent patterns**: Usage distribution remains relatively stable month-to-month, suggesting consistent user behavior patterns
+- **Heavy users are minimal**: Very few sessions exceed 640 MB, with the 1280+ MB category representing a tiny fraction
+- **Gradual decline**: There's a clear pattern where higher usage categories represent progressively smaller portions of total sessions
+- **Seasonal stability**: No dramatic seasonal variations in usage patterns are evident across the months shown
+
+This visualization effectively shows that most WiFi sessions involve light data usage, which is typical for basic browsing, email, and social media activities.
+![Monthly WiFi Session Data Usage (MB) Histogram Horizontal Stacked Bar Chart](definitions/user-profiles/wifi-sessions/wifiSessions-histogram-monthly-dataUsage-barChart.png)
+
+#### Monthly WiFi Sessions Horizontal Bar Chart
+Counts monthly WiFi sessions, visualised as a horizontal bar chart. The data is filtered by the venue's registration group to optimise query performance.
+```json
+{
+  "visualisation": {
+    "description": {
+      "html": "Counts monthly WiFi sessions, visualised as a horizontal bar chart. The data is filtered by the venue's registration group to optimise query performance."
+    },
+    "barChartSettings": {
+      "showBarValues": false,
+      "tooltip": {
+        "show": true
+      },
+      "layout": "horizontal",
+      "xAxis": {
+        "splitNumber": 5
+      },
+      "gridLines": "auto",
+      "yAxis": {
+        "splitNumber": 5
+      },
+      "showLegend": true
+    },
+    "title": "Monthly WiFi Sessions Horizontal Bar Chart",
+    "type": "BarChart"
+  },
+  "columnNames": [
+    "time",
+    "sessions"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Monthly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "rg": "venueId.registrationGroup"
+  }
+}
+```
+
+
+**Visualization Preview:** This is a horizontal bar chart displaying monthly WiFi sessions data. The chart shows WiFi usage patterns across different months, with each blue bar representing the number of sessions for that period.
+
+**Key insights:**
+- **Peak usage**: December shows the highest WiFi sessions (~2,500), followed closely by April and May (~2,100 each)
+- **Seasonal patterns**: Higher usage appears in winter months (Dec, Nov ~2,000) and spring months (Apr, May)
+- **Lower usage periods**: January 2024 shows significantly lower sessions (~1,400), suggesting either a seasonal drop or data collection period
+- **Consistent mid-range usage**: Summer and fall months (Jun-Oct) show relatively stable usage around 1,700-1,900 sessions
+
+The visualization effectively shows WiFi usage trends over time, indicating potential seasonal variations in user behavior or facility usage patterns. The data suggests peak networking activity during certain months, which could inform capacity planning and network management decisions.
+![Monthly WiFi Sessions Horizontal Bar Chart](definitions/user-profiles/wifi-sessions/wifiSessions-monthly-barChart.png)
+
+#### Yearly WiFi Sessions
+Creates a table of WiFiSessions by year.
+```json
+{
+  "columnNames": [
+    "Date",
+    "Count"
+  ],
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Yearly"
+          }
+        },
+        {
+          "numericExpression": {
+            "metric": "UserProfileWiFiSessions",
+            "value": {
+              "counter": "total"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "visualisation": {
+    "description": {
+      "html": "Creates a table of WiFiSessions by year."
+    },
+    "type": "Table",
+    "title": "Yearly WiFi Sessions",
+    "tableSettings": {
+      "paginate": false,
+      "scrollOverflow": true
+    }
+  }
+}
+```
+
+
+**Visualization Preview:** This is a simple data table visualization showing "Yearly WiFi Sessions" data. 
+
+**Visualization Type**: Tabular display with two columns (Date and Count)
+
+**Data Displayed**: 
+- 2024: 8,037 WiFi sessions
+- 2025: 13,389 WiFi sessions
+
+**Key Insights**:
+- Shows a significant 66% increase in WiFi sessions from 2024 to 2025
+- Growth of 5,352 additional sessions year-over-year
+- Indicates growing WiFi usage/adoption over the two-year period
+
+The visualization uses a clean, minimal table format to present this comparative annual data clearly and concisely.
+![Yearly WiFi Sessions](definitions/user-profiles/wifi-sessions/wifiSessions-yearly.png)
 
 
 ## templates

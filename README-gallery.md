@@ -11,7 +11,7 @@ npm run build
 ```
 
 This will:
-- Scan all `UserProfile*` directories for widget triplets (JSON, PNG, TXT)
+- Scan all directories under `definitions/` (at any depth) and `templates/` for widget triplets (JSON, PNG, TXT)
 - Generate a static site in the `dist/` directory
 - Create individual pages for each widget with copyable JSON
 
@@ -41,7 +41,7 @@ Then open http://localhost:8000 in your browser.
    - Build command: `npm run build`
    - Build output directory: `dist`
    - Root directory: (leave empty or `/`)
-   - Node version: 18 or later
+   - Node version: 18.17 or later
 
 3. **Deploy:**
    - Push to your main branch
@@ -61,7 +61,7 @@ Then open http://localhost:8000 in your browser.
 
 ## Adding New Widgets
 
-1. Add your widget triplet to the appropriate `UserProfile*` directory:
+1. Add your widget triplet to the appropriate directory under `definitions/` (e.g. `definitions/flight-data`), or create a new one:
    - `your-widget.json` - Widget definition
    - `your-widget.png` - Screenshot/preview
    - `your-widget.txt` - Description and insights
@@ -78,13 +78,13 @@ Then open http://localhost:8000 in your browser.
 The generated site includes:
 
 - **Index page** (`index.html`) - Grid view of all widgets with search and filtering
-- **Widget pages** (`{category}/{widget-name}.html`) - Individual pages for each widget
+- **Widget pages** (`{category-slug}/{widget-name}.html`) - Individual pages for each widget. The category slug is the category path with `/` replaced by `-` (e.g. `user-profiles/visits` → `user-profiles-visits/`)
 - **Assets** - PNG images organized by category
 
 ## Features
 
 - 🔍 **Search** - Find widgets by title or description
-- 🏷️ **Filter by Category** - Filter by UserProfileCampaigns, UserProfileVisits, etc.
+- 🏷️ **Filter by Category** - Filter by user-profiles/campaigns, flight-data, etc.
 - 📊 **Filter by Type** - Filter by Table, BarChart, PieChart, etc.
 - 📋 **One-click Copy** - Copy widget JSON definitions to clipboard
 - 🔗 **Shareable URLs** - Each widget has its own URL
@@ -100,7 +100,7 @@ Edit `generate-site.js` to customize:
 ## Troubleshooting
 
 **Build fails:**
-- Ensure Node.js 18+ is installed
+- Ensure Node.js 18.17+ is installed
 - Check that all widget JSON files are valid
 - Look for error messages in the console
 

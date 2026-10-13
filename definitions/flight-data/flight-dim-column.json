@@ -1,0 +1,51 @@
+{
+  "rowSets": [
+    {
+      "columns": [
+        {
+          "dimension": {
+            "timeBasedDimension": "Daily"
+          },
+          "sortSpecification": {
+            "priority": 1,
+            "ascending": true
+          }
+        },
+        {
+          "unit": "duration",
+          "numericExpression": {
+            "value": {
+              "counter": "est_dwell"
+            },
+            "metric": {
+              "timeSpanMetric": "FlightData",
+              "aggregateMetric": "counters"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "keyAliases": {
+    "deskId": "DeparturesHall.checkInAreas.checkInDesks",
+    "counterId": "deskId.queue"
+  },
+  "columnNames": [
+    "DATE",
+    {
+      "name": "flight",
+      "dimension": {
+        "key": "flight"
+      }
+    }
+  ],
+  "visualisation": {
+    "type": "Table",
+    "title": "Average Wait Time Per Flight - Historical",
+    "tableSettings": {
+      "paginate": false,
+      "columnSettings": {},
+      "scrollOverflow": true
+    }
+  }
+}
